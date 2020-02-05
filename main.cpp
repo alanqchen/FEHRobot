@@ -1,22 +1,21 @@
 #include <FEHLCD.h>
-#include <FEHIO.h>
 #include <FEHUtility.h>
 
 int main(void)
 {
-    ButtonBoard buttons( FEHIO::Bank3 );
+    float x,y;
 
-    LCD.Clear( FEHLCD::Black );
-    LCD.SetFontColor( FEHLCD::White );
+    LCD.Clear(FEHLCD::Black);
+    LCD.SetFontColor(FEHLCD::White);
 
-    while( true )
+    while(true)
     {
-        if( buttons.MiddlePressed() )
+        if(LCD.Touch(&x,&y))
         {
-            LCD.WriteLine( "Hello World!" );
-            Sleep( 100 );
+            LCD.WriteLine("Hello World!");
+            Sleep(100);
         }
     }
+
     return 0;
 }
-
