@@ -10,7 +10,7 @@
  * Mathematical derivation from:
  * Baede, T. A. (2006). Motion control of an omnidirectional mobile robot. (DCT rapporten; Vol. 2006.084).
  *   Eindhoven: Technische Universiteit Eindhoven.
- * With help from "PID without a PHD"
+ * With help from "PID withoutgi
  */
 
 #define L 0.09906 // distance between body center and wheel center (approx 3.9 inches to meters)
@@ -174,7 +174,7 @@ void pidMoveAbsolute(double x, double y, double theta, FEHMotor backMotor, FEHMo
         inverseKinematicsMobile();
     }
 }
-
+/*
 int main(void)
 {
     double t_now;
@@ -199,3 +199,4 @@ int main(void)
 
     return 0;
 }
+*/
