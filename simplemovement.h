@@ -12,7 +12,7 @@
 class simplemovement
 {
 public:
-    simplemovement();
+    simplemovement(FEHMotor m1, FEHMotor m2, FEHMotor m3, DigitalEncoder e1, DigitalEncoder e2, DigitalEncoder e3);
     void allStop();
     void moveForward(int power, int counts);
     void moveBackward(int power, int counts);
@@ -21,9 +21,12 @@ public:
     void spinClockwise(int power, int counts);
     void spinCounterClockwise(int power, int counts);
 private:
-    FEHMotor::FEHMotor motor1;
-    FEHMotor::FEHMotor motor2;
-    FEHMotor::FEHMotor motor3;
+    FEHMotor motor1;
+    FEHMotor motor2;
+    FEHMotor motor3;
+    DigitalEncoder motor_encoder_1;
+    DigitalEncoder motor_encoder_2;
+    DigitalEncoder motor_encoder_3;
 };
 
 #endif // SIMPLEMOVEMENT_H
