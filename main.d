@@ -3,8 +3,8 @@
  Libraries/FEHUtility.h Startup/derivative.h Libraries/LCDColors.h \
  Libraries/FEHRPS.h Drivers/FEHXBee.h Libraries/FEHSD.h Drivers/SDHC.h \
  Drivers/diskio.h Drivers/ff.h Drivers/ffconf.h Drivers/ffconf.h \
- Drivers/diskio.h Libraries/FEHFile.h Libraries/FEHMotor.h \
- Libraries/FEHIO.h Drivers/adc16.h
+ Drivers/diskio.h Libraries/FEHFile.h Libraries/FEHServo.h \
+ Libraries/FEHMotor.h Libraries/FEHIO.h Drivers/adc16.h
 
 Libraries/FEHLCD.h:
 
@@ -39,6 +39,8 @@ Drivers/ffconf.h:
 Drivers/diskio.h:
 
 Libraries/FEHFile.h:
+
+Libraries/FEHServo.h:
 
 Libraries/FEHMotor.h:
 
