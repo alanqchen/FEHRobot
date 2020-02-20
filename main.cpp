@@ -106,22 +106,22 @@ void kinematics(float xVel, float yVel, float theta, float phi) {
 // vel - 0.215-> 25% 0.85 -> 100%
 // generally keep UNDER .7; .5 or under to be safe
 void moveForwardBackward(float vel, float theta) {
-    kinematics(0.0, vel, theta, 0.0);
+    kinematics(0.0, vel, theta+M_PI/3.0, 0.0);
 }
 
 // .7 MAX
 void moveLeftRight(float vel, float theta) {
-    kinematics(vel, 0.0, theta, 0.0);
+    kinematics(vel, 0.0, theta+M_PI/3.0, 0.0);
 }
 
 void spinClockwise(float vel, float theta) {
-    kinematics(0.0, vel, theta, 0.0);
+    kinematics(0.0, vel, theta+M_PI/3.0, 0.0);
 }
 
 // postive for counter clockwise
 // 6.6 MAX, 1.65-> 25%
 void spin(float phi, float theta) {
-    kinematics(0.0, 0.0, theta, phi);
+    kinematics(0.0, 0.0, theta+M_PI/3.0, phi);
 }
 
 float inchestoMeters(float num) {
