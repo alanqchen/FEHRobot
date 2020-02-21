@@ -245,6 +245,10 @@ void PIDMoveTo(char* fName, int size) {
         vel_ref[2][i] = refSpeed3;
         i++;
     }
+    if(size < i) {
+        LCD.Clear(FEHLCD::Red);
+        return;
+    }
     size = i;
     /* Close trajectory file */
     SD.FClose(fptr);
@@ -461,6 +465,17 @@ void forward23(float percent, int inch) {
     allStop();
 }
 
+void forward13(float percent, float inch) {
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(InvPercent(percent));
+    motor3.SetPercent(percent);
+
+    while((motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    allStop();
+}
+
 int main(void)
 {
 
@@ -468,7 +483,7 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(70);
+    arm_servo.SetDegree(45);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -477,24 +492,47 @@ int main(void)
     //arm_servo.TouchCalibrate();
 
     float trash_x, trash_y;
+    /*
     while(!LCD.Touch(&trash_x, &trash_y)) {
         LCD.WriteLine(CdS_cell.Value());
     }
-
-    //while(getCdsColor() != 2);
+    */
+    LCD.WriteLine("Waiting...");
+    while(getCdsColor() != 2);
     arm_servo.SetDegree(45);
     PIDMoveTo("start1.txt", 31);
-    rotateCC(-25, 120);
+
+    //rotateCC(-25, 120);
     //rotateCC(-25, 90);
-    forward23(75, 34);
-    Sleep(1.0);
-    rotateCC(25, 120);
-    PIDMoveTo("toSink.txt", 31);
+    //forward23(75, 34);
+    PIDMoveTo("mR34.txt", 31);
+
+    while(!LCD.Touch(&trash_x, &trash_y));
+
+    Sleep(0.5);
+    //PIDMoveTo("r90CW.txt", 31);
+    rotateCC(-25, 90);
+    Sleep(0.5);
+    PIDMoveTo("toSink2.txt", 31);
+
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Sleep(0.5);
+
+    //rotateCC(25, 120);
+    //PIDMoveTo("toSink.txt", 31);
     sinkDump();
     //PIDMoveTo("toSlide.txt", 31);
-    rotateCC(25, 170);
-    forward23(25, 25);
-    jukebox_servo.SetDegree(180.0);
+    rotateCC(-25, 125);
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Sleep(0.5);
+
+    forward13(25, 25.0);
+    forward13(-25, .2);
+
+
+
+
+    jukebox_servo.SetDegree(155.0);
 
 
     return 0;
