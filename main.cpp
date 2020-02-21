@@ -17,6 +17,7 @@
 #define DELTA_T 0.1
 #define R 0.11176
 #define r 0.03429
+#define COUNTS_PER_INCH 35
 
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
@@ -27,10 +28,15 @@ DigitalEncoder motor1_encoder(FEHIO::P0_0);
 DigitalEncoder motor2_encoder(FEHIO::P0_2);
 DigitalEncoder motor3_encoder(FEHIO::P0_4);
 
+/* NEVER SET ARM SERVO DEGREE ABOVE 150 AND BELOW 10!!!*/
 FEHServo jukebox_servo(FEHServo::Servo0);
 FEHServo arm_servo(FEHServo::Servo1);
 
 AnalogInputPin CdS_cell(FEHIO::P0_6);
+
+float errorCurr1 = 0.0;
+float errorCurr2 = 0.0;
+float errorCurr3 = 0.0;
 
 float InvPercent(float percent) {
     return percent * -1.0;
@@ -85,9 +91,21 @@ void setRadSToPercent(float motor1_RadS, float motor2_RadS, float motor3_RadS) {
     percent1 = limitMotorPercent(percent1);
     percent2 = limitMotorPercent(percent2);
     percent3 = limitMotorPercent(percent3);
-    motor1.SetPercent(InvPercent(percent1));
-    motor2.SetPercent(InvPercent(percent2));
-    motor3.SetPercent(InvPercent(percent3));
+    if(errorCurr1 < 0.0) {
+        motor1.SetPercent(percent1);
+    } else {
+        motor1.SetPercent(InvPercent(percent1));
+    }
+    if(errorCurr2 < 0.0) {
+        motor2.SetPercent(percent2);
+    } else {
+        motor2.SetPercent(InvPercent(percent2));
+    }
+    if(errorCurr3 < 0.0) {
+        motor3.SetPercent(percent3);
+    } else {
+        motor3.SetPercent(InvPercent(percent3));
+    }
 }
 
 /*
@@ -177,14 +195,11 @@ void PIDMoveTo(char* fName, int size) {
     float motorSpeed1 = 0.0; 
     float motorSpeed2 = 0.0; 
     float motorSpeed3 = 0.0; 
-    float errorCurr1 = 0.0;
-    float errorCurr2 = 0.0;
-    float errorCurr3 = 0.0;
     float errorTotal1 = 0.0;
     float errorTotal2 = 0.0;
     float errorTotal3 = 0.0;
     float Kp = 20.0;
-    float Ki = 0.0;
+    float Ki = 0.0                 ;
     float Kd = 0.0;
     float pidMarginError = 0.1; // in inches
     // might remove this
@@ -200,11 +215,12 @@ void PIDMoveTo(char* fName, int size) {
     //char charArr[len+1];
     //strcpy(charArr, fName.c_str());
     /* Get trajectory profile from file */
-    FEHFile *fptr = SD.FOpen("testRot3.txt","r");
+    FEHFile *fptr = SD.FOpen(fName,"r");
     /* Open write files to track error and delta angular displacement */
     // This is useful for tuning among other things
     FEHFile *fOutErrptr = SD.FOpen("errorLog.txt","w");
     FEHFile *fOutDispptr = SD.FOpen("dispLog.txt","w");
+    FEHFile *fOutVelptr = SD.FOpen("velLog.txt","w");
     
     /* Init 2d arrays to store reference data and other temp variables to read from file */
     float pos_ref[3][size];
@@ -229,12 +245,7 @@ void PIDMoveTo(char* fName, int size) {
         vel_ref[2][i] = refSpeed3;
         i++;
     }
-    // Should also remove this
-    LCD.Clear(FEHLCD::Blue);
-    // Should remove this later
-    if(i < 50) {
-        LCD.Clear(FEHLCD::Black);
-    }
+    size = i;
     /* Close trajectory file */
     SD.FClose(fptr);
     /* PI LOOP */
@@ -246,6 +257,7 @@ void PIDMoveTo(char* fName, int size) {
         countNew3 = motor3_encoder.Counts();
         /* Check if first iteration (no old values) */
         // This is redundant! (remove later)
+        /*
         if(setup) {
             displacement1 = countsToRadDisp(countNew1, 0);
             displacement2 = countsToRadDisp(countNew2, 0);
@@ -254,6 +266,22 @@ void PIDMoveTo(char* fName, int size) {
         } else {
             displacement1 = countsToRadDisp(countNew1, countOld1);
             displacement2 = countsToRadDisp(countNew2, countOld2);
+            displacement3 = countsToRadDisp(countNew3, countOld3);
+        }
+        */
+        if(errorCurr1 < 0.0) {
+            displacement1 = countsToRadDisp(countNew1, countOld1) * -1;
+        } else {
+            displacement1 = countsToRadDisp(countNew1, countOld1);
+        }
+        if(errorCurr2 < 0.0) {
+            displacement2 = countsToRadDisp(countNew2, countOld2) * -1;
+        } else {
+            displacement2 = countsToRadDisp(countNew2, countOld2);
+        }
+        if(errorCurr3 < 0.0) {
+            displacement3 = countsToRadDisp(countNew3, countOld3) * -1;
+        } else {
             displacement3 = countsToRadDisp(countNew3, countOld3);
         }
         // Set old counts to new counts for the next iteration
@@ -282,7 +310,8 @@ void PIDMoveTo(char* fName, int size) {
         // Saftey check in case something goes terribly wrong, may or may not be needed later
         if(errorCurr1 > 3)
             return;
-        
+
+
         // Write errors to log file
         SD.FPrintf(fOutErrptr, "%f\t%f\t%f\n", errorCurr1, errorCurr2, errorCurr3);
         // Add to total error (for integral term)
@@ -296,7 +325,7 @@ void PIDMoveTo(char* fName, int size) {
         motorSpeed1 = Kp * errorCurr1 + Ki * DELTA_T * (errorTotal1);
         motorSpeed2 = Kp * errorCurr2 + Ki * DELTA_T * (errorTotal2);
         motorSpeed3 = Kp * errorCurr3 + Ki * DELTA_T * (errorTotal3);
-        
+
         /* Use the reference velocities to determine if motor speed should change signs */
         if(vel_ref[0][i] < 0.0) {
             motorSpeed1 *= -1.0;
@@ -311,6 +340,7 @@ void PIDMoveTo(char* fName, int size) {
         //motor1.SetPercent(limitMotorPercent(motorSpeed1));
         //motor2.SetPercent(limitMotorPercent(motorSpeed2));
         //motor3.SetPercent(limitMotorPercent(motorSpeed3));
+        SD.FPrintf(fOutVelptr, "%f\t%f\t%f\n", motorSpeed1, motorSpeed2, motorSpeed3);
         /* Set motors to speed */
         setRadSToPercent(motorSpeed1, motorSpeed2, motorSpeed3);
         /* Wait 0.1 seconds (100 miliseconds) */
@@ -321,6 +351,7 @@ void PIDMoveTo(char* fName, int size) {
     /* Close all log files */
     SD.FClose(fOutErrptr);
     SD.FClose(fOutDispptr);
+    SD.FClose(fOutVelptr);
 }
 
 void rotateCC(float percent, int degree) {
@@ -408,6 +439,28 @@ void startMoveToJukeBoxAndRamp() {
     Sleep(0.5);
 }
 
+void sinkDump() {
+    for(int i = 45; i <= 140; i+=5) {
+        arm_servo.SetDegree(i);
+        Sleep(100);
+    }
+    for(int i = 140; i >= 45; i-=5) {
+        arm_servo.SetDegree(i);
+        Sleep(100);
+    }
+}
+
+void forward23(float percent, int inch) {
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor2.SetPercent(InvPercent(percent));
+    motor3.SetPercent(percent);
+
+    while((motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    allStop();
+}
+
 int main(void)
 {
 
@@ -415,21 +468,33 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
+    arm_servo.SetDegree(70);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
 
-    arm_servo.TouchCalibrate();
-    /*
+    //arm_servo.TouchCalibrate();
+
     float trash_x, trash_y;
     while(!LCD.Touch(&trash_x, &trash_y)) {
         LCD.WriteLine(CdS_cell.Value());
     }
-    //while(getCdsColor() != 2);
-    //PIDMoveTo("posRefTestRotate3.txt", 31);
-    */
 
+    //while(getCdsColor() != 2);
+    arm_servo.SetDegree(45);
+    PIDMoveTo("start1.txt", 31);
+    rotateCC(-25, 120);
+    //rotateCC(-25, 90);
+    forward23(75, 34);
+    Sleep(1.0);
+    rotateCC(25, 120);
+    PIDMoveTo("toSink.txt", 31);
+    sinkDump();
+    //PIDMoveTo("toSlide.txt", 31);
+    rotateCC(25, 170);
+    forward23(25, 25);
+    jukebox_servo.SetDegree(180.0);
 
 
     return 0;
