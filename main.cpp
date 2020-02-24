@@ -41,28 +41,6 @@ float errorCurr3 = 0.0;
 float InvPercent(float percent) {
     return percent * -1.0;
 }
-/*
-float* parseTrajectoryFile(std::string fileName, int size) {
-    FEHFile *fptr = SD.FOpen(fileName,"w");
-    float pos_res[3][size];
-    float temp1;
-    float temp2;
-    float temp3;
-    if(!SD.FEof(fptr)) {
-        LCD.Clear(FEHLCD::Red);
-        return NULL;
-    }
-
-    for(int i=0; i<size; i++) {
-        SD.FScanf(fptr, "%f%f%f", &temp1, &temp2, &temp3);
-        pos_res[0][i] = temp1;
-        pos_res[1][i] = temp2;
-        pos_res[2][i] = temp3;
-    }
-    SD.FClose(fptr);
-    return pos_res;
-}
-*/
 
 // Stops all motors
 void allStop() {
@@ -151,6 +129,21 @@ float countsToRadDisp(int newCount, int old) {
     //float degDif = (float)difference * 360.0/318.0;
     //return degDif * (M_PI / 180.0);
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
+}
+
+int getCdsColor() {
+    // Red
+    if(CdS_cell.Value() < 1 ) {
+        LCD.Clear(RED);
+        return 2;
+    // Blue
+    } else if(CdS_cell.Value() >= 1 && CdS_cell.Value() < 1.8 ) {
+        LCD.Clear(BLUE);
+        return 1;
+    } else {
+        LCD.Clear(FEHLCD::Green);
+        return 0;
+    }
 }
 
 // TODO: Change name to PIMoveTO
@@ -257,7 +250,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     if(preload) {
         // Set green to show it's ready
         LCD.Clear(FEHLCD::Green);
-        while(getCdsColor() != 0); // wait until a light turns on
+        while(getCdsColor() == 0); // wait until a light turns on
     }
     
     /* PI LOOP */
@@ -391,21 +384,6 @@ void moveForward(float percent, float inch) {
 
 }
 
-int getCdsColor() {
-    // Red
-    if(CdS_cell.Value() < 1 ) {
-        LCD.Clear(RED);
-        return 2;
-    // Blue
-    } else if(CdS_cell.Value() >= 1 && CdS_cell.Value() < 1.8 ) {
-        LCD.Clear(BLUE);
-        return 1;
-    } else {
-        LCD.Clear(BLACK);
-        return 0;
-    }
-}
-
 void startMoveToJukeBoxAndRamp() {
     moveForward(25, 18);
     allStop();
@@ -484,6 +462,65 @@ void forward13(float percent, float inch) {
     allStop();
 }
 
+void forward12(float percent, float inch) {
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(InvPercent(percent));
+    motor2.SetPercent(percent);
+
+    while((motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    allStop();
+}
+
+void performance2() {
+    arm_servo.SetDegree(65);
+    PIDMoveTo("start1.txt", 31, true);
+    for(int i = 65; i >= 45; i-=2) {
+        arm_servo.SetDegree(i);
+        Sleep(10);
+    }
+    //rotateCC(-25, 120);
+    //rotateCC(-25, 90);
+    //forward23(75, 34);
+    PIDMoveTo("mR34.txt", 31, false);
+
+
+
+    Sleep(0.5);
+    //PIDMoveTo("r90CW.txt", 31);
+    rotateCC(-25, 90);
+    Sleep(0.5);
+    PIDMoveTo("toSink2.txt", 31, false);
+
+
+    Sleep(0.5);
+
+    //rotateCC(25, 120);
+    //PIDMoveTo("toSink.txt", 31);
+    sinkDump();
+    //PIDMoveTo("toSlide.txt", 31);
+    rotateCC(-25, 152);
+
+    Sleep(0.5);
+
+    forward13(25, 24.0);
+    forward13(-25, .1);
+
+    //PIDMoveTo("rotate6.txt", 11, false);
+    rotateCC(-25, 30);
+
+    arm_servo.SetDegree(90.0);
+    jukebox_servo.SetDegree(170.0);
+    Sleep(0.75);
+    forward12(25, 5);
+    jukebox_servo.SetDegree(160.0);
+    Sleep(0.5);
+    PIDMoveTo("slideT.txt", 26, false);
+    Sleep(0.5);
+    forward12(-25, 23);
+}
+
 int main(void)
 {
 
@@ -506,41 +543,26 @@ int main(void)
     }
     */
     LCD.WriteLine("Waiting...");
-    while(getCdsColor() != 2);
+    //while(getCdsColor() != 2);
+
+    arm_servo.SetDegree(0);
+    Sleep(2.0);
     arm_servo.SetDegree(45);
-    PIDMoveTo("start1.txt", 31, true);
-
-    //rotateCC(-25, 120);
-    //rotateCC(-25, 90);
-    //forward23(75, 34);
-    PIDMoveTo("mR34.txt", 31, false);
-
-    while(!LCD.Touch(&trash_x, &trash_y));
-
     Sleep(0.5);
-    //PIDMoveTo("r90CW.txt", 31);
-    rotateCC(-25, 90);
+    forward13(-25, 2);
     Sleep(0.5);
-    PIDMoveTo("toSink2.txt", 31, false);
-
-    while(!LCD.Touch(&trash_x, &trash_y));
+    arm_servo.SetDegree(65);
     Sleep(0.5);
-
-    //rotateCC(25, 120);
-    //PIDMoveTo("toSink.txt", 31);
-    sinkDump();
-    //PIDMoveTo("toSlide.txt", 31);
-    rotateCC(-25, 125);
-    while(!LCD.Touch(&trash_x, &trash_y));
+    forward13(-25, 3);
     Sleep(0.5);
-
-    forward13(25, 25.0);
-    forward13(-25, .2);
-
-
-
-
-    jukebox_servo.SetDegree(155.0);
+    forward13(25, 1);
+    Sleep(0.5);
+    arm_servo.SetDegree(90);
+    Sleep(0.5);
+    forward13(-25, 3);
+    arm_servo.SetDegree(65);
+    Sleep(0.5);
+    forward13(25, 5);
 
 
     return 0;
