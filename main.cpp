@@ -169,8 +169,9 @@ float countsToRadDisp(int newCount, int old) {
  * Parameters:
  *  fName - file name of trajectory profile  
  *  size - number of lines/commands in trajectory profile
+ *  preload - If true, the file will be preloaded and won't start until the start light turns on
  */
-void PIDMoveTo(char* fName, int size) {
+void PIDMoveTo(char* fName, int size, bool preload) {
     //float xMeters = inchestoMeters(x);
     //float yMeters = inchestoMeters(y);
     /* Set important variables */
@@ -252,6 +253,13 @@ void PIDMoveTo(char* fName, int size) {
     size = i;
     /* Close trajectory file */
     SD.FClose(fptr);
+    /* PRELOAD LOOP */
+    if(preload) {
+        // Set green to show it's ready
+        LCD.Clear(FEHLCD::Green);
+        while(getCdsColor() != 0); // wait until a light turns on
+    }
+    
     /* PI LOOP */
     // Yes, not PID as the derivative term isn't needed currently
     for (int i = 0; i < size; i++) {
@@ -500,12 +508,12 @@ int main(void)
     LCD.WriteLine("Waiting...");
     while(getCdsColor() != 2);
     arm_servo.SetDegree(45);
-    PIDMoveTo("start1.txt", 31);
+    PIDMoveTo("start1.txt", 31, true);
 
     //rotateCC(-25, 120);
     //rotateCC(-25, 90);
     //forward23(75, 34);
-    PIDMoveTo("mR34.txt", 31);
+    PIDMoveTo("mR34.txt", 31, false);
 
     while(!LCD.Touch(&trash_x, &trash_y));
 
@@ -513,7 +521,7 @@ int main(void)
     //PIDMoveTo("r90CW.txt", 31);
     rotateCC(-25, 90);
     Sleep(0.5);
-    PIDMoveTo("toSink2.txt", 31);
+    PIDMoveTo("toSink2.txt", 31, false);
 
     while(!LCD.Touch(&trash_x, &trash_y));
     Sleep(0.5);
