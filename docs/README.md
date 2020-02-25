@@ -5,6 +5,11 @@
 
 ## Building
 
+### Prerequisites
+[] Doxygen
+[] Sphinx
+[] Breathe
+
 > $ doxygen Doxyfile
 
 > $ make html
