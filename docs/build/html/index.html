@@ -308,7 +308,17 @@
 <dl class="function">
 <dt id="_CPPv49PIDMoveToPcib">
 <span id="_CPPv39PIDMoveToPcib"></span><span id="_CPPv29PIDMoveToPcib"></span><span id="PIDMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a5df7032b6ea536922700cc132d3d2702"></span>void <code class="sig-name descname">PIDMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49PIDMoveToPcib" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>PIDMoveTO Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fName</span></code>: the file name of trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the number of lines/commands in trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preload</span></code>: If true, the file will be preloaded and won’t start until the start light turns on. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="_CPPv48rotateCCfi">
