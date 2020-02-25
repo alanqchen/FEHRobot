@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<function name="PIDMoveTo" inherits="Spatial" version="1.0">
+	<brief_description>
+		Move to point using PID.
+	</brief_description>
+	<description>
+		dwadaw
+	</description>
+	<tutorials>
+	</tutorials>
+	<variables>
+		<method name="fName">
+			<return type="char*">
+			</return>
+			<description>
+				Returns the name given to this anchor.
+			</description>
+		</variable>
+		<variable name="size">
+			<return type="int">
+			</return>
+			<description>
+				Returns [code]true[/code] if the anchor is being tracked and [code]false[/code] if no anchor with this ID is currently known.
+			</description>
+		</variable>
+		<variable name="preload">
+			<return type="bool">
+			</return>
+			<description>
+				If provided by the [ARVRInterface], this returns a mesh object for the anchor. For an anchor, this can be a shape related to the object being tracked or it can be a mesh that provides topology related to the anchor and can be used to create shadows/reflections on surfaces or for generating collision shapes.
+			</description>
+		</variable>
+	</variables>
+	<members>
+	</members>
+	<signals>
+	</signals>
+	<constants>
+	</constants>
+</class>

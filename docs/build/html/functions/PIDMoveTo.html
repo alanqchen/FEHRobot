@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PIDMoveTo &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Team E3's Robot
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">PIDMoveTo</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team E3's Robot</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>PIDMoveTo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/functions/PIDMoveTo.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pidmoveto">
+<span id="class-animatedsprite3d"></span><h1>PIDMoveTo<a class="headerlink" href="#pidmoveto" title="Permalink to this headline">¶</a></h1>
+<p>Moves to a point.</p>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Animations are created using a <span class="xref std std-ref">SpriteFrames</span> resource, which can be configured in the editor via the SpriteFrames panel.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple" id="class-animatedsprite3d-method-is-playing">
+<li><p><span class="xref std std-ref">bool</span> <strong>is_playing</strong> <strong>(</strong> <strong>)</strong> const</p></li>
+</ul>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if an animation is currently being played.</p>
+<hr class="docutils" />
+<ul class="simple" id="class-animatedsprite3d-method-play">
+<li><p>void <strong>play</strong> <strong>(</strong> <span class="xref std std-ref">String</span> anim=”” <strong>)</strong></p></li>
+</ul>
+<p>Plays the animation named <code class="docutils literal notranslate"><span class="pre">anim</span></code>. If no <code class="docutils literal notranslate"><span class="pre">anim</span></code> is provided, the current animation is played.</p>
+<hr class="docutils" />
+<ul class="simple" id="class-animatedsprite3d-method-stop">
+<li><p>void <strong>stop</strong> <strong>(</strong> <strong>)</strong></p></li>
+</ul>
+<p>Stops the current animation (does not reset the frame counter).</p>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">bool</span></p></td>
+<td><p><a class="reference internal" href="#class-animatedsprite3d-method-is-playing"><span class="std std-ref">is_playing</span></a> <strong>(</strong> <strong>)</strong> const</p></td>
+</tr>
+<tr class="row-even"><td><p>void</p></td>
+<td><p><a class="reference internal" href="#class-animatedsprite3d-method-play"><span class="std std-ref">play</span></a> <strong>(</strong> <span class="xref std std-ref">String</span> anim=”” <strong>)</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>void</p></td>
+<td><p><a class="reference internal" href="#class-animatedsprite3d-method-stop"><span class="std std-ref">stop</span></a> <strong>(</strong> <strong>)</strong></p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jeff Bonner, Alan Chen, Peyton Roth, Zach Salem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

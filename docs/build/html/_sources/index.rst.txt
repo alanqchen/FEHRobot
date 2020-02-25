@@ -7,16 +7,23 @@ Welcome to Team E3's Robot's documentation!
 ===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
 .. doxygenfile:: main.cpp
    :project: FEHRobot
 
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 1
+   :caption: Function reference
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   functions/index
+
+
+.. Indices and tables
+.. ------------------
+..
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
