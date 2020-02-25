@@ -1,5 +1,8 @@
 # Documentation Directory
 
+## Editing
+[Refer to Doxygen's code block format.](http://www.doxygen.nl/manual/docblocks.html)
+
 ## Building
 
 > $ doxygen Doxyfile
