@@ -451,12 +451,12 @@ void forward23(float percent, int inch) {
     allStop();
 }
 
-void forward13(float percent, float inch) {
+void forward31(float percent, float inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
-    motor1.SetPercent(InvPercent(percent));
-    motor3.SetPercent(percent);
+    motor3.SetPercent(InvPercent(percent));
+    motor1.SetPercent(percent);
 
     while((motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
@@ -504,8 +504,8 @@ void performance2() {
 
     Sleep(0.5);
 
-    forward13(25, 24.0);
-    forward13(-25, .1);
+    forward31(25, 24.0);
+    forward31(-25, .1);
 
     //PIDMoveTo("rotate6.txt", 11, false);
     rotateCC(-25, 30);
@@ -528,42 +528,53 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(45);
+    arm_servo.SetDegree(65);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
 
-    //arm_servo.TouchCalibrate();
+    while(getCdsColor() == 0);
 
-    float trash_x, trash_y;
-    /*
-    while(!LCD.Touch(&trash_x, &trash_y)) {
-        LCD.WriteLine(CdS_cell.Value());
-    }
-    */
-    LCD.WriteLine("Waiting...");
-    //while(getCdsColor() != 2);
+    // to center of ramp
+    PIDMoveTo("start1.txt", 31, true);
+
+    //up ramp
+    PIDMoveTo("mR34.txt", 31, false);
+
+    //east to wall
+    forward12(-25, 15);
+
+    //west off wall
+    forward12(25, 1.5);
+
+    //rotate towards burger
+    rotateCC(25, 23);
 
     arm_servo.SetDegree(0);
-    Sleep(2.0);
-    arm_servo.SetDegree(45);
-    Sleep(0.5);
-    forward13(-25, 2);
-    Sleep(0.5);
-    arm_servo.SetDegree(65);
-    Sleep(0.5);
-    forward13(-25, 3);
-    Sleep(0.5);
-    forward13(25, 1);
-    Sleep(0.5);
-    arm_servo.SetDegree(90);
-    Sleep(0.5);
-    forward13(-25, 3);
-    arm_servo.SetDegree(65);
-    Sleep(0.5);
-    forward13(25, 5);
 
+    //north towards burger
+    forward31(25, 8);
+
+    arm_servo.SetDegree(50);
+    Sleep(1.5);
+    arm_servo.SetDegree(0);
+    Sleep(1.5);
+
+    //south from burger
+    forward31(-25, 4);
+
+    //face ice cream
+    rotateCC(-25, 23);
+
+    arm_servo.SetDegree(70);
+
+    //move diagonally to lever
+    PIDMoveTo("toLever.txt", 31, false);
+
+    arm_servo.SetDegree(40);
+    Sleep(1.5);
+    arm_servo.SetDegree(70);
 
     return 0;
 }
