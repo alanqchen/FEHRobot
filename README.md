@@ -1,4 +1,4 @@
-## Team E3's Code
+# Team E3's Code
 
 [Code Documentation](https://fehrobot.readthedocs.io/)
 
