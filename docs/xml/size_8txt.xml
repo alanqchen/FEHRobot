@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="size_8txt" kind="file" language="C++">
+    <compoundname>size.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"><sp/><sp/><sp/>text<sp/><sp/><sp/><sp/>data<sp/><sp/><sp/><sp/><sp/>bss<sp/><sp/><sp/><sp/><sp/>dec<sp/><sp/><sp/><sp/><sp/>hex<sp/>filename</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/>122440<sp/><sp/><sp/><sp/>5844<sp/><sp/><sp/><sp/>9996<sp/><sp/>138280<sp/><sp/><sp/>21c28<sp/>../FEHRobot.elf</highlight></codeline>
+    </programlisting>
+    <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/size.txt"/>
+  </compounddef>
+</doxygen>

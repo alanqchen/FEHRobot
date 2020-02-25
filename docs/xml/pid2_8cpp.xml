@@ -1,0 +1,1213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="pid2_8cpp" kind="file" language="C++">
+    <compoundname>pid2.cpp</compoundname>
+    <includes local="no">FEHLCD.h</includes>
+    <includes local="no">FEHUtility.h</includes>
+    <includes local="no">FEHRPS.h</includes>
+    <includes local="no">FEHSD.h</includes>
+    <includes local="no">FEHMotor.h</includes>
+    <includes local="no">FEHIO.h</includes>
+    <includes local="no">cmath</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>FEHUtility.h</label>
+      </node>
+      <node id="8">
+        <label>cmath</label>
+      </node>
+      <node id="5">
+        <label>FEHSD.h</label>
+      </node>
+      <node id="6">
+        <label>FEHMotor.h</label>
+      </node>
+      <node id="2">
+        <label>FEHLCD.h</label>
+      </node>
+      <node id="7">
+        <label>FEHIO.h</label>
+      </node>
+      <node id="4">
+        <label>FEHRPS.h</label>
+      </node>
+      <node id="1">
+        <label>/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp</label>
+        <link refid="pid2_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="pid2_8cpp_1aa73214aa5f2f94f63d90bb4e3d99fe53" prot="public" static="no">
+        <name>L</name>
+        <initializer>0.09906</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="16" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a62969232668331297e2dca1ae2ddd10d" prot="public" static="no">
+        <name>r</name>
+        <initializer>0.03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="17" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1ae4ba7afadcd3f1392de7793af7114069" prot="public" static="no">
+        <name>stopAngle</name>
+        <initializer>0.104719755</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="18" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a23c14c45aa384b7f6374791e44bcfe46" prot="public" static="no">
+        <name>stopDistance</name>
+        <initializer>0.001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="19" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a14232d8a1929d38cd008c4bcd32d289e" prot="public" static="no">
+        <name>sqrt3</name>
+        <initializer>1.7320508</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="20" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1aaf005c8535bbfdaba7d5ddb75d7caf57" prot="public" static="no">
+        <name>sqrt32</name>
+        <initializer>0.8660254037</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="21" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1abce928b5d24c9aba9e50e06e4c021739" prot="public" static="no">
+        <name>pi2</name>
+        <initializer>6.28318530717</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="22" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a2748566f4c443ee77aa831e63dbb5ebe" prot="public" static="no">
+        <name>P</name>
+        <initializer>5.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="23" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a60ef6e1bcfabb95cfeb300e1d03ce470" prot="public" static="no">
+        <name>I</name>
+        <initializer>0.0005</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="24" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1ab9fd76ca1d4c571dde133c4d0456ab1a" prot="public" static="no">
+        <name>Vmax</name>
+        <initializer>1.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="25" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pid2_8cpp_1a106e198f9072d5255e8fe35c49690dfe" prot="public" static="no">
+        <name>omegamax</name>
+        <initializer>50.0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="26" column="9" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pid2_8cpp_1ad2cfa352a5984783e7ad3c9075c1cf07" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vx</definition>
+        <argsstring></argsstring>
+        <name>Vx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="28" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a2189ecaae737ec2be3795ff896cc2a62" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vy</definition>
+        <argsstring></argsstring>
+        <name>Vy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="29" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a511a252b958a043b4a906ece255dcc3c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vxm</definition>
+        <argsstring></argsstring>
+        <name>Vxm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="30" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aee89c762d255b178ee08f31a78206827" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vym</definition>
+        <argsstring></argsstring>
+        <name>Vym</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="31" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a4b796efb484d0ea47e7e3bec9ecf7e53" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vxw</definition>
+        <argsstring></argsstring>
+        <name>Vxw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="32" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a1c2a650fcbc7912f41fb1027f9e3f70b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vyw</definition>
+        <argsstring></argsstring>
+        <name>Vyw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="33" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aacaf5331eccc04f29c1ae79f7252b7b8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VxAbs</definition>
+        <argsstring></argsstring>
+        <name>VxAbs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="34" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a298c5be625c22d114ffb878d1c393487" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VyAbs</definition>
+        <argsstring></argsstring>
+        <name>VyAbs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="35" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a1cecc7a9ab10b9d9b966c1bba3b5ab44" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VxmTarget</definition>
+        <argsstring></argsstring>
+        <name>VxmTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="36" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a30b014e1f48dad50fbcd6da677082dcf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VymTarget</definition>
+        <argsstring></argsstring>
+        <name>VymTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="37" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a568120b7404f2d6fcef2248e8da352dc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VxwTarget</definition>
+        <argsstring></argsstring>
+        <name>VxwTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="38" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a5cb7e7f550ad506f6e1d5ca0fd1cc509" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VywTarget</definition>
+        <argsstring></argsstring>
+        <name>VywTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="39" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aced6dfdcf86ec44d53e2137d69bd3c81" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double omegap</definition>
+        <argsstring></argsstring>
+        <name>omegap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="40" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a192265b7221d2a1d468fe7009c1d5ea1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vback</definition>
+        <argsstring></argsstring>
+        <name>Vback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="41" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1af99d346c7de39a61a567d53ddbbfc97b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vleft</definition>
+        <argsstring></argsstring>
+        <name>Vleft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="42" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a59d7303ac5eb13c0ec68a855970347ec" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vright</definition>
+        <argsstring></argsstring>
+        <name>Vright</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="43" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a35905a6dbfda1941235f991ccd6b8c2b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VbackTarget</definition>
+        <argsstring></argsstring>
+        <name>VbackTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="44" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a1f8373c4663cef928f4fa643992f942b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VleftTarget</definition>
+        <argsstring></argsstring>
+        <name>VleftTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="45" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1af5126de9dd1e95261e0e67dfc65a46dc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VrightTarget</definition>
+        <argsstring></argsstring>
+        <name>VrightTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="46" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a7c1729bd1897dc1c17678f7dfdbc28bf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double omegapL</definition>
+        <argsstring></argsstring>
+        <name>omegapL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="47" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aea0d42706311f95ac857a5f6d2ef011e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double omegapLVxm2</definition>
+        <argsstring></argsstring>
+        <name>omegapLVxm2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="48" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1ae39aad0008f0d34b9349a642facb41b3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double sqrtVym2</definition>
+        <argsstring></argsstring>
+        <name>sqrtVym2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="49" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a4570c64283c17343af01fe420c4d9a25" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vxm2</definition>
+        <argsstring></argsstring>
+        <name>Vxm2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="50" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a6691bf86701c0d9a62e640fd5df6af72" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vback3</definition>
+        <argsstring></argsstring>
+        <name>Vback3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="51" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a8919e38a1a2a2ec976b0bbffa9e4f349" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vleft3</definition>
+        <argsstring></argsstring>
+        <name>Vleft3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="52" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a298698b681f1cc7c55d1121c7a94bb26" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vright3</definition>
+        <argsstring></argsstring>
+        <name>Vright3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="53" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a7850aa78f83a79447566ef544ddd1a8e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VxTarget</definition>
+        <argsstring></argsstring>
+        <name>VxTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="54" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a991cc0f4817a26b84b203d89ac0a09ac" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double VyTarget</definition>
+        <argsstring></argsstring>
+        <name>VyTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="55" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1ac835e304e7f89423167f9d55bd491df4" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double omegapTarget</definition>
+        <argsstring></argsstring>
+        <name>omegapTarget</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="56" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1af88b946fb90d5f08b5fb740c70e98c10" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="57" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1ab927965981178aa1fba979a37168db2a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="58" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a536e2155082b3f8f671e8565147f31b2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xm</definition>
+        <argsstring></argsstring>
+        <name>xm</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="59" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a2d09ebb2f8df5a28cb302b0eb4ff0eec" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double ym</definition>
+        <argsstring></argsstring>
+        <name>ym</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="60" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a2d170f7d571fbf71856ce12657047659" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xOffset</definition>
+        <argsstring></argsstring>
+        <name>xOffset</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="61" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a0c0a15154ec12ebbc5ea091c8927c4d1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double yOffset</definition>
+        <argsstring></argsstring>
+        <name>yOffset</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="62" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1ac774694c169a3afe65739517dbe3345a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xTarget</definition>
+        <argsstring></argsstring>
+        <name>xTarget</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="63" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a9fac81f13905bed51fc74e0de9c1e735" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double yTarget</definition>
+        <argsstring></argsstring>
+        <name>yTarget</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="64" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a88c9b5c65ffb30c7842e40bac6ec6e46" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xw</definition>
+        <argsstring></argsstring>
+        <name>xw</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="65" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a5186fef09826fb5bf680f424ae511cee" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double yw</definition>
+        <argsstring></argsstring>
+        <name>yw</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="66" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aa6a4ea54e359c9cbb346f93bcbd8ccbb" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xError</definition>
+        <argsstring></argsstring>
+        <name>xError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="67" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a66916071a64dc234f92abae65364b782" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double yError</definition>
+        <argsstring></argsstring>
+        <name>yError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="68" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a8f3773325590245cf13aeee63e254112" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double xErrorI</definition>
+        <argsstring></argsstring>
+        <name>xErrorI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="69" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a6c8e2e019008f474f34d7811902ce755" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double yErrorI</definition>
+        <argsstring></argsstring>
+        <name>yErrorI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="70" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1aca81c35c21e3a5f7f3a8d24504e76664" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double theta</definition>
+        <argsstring></argsstring>
+        <name>theta</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="71" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1ab729ed26a17e8bee1859deb94263c9af" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double thetaError</definition>
+        <argsstring></argsstring>
+        <name>thetaError</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="72" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1adb63fd2019a765a077cba6598c8539e4" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double thetaErrorI</definition>
+        <argsstring></argsstring>
+        <name>thetaErrorI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="73" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a3feaa351c0716e5c2219b7647c6ec678" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double thetaTarget</definition>
+        <argsstring></argsstring>
+        <name>thetaTarget</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="74" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a01a3510f70921f144abc054ff2dfb404" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double timeElapsed</definition>
+        <argsstring></argsstring>
+        <name>timeElapsed</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="75" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1adae8d8a6ff28515e505bb1c07f2b33c8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double phi</definition>
+        <argsstring></argsstring>
+        <name>phi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="76" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pid2_8cpp_1a80d402d10e8341004c0caf10133b80ab" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double scale</definition>
+        <argsstring></argsstring>
+        <name>scale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="77" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pid2_8cpp_1a682664725567aa08d811032c74002690" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool isStopPose</definition>
+        <argsstring>()</argsstring>
+        <name>isStopPose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="81" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="81" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1a7942587742e3644137b0ffbe7b2e4d9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double degree2radian</definition>
+        <argsstring>(double degree)</argsstring>
+        <name>degree2radian</name>
+        <param>
+          <type>double</type>
+          <declname>degree</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="88" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1a09249abbd9ad633525c5e03f5ff9a638" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double normalizeRadian</definition>
+        <argsstring>(double radian)</argsstring>
+        <name>normalizeRadian</name>
+        <param>
+          <type>double</type>
+          <declname>radian</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="93" column="8" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="93" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1ab63978ceefbe9ea9e52a539941e64407" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void inverseKinematicsMobile</definition>
+        <argsstring>()</argsstring>
+        <name>inverseKinematicsMobile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="99" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="99" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1a5292805efbd8ef05cfac52d11bb37b43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void forwardKinematicsMobile</definition>
+        <argsstring>()</argsstring>
+        <name>forwardKinematicsMobile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="110" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="110" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1ab04eebe8565124c617a2435de9cdc623" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void forwardKinematicsWorld</definition>
+        <argsstring>()</argsstring>
+        <name>forwardKinematicsWorld</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="120" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="120" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1a80623cbb9aca28f63fec3b3c5735c5cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void odometryCalculations</definition>
+        <argsstring>(DigitalEncoder backEncoder, DigitalEncoder leftEncoder, DigitalEncoder rightEncoder)</argsstring>
+        <name>odometryCalculations</name>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>backEncoder</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>leftEncoder</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>rightEncoder</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="127" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="127" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="pid2_8cpp_1aa24d177c19f7fdd933f5c292d5a54328" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pidMoveAbsolute</definition>
+        <argsstring>(double x, double y, double theta, FEHMotor backMotor, FEHMotor leftMotor, FEHMotor rightMotor, DigitalEncoder backEncoder, DigitalEncoder leftEncoder, DigitalEncoder rightEncoder)</argsstring>
+        <name>pidMoveAbsolute</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>theta</declname>
+        </param>
+        <param>
+          <type>FEHMotor</type>
+          <declname>backMotor</declname>
+        </param>
+        <param>
+          <type>FEHMotor</type>
+          <declname>leftMotor</declname>
+        </param>
+        <param>
+          <type>FEHMotor</type>
+          <declname>rightMotor</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>backEncoder</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>leftEncoder</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>rightEncoder</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" line="141" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp" bodystart="141" bodyend="176"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;FEHLCD.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FEHUtility.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FEHRPS.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FEHSD.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FEHMotor.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FEHIO.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Alan<sp/>Chen<sp/>-<sp/>FEH<sp/>2020</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>Mathematical<sp/>derivation<sp/>from:</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>Baede,<sp/>T.<sp/>A.<sp/>(2006).<sp/>Motion<sp/>control<sp/>of<sp/>an<sp/>omnidirectional<sp/>mobile<sp/>robot.<sp/>(DCT<sp/>rapporten;<sp/>Vol.<sp/>2006.084).</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Eindhoven:<sp/>Technische<sp/>Universiteit<sp/>Eindhoven.</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>With<sp/>help<sp/>from<sp/>&quot;PID<sp/>withoutgi</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>L<sp/>0.09906<sp/>//<sp/>distance<sp/>between<sp/>body<sp/>center<sp/>and<sp/>wheel<sp/>center<sp/>(approx<sp/>3.9<sp/>inches<sp/>to<sp/>meters)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>r<sp/>0.03<sp/>//<sp/>wheel<sp/>radius<sp/>(60<sp/>mm<sp/>-<sp/>&gt;<sp/>meter<sp/>-&gt;<sp/>/2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>stopAngle<sp/>0.104719755</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>stopDistance<sp/>0.001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>sqrt3<sp/>1.7320508</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>sqrt32<sp/>0.8660254037</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>pi2<sp/>6.28318530717</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>P<sp/>5.0<sp/>//<sp/>Proportional<sp/>constant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I<sp/>0.0005<sp/>//<sp/>Integral<sp/>constant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Vmax<sp/>1.0<sp/>//<sp/>(m/s)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>omegamax<sp/>50.0<sp/>//<sp/>(rad/s)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Global<sp/>vars<sp/>so<sp/>don&apos;t<sp/>have<sp/>to<sp/>keep<sp/>passing<sp/>in<sp/>a<sp/>thousand<sp/>variables<sp/>to<sp/>every<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vx;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vy;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vxm;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vym;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vxw;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vyw;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VxAbs;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VyAbs;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VxmTarget;<sp/></highlight><highlight class="comment">//<sp/>velocities<sp/>relative<sp/>to<sp/>chasis</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VymTarget;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VxwTarget;<sp/></highlight><highlight class="comment">//<sp/>velocities<sp/>relative<sp/>to<sp/>course</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VywTarget;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>omegap;<sp/></highlight><highlight class="comment">//<sp/>Basically<sp/>angular<sp/>velocity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vback;<sp/></highlight><highlight class="comment">//<sp/>Wheel<sp/>velocities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vleft;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vright;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VbackTarget;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VleftTarget;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VrightTarget;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>omegapL;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>omegapLVxm2;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>sqrtVym2;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vxm2;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vback3;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vleft3;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Vright3;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VxTarget;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VyTarget;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>omegapTarget;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xm<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ym<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xOffset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yOffset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xTarget<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yTarget<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xw<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yw<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xError;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yError;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>xErrorI;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yErrorI;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>theta<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>thetaError;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>thetaErrorI;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>thetaTarget<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timeElapsed<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>phi;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>scale;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isStopPose()<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(std::abs(xError)<sp/>&lt;<sp/>stopDistance)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(std::abs(yError)<sp/>&lt;<sp/>stopDistance)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(std::abs(thetaError)<sp/>&lt;<sp/>stopAngle);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/>convert<sp/>degrees<sp/>from<sp/>RPS<sp/>to<sp/>radian</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>degree2radian(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>degree)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>degree<sp/>*<sp/>M_PI/180.0;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Ensures<sp/>radian<sp/>is<sp/>in<sp/>the<sp/>range<sp/>[0,<sp/>2pi]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>normalizeRadian(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>radian)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>radian<sp/>=<sp/>fmod(radian,<sp/>pi2);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(radian<sp/>&lt;<sp/>0)<sp/>radian<sp/>+=<sp/>pi2;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>radian;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>inverseKinematicsMobile()<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>omegapL<sp/>=<sp/>omegap<sp/>*<sp/>L;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>sqrtVym2<sp/>=<sp/>sqrt32<sp/>*<sp/>Vym;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>Vxm2<sp/>=<sp/>Vxm<sp/>/<sp/>2.0;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>omegapLVxm2<sp/>=<sp/>omegapL<sp/>-<sp/>Vxm2;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>Vleft<sp/><sp/>=<sp/>omegapLVxm2<sp/>-<sp/>sqrtVym2;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>Vback<sp/><sp/>=<sp/>omegapL<sp/>+<sp/>Vxm;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>Vright<sp/>=<sp/>omegapLVxm2<sp/>+<sp/>sqrtVym2;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Calculates<sp/>robot<sp/>velocity<sp/>in<sp/>reference<sp/>to<sp/>the<sp/>chasis<sp/>(no<sp/>angle)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>forwardKinematicsMobile()<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>Vleft3<sp/>=<sp/>Vleft<sp/>/<sp/>3.0;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>Vback3<sp/>=<sp/>Vback<sp/>/<sp/>3.0;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>Vright3<sp/>=<sp/>Vright<sp/>/<sp/>3.0;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>Vxm<sp/>=<sp/>(2<sp/>*<sp/>Vback3)<sp/>-<sp/>Vleft3<sp/>-<sp/>Vright3;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>Vym<sp/>=<sp/>(sqrt3<sp/>*<sp/>Vright3)<sp/>-<sp/>(sqrt3<sp/>*<sp/>Vleft3);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>omegap<sp/>=<sp/>(Vleft3<sp/>+<sp/>Vback3<sp/>+<sp/>Vright3)<sp/>/<sp/>L;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Calculates<sp/>robot<sp/>velocity<sp/>in<sp/>reference<sp/>to<sp/>the<sp/>course<sp/>(has<sp/>angle)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>forwardKinematicsWorld()<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>forwardKinematicsMobile();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>Vxw<sp/>=<sp/>(std::cos(theta)<sp/>*<sp/>Vxm)<sp/>-<sp/>(std::sin(theta)<sp/>*<sp/>Vym);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>Vyw<sp/>=<sp/>(std::cos(theta)<sp/>*<sp/>Vym)<sp/>+<sp/>(std::sin(theta)<sp/>*<sp/>Vxm);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Calculations<sp/>for<sp/>converting<sp/>encoders<sp/>to<sp/>wheel<sp/>speeds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>odometryCalculations(DigitalEncoder<sp/>backEncoder,<sp/>DigitalEncoder<sp/>leftEncoder,<sp/>DigitalEncoder<sp/>rightEncoder)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t_now<sp/>=<sp/>TimeNow();<sp/></highlight><highlight class="comment">//<sp/>Get<sp/>a<sp/>quick<sp/>time<sp/>(hopefully<sp/>not<sp/>too<sp/>fast...)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>t_elapsed<sp/>=<sp/>t_now<sp/>-<sp/>TimeNow();</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/>Vleft<sp/>=<sp/>(leftEncoder.Counts()<sp/>/<sp/>t_elapsed)<sp/>*<sp/>r;<sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>encoder<sp/>counts<sp/>to<sp/>average<sp/>speed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/>Vback<sp/>=<sp/>(backEncoder.Counts()<sp/>/<sp/>t_elapsed)<sp/>*<sp/>r;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/>Vright<sp/>=<sp/>(rightEncoder.Counts()<sp/>/<sp/>t_elapsed)<sp/>*<sp/>r;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/>theta<sp/>=<sp/>(double)RPS.Heading();<sp/></highlight><highlight class="comment">//<sp/>Get<sp/>heading/angle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/>xm<sp/>+=<sp/>Vxm<sp/>*<sp/>timeElapsed;<sp/></highlight><highlight class="comment">//<sp/>Get<sp/>new<sp/>position<sp/>relative<sp/>to<sp/>starting<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/>ym<sp/>+=<sp/>Vym<sp/>*<sp/>timeElapsed;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/>xw<sp/>+=<sp/>Vxw<sp/>*<sp/>timeElapsed;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/>yw<sp/>+=<sp/>Vyw<sp/>*<sp/>timeElapsed;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Move<sp/>robot<sp/>w/<sp/>pi<sp/>controller<sp/>relative<sp/>to<sp/>its<sp/>starting<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>pidMoveAbsolute(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>theta,<sp/>FEHMotor<sp/>backMotor,<sp/>FEHMotor<sp/>leftMotor,<sp/>FEHMotor<sp/>rightMotor,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DigitalEncoder<sp/>backEncoder,<sp/>DigitalEncoder<sp/>leftEncoder,<sp/>DigitalEncoder<sp/>rightEncoder)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//bool<sp/>done<sp/>=<sp/>false;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>xTarget<sp/>=<sp/>x-RPS.X();<sp/></highlight><highlight class="comment">//<sp/>Hopefully<sp/>it<sp/>can<sp/>handle<sp/>negative<sp/>vals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>yTarget<sp/>=<sp/>y-RPS.Y();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>thetaTarget<sp/>=<sp/>theta;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(</highlight><highlight class="keyword">true</highlight><highlight class="normal">)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>hopefully<sp/>it&apos;ll<sp/>exit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>odometryCalculations(backEncoder,<sp/>leftEncoder,<sp/>rightEncoder);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xError<sp/>=<sp/>xTarget<sp/>-<sp/>RPS.X();</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yError<sp/>=<sp/>yTarget<sp/>-<sp/>RPS.Y();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>thetaError<sp/>=<sp/>M_PI<sp/>-<sp/>normalizeRadian(theta<sp/>+<sp/>M_PI<sp/>-<sp/>thetaTarget);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(isStopPose())<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>backMotor.Stop();</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>leftMotor.Stop();</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rightMotor.Stop();</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xErrorI<sp/>+=<sp/>xError;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>yErrorI<sp/>+=<sp/>yError;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>thetaErrorI<sp/>+=<sp/>thetaError;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vxm<sp/>=<sp/>(xError<sp/>*<sp/>P)<sp/>+<sp/>(xErrorI<sp/>*<sp/>I);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vym<sp/>=<sp/>(yError<sp/>*<sp/>P)<sp/>+<sp/>(yErrorI<sp/>*<sp/>I);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VxAbs<sp/>=<sp/>std::abs(Vxm);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VyAbs<sp/>=<sp/>std::abs(Vym);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VxAbs<sp/>&gt;<sp/>Vmax)<sp/>||<sp/>(VyAbs<sp/>&gt;<sp/>Vmax))<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scale<sp/>=<sp/>Vmax<sp/>/<sp/>((VxAbs<sp/>&gt;<sp/>VyAbs)<sp/>?<sp/>VxAbs<sp/>:<sp/>VyAbs);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vxm<sp/>*=<sp/>scale;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vym<sp/>*=<sp/>scale;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>omegap<sp/>=<sp/>(thetaError<sp/>*<sp/>P)<sp/>+<sp/>(thetaErrorI<sp/>*<sp/>I);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(omegap<sp/>&gt;<sp/>omegamax)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>omegap<sp/>=<sp/>omegamax;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>inverseKinematicsMobile();</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="178"><highlight class="comment">int<sp/>main(void)</highlight></codeline>
+<codeline lineno="179"><highlight class="comment">{</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/>double<sp/>t_now;</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/>t_now<sp/>=<sp/>TimeNow();</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Init<sp/>motors</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/>FEHMotor<sp/>backMotor(FEHMotor::Motor0,<sp/>9.0);</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/>FEHMotor<sp/>leftMotor(FEHMotor::Motor1,<sp/>9.0);</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/>FEHMotor<sp/>rightMotor(FEHMotor::Motor2,<sp/>9.0);</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"></highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Init<sp/>encoders</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/><sp/><sp/><sp/>DigitalEncoder<sp/>backEncoder(FEHIO::P0_0);</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/><sp/><sp/><sp/>DigitalEncoder<sp/>leftEncoder(FEHIO::P0_1);</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/>DigitalEncoder<sp/>rightEncoder(FEHIO::P0_2);</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/>backEncoder.ResetCounts();</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/>leftEncoder.ResetCounts();</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/>rightEncoder.ResetCounts();</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"></highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Init<sp/>RPS</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/><sp/><sp/>RPS.InitializeTouchMenu();</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"></highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/>pidMoveAbsolute(20,<sp/>20,<sp/>20,<sp/>backMotor,<sp/>leftMotor,<sp/>rightMotor,<sp/>backEncoder,<sp/>leftEncoder,<sp/>rightEncoder);</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"></highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline lineno="201"><highlight class="comment">}</highlight></codeline>
+<codeline lineno="202"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/pid2.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="classsimplemovement" kind="class" language="C++" prot="public">
+    <compoundname>simplemovement</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classsimplemovement_1a459c56a061333f1add84f7d36463f355" prot="private" static="no" mutable="no">
+        <type>FEHMotor</type>
+        <definition>FEHMotor simplemovement::motor1</definition>
+        <argsstring></argsstring>
+        <name>motor1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="24" column="14" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimplemovement_1a90485afca136e70602e6e4783ba5ec80" prot="private" static="no" mutable="no">
+        <type>FEHMotor</type>
+        <definition>FEHMotor simplemovement::motor2</definition>
+        <argsstring></argsstring>
+        <name>motor2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="25" column="14" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimplemovement_1ad217249b628e1be2293da9bfb4e45d7e" prot="private" static="no" mutable="no">
+        <type>FEHMotor</type>
+        <definition>FEHMotor simplemovement::motor3</definition>
+        <argsstring></argsstring>
+        <name>motor3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="26" column="14" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimplemovement_1aadeab53894777519efa4f89c61ed71b8" prot="private" static="no" mutable="no">
+        <type>DigitalEncoder</type>
+        <definition>DigitalEncoder simplemovement::motor_encoder_1</definition>
+        <argsstring></argsstring>
+        <name>motor_encoder_1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="27" column="20" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimplemovement_1a57fbe8861ef39088de72091844c1d1c7" prot="private" static="no" mutable="no">
+        <type>DigitalEncoder</type>
+        <definition>DigitalEncoder simplemovement::motor_encoder_2</definition>
+        <argsstring></argsstring>
+        <name>motor_encoder_2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="28" column="20" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsimplemovement_1a349a8c8b57808fd6107e04ccca541e1e" prot="private" static="no" mutable="no">
+        <type>DigitalEncoder</type>
+        <definition>DigitalEncoder simplemovement::motor_encoder_3</definition>
+        <argsstring></argsstring>
+        <name>motor_encoder_3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="29" column="20" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsimplemovement_1a737fa8b7abbd550876e271c8268ce7a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>simplemovement::simplemovement</definition>
+        <argsstring>(FEHMotor m1, FEHMotor m2, FEHMotor m3, DigitalEncoder e1, DigitalEncoder e2, DigitalEncoder e3)</argsstring>
+        <name>simplemovement</name>
+        <param>
+          <type>FEHMotor</type>
+          <declname>m1</declname>
+        </param>
+        <param>
+          <type>FEHMotor</type>
+          <declname>m2</declname>
+        </param>
+        <param>
+          <type>FEHMotor</type>
+          <declname>m3</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type>DigitalEncoder</type>
+          <declname>e3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="15" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1a2713f318ad5668a2a76e664d57116b17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::allStop</definition>
+        <argsstring>()</argsstring>
+        <name>allStop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="16" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1a9011aa0bacb8eb88c6fdeecdfc1e5d42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::moveForward</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>moveForward</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="17" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1a518c4d63797e889e04cbfbb1029dd713" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::moveBackward</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>moveBackward</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="18" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1a48a7b87665c20c9412eacea8efac72e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::moveRight</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>moveRight</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="19" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1aac148063ef0395190f72b75263cf91c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::moveLeft</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>moveLeft</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="20" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1a301fc11b4cd3d5d57741fcf51d379e98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::spinClockwise</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>spinClockwise</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="21" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classsimplemovement_1ad522f8d0d2af65ba27f5ed3d80808aea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void simplemovement::spinCounterClockwise</definition>
+        <argsstring>(int power, int counts)</argsstring>
+        <name>spinCounterClockwise</name>
+        <param>
+          <type>int</type>
+          <declname>power</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>counts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="22" column="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" line="13" column="1" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/simplemovement.h" bodystart="12" bodyend="30"/>
+    <listofallmembers>
+      <member refid="classsimplemovement_1a2713f318ad5668a2a76e664d57116b17" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>allStop</name></member>
+      <member refid="classsimplemovement_1a459c56a061333f1add84f7d36463f355" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor1</name></member>
+      <member refid="classsimplemovement_1a90485afca136e70602e6e4783ba5ec80" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor2</name></member>
+      <member refid="classsimplemovement_1ad217249b628e1be2293da9bfb4e45d7e" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor3</name></member>
+      <member refid="classsimplemovement_1aadeab53894777519efa4f89c61ed71b8" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor_encoder_1</name></member>
+      <member refid="classsimplemovement_1a57fbe8861ef39088de72091844c1d1c7" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor_encoder_2</name></member>
+      <member refid="classsimplemovement_1a349a8c8b57808fd6107e04ccca541e1e" prot="private" virt="non-virtual"><scope>simplemovement</scope><name>motor_encoder_3</name></member>
+      <member refid="classsimplemovement_1a518c4d63797e889e04cbfbb1029dd713" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>moveBackward</name></member>
+      <member refid="classsimplemovement_1a9011aa0bacb8eb88c6fdeecdfc1e5d42" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>moveForward</name></member>
+      <member refid="classsimplemovement_1aac148063ef0395190f72b75263cf91c9" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>moveLeft</name></member>
+      <member refid="classsimplemovement_1a48a7b87665c20c9412eacea8efac72e5" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>moveRight</name></member>
+      <member refid="classsimplemovement_1a737fa8b7abbd550876e271c8268ce7a8" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>simplemovement</name></member>
+      <member refid="classsimplemovement_1a301fc11b4cd3d5d57741fcf51d379e98" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>spinClockwise</name></member>
+      <member refid="classsimplemovement_1ad522f8d0d2af65ba27f5ed3d80808aea" prot="public" virt="non-virtual"><scope>simplemovement</scope><name>spinCounterClockwise</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
