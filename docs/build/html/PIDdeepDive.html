@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to Team E3’s Robot’s documentation! &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
+  <title>PID Deep Dive &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
   
 
   
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="PID Deep Dive" href="PIDdeepDive.html" /> 
+    <link rel="next" title="Performance Tasks" href="perfTasks/index.html" />
+    <link rel="prev" title="Welcome to Team E3’s Robot’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -49,7 +50,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> Team E3's Robot
+            <a href="index.html" class="icon icon-home"> Team E3's Robot
           
 
           
@@ -80,8 +81,8 @@
             
             
               <p class="caption"><span class="caption-text">PID Deep Dive</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html">PID Deep Dive</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PID Deep Dive</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
@@ -118,7 +119,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Team E3's Robot</a>
+          <a href="index.html">Team E3's Robot</a>
         
       </nav>
 
@@ -147,15 +148,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Welcome to Team E3’s Robot’s documentation!</li>
+      <li>PID Deep Dive</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/PIDdeepDive.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -168,53 +169,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-team-e3-s-robot-s-documentation">
-<h1>Welcome to Team E3’s Robot’s documentation!<a class="headerlink" href="#welcome-to-team-e3-s-robot-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound" id="pid">
-<p class="caption"><span class="caption-text">PID Deep Dive</span><a class="headerlink" href="#pid" title="Permalink to this toctree">¶</a></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html">PID Deep Dive</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Performance tasks</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="perfTasks/index.html">Performance Tasks</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Function reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a></li>
-</ul>
-</div>
-<dl class="function">
-<dt id="_CPPv49PIDMoveToPcib">
-<span id="_CPPv39PIDMoveToPcib"></span><span id="_CPPv29PIDMoveToPcib"></span><span id="PIDMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a5df7032b6ea536922700cc132d3d2702"></span>void <code class="sig-name descname">PIDMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49PIDMoveToPcib" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><p>This is some funky non-xml compliant text: &lt;&amp; !&gt;&lt;</p>
+  <div class="section" id="pid-deep-dive">
+<h1>PID Deep Dive<a class="headerlink" href="#pid-deep-dive" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This reStructuredText has been handled correctly.</p>
+<p>this is a work in progress</p>
 </div>
- <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">test</span> <span class="n">code</span>
-<span class="p">}</span>
-</pre></div>
-</div>
- Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">fName</span></code>: the file name of trajectory profile. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the number of lines/commands in trajectory profile. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">preload</span></code>: If true, the file will be preloaded and won’t start until the start light turns on. </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
 </div>
 
 
@@ -225,8 +185,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="PIDdeepDive.html" class="btn btn-neutral float-right" title="PID Deep Dive" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="perfTasks/index.html" class="btn btn-neutral float-right" title="Performance Tasks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Team E3’s Robot’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

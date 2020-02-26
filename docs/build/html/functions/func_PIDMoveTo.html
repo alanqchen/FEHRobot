@@ -80,12 +80,25 @@
               
             
             
-              <p class="caption"><span class="caption-text">Function reference</span></p>
+              <p class="caption"><span class="caption-text">PID Deep Dive</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../PIDdeepDive.html">PID Deep Dive</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Performance tasks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../perfTasks/index.html">Performance Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_1.html">Performance Task 1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_1.html#code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Function reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">PIDMoveTo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#description">Description</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-example">Working Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a></li>
 </ul>
 </li>
@@ -159,7 +172,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pidmoveto">
-<span id="class-animatedsprite3d"></span><h1>PIDMoveTo<a class="headerlink" href="#pidmoveto" title="Permalink to this headline">¶</a></h1>
+<h1>PIDMoveTo<a class="headerlink" href="#pidmoveto" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="_CPPv49PIDMoveToPcib">
 <span id="_CPPv39PIDMoveToPcib"></span><span id="_CPPv29PIDMoveToPcib"></span><span id="PIDMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a5df7032b6ea536922700cc132d3d2702"></span>void <code class="sig-name descname">PIDMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><br /></dt>
@@ -185,16 +198,13 @@
 </p>
 </dd></dl>
 
-<div class="section" id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p>Animations are created using a <span class="xref std std-ref">SpriteFrames</span> resource, which can be configured in the editor via the SpriteFrames panel.</p>
-</div>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<ul class="simple" id="class-animatedsprite3d-method-is-playing">
-<li><p><span class="xref std std-ref">bool</span> <strong>is_playing</strong> <strong>(</strong> <strong>)</strong> const</p></li>
-</ul>
-<p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> if an animation is currently being played.</p>
+<div class="section" id="working-example">
+<h2>Working Example<a class="headerlink" href="#working-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
 <hr class="docutils" />
 <ul class="simple" id="class-animatedsprite3d-method-play">
 <li><p>void <strong>play</strong> <strong>(</strong> <span class="xref std std-ref">String</span> anim=”” <strong>)</strong></p></li>
@@ -215,7 +225,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><span class="xref std std-ref">bool</span></p></td>
-<td><p><a class="reference internal" href="#class-animatedsprite3d-method-is-playing"><span class="std std-ref">is_playing</span></a> <strong>(</strong> <strong>)</strong> const</p></td>
+<td><p><span class="xref std std-ref">is_playing</span> <strong>(</strong> <strong>)</strong> const</p></td>
 </tr>
 <tr class="row-even"><td><p>void</p></td>
 <td><p><a class="reference internal" href="#class-animatedsprite3d-method-play"><span class="std std-ref">play</span></a> <strong>(</strong> <span class="xref std std-ref">String</span> anim=”” <strong>)</strong></p></td>

@@ -8,7 +8,7 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="normal"><sp/><sp/><sp/>text<sp/><sp/><sp/><sp/>data<sp/><sp/><sp/><sp/><sp/>bss<sp/><sp/><sp/><sp/><sp/>dec<sp/><sp/><sp/><sp/><sp/>hex<sp/>filename</highlight></codeline>
-<codeline lineno="2"><highlight class="normal"><sp/>122440<sp/><sp/><sp/><sp/>5844<sp/><sp/><sp/><sp/>9996<sp/><sp/>138280<sp/><sp/><sp/>21c28<sp/>../FEHRobot.elf</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/>122672<sp/><sp/><sp/><sp/>5844<sp/><sp/><sp/><sp/>9996<sp/><sp/>138512<sp/><sp/><sp/>21d10<sp/>../FEHRobot.elf</highlight></codeline>
     </programlisting>
     <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/size.txt"/>
   </compounddef>

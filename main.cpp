@@ -486,7 +486,7 @@ void moveForward(float percent, float inch) {
 
 }
 
-void startMoveToJukeBoxAndRamp() {
+void performance1() {
     moveForward(25, 18);
     allStop();
     // Read Cds Cell

@@ -10,8 +10,18 @@ Welcome to Team E3's Robot's documentation!
    :maxdepth: 1
    :caption: Contents:
 
-.. doxygenfunction:: PIDMoveTo
-   :project: FEHRobot
+.. toctree::
+   :maxdepth: 1
+   :caption: PID Deep Dive
+   :name: PID
+
+   PIDdeepDive
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Performance tasks
+
+   perfTasks/index
 
 .. toctree::
    :maxdepth: 1
@@ -19,6 +29,8 @@ Welcome to Team E3's Robot's documentation!
 
    functions/index
 
+.. doxygenfunction:: PIDMoveTo
+   :project: FEHRobot
 
 .. Indices and tables
 .. ------------------

@@ -4,19 +4,15 @@ PIDMoveTo
 .. doxygenfunction:: PIDMoveTo
    :project: FEHRobot
 
-Description
------------
 
-Animations are created using a :ref:`SpriteFrames<class_SpriteFrames>` resource, which can be configured in the editor via the SpriteFrames panel.
-
-Parameters
+Working Example
 -------------------
 
-.. _class_AnimatedSprite3D_method_is_playing:
+.. code-block:: c++
+   :linenos:
 
-- :ref:`bool<class_bool>` **is_playing** **(** **)** const
-
-Returns ``true`` if an animation is currently being played.
+   int main() {
+   }
 
 ----
 

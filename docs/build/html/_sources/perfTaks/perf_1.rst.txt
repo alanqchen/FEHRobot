@@ -1,0 +1,15 @@
+Performance Task 1
+==================
+
+.. note::
+   This is a work in progress
+
+Code
+----
+.. code-block:: c++
+   :linenos:
+
+.. doxygenfunction:: performance1
+   :project: FEHRobot
+
+----

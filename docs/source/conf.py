@@ -23,6 +23,7 @@ breathe_show_define_initializer = True
 # FOR THOSE LOOKING AT THIS IN THE FUTURE, THE LINE BELOW IS DANGEROUS!
 # (ONLY HAVE BREATHE IGNORE .h FILES IF YOU ONLY HAVE GLOBAL FUNCTIONS)
 breathe_implementation_filename_extensions = ['.h']
+#html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 
 
 
@@ -41,7 +42,7 @@ release = '0.8.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [ "breathe", 'sphinx.ext.pngmath']
+extensions = [ "breathe", 'sphinx.ext.imgmath']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
