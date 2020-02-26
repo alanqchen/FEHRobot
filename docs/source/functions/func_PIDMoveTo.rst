@@ -1,5 +1,3 @@
-.. _class_AnimatedSprite3D:
-
 PIDMoveTo
 ================
 
