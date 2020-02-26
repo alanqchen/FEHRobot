@@ -10,9 +10,8 @@ Welcome to Team E3's Robot's documentation!
    :maxdepth: 1
    :caption: Contents:
 
-.. doxygenfile:: main.cpp
+.. doxygenfunction:: PIDMoveTo
    :project: FEHRobot
-
 
 .. toctree::
    :maxdepth: 1

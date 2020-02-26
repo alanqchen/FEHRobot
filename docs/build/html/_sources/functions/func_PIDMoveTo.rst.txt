@@ -3,7 +3,8 @@
 PIDMoveTo
 ================
 
-Moves to a point.
+.. doxygenfunction:: PIDMoveTo
+   :project: FEHRobot
 
 Description
 -----------

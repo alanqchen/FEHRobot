@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="allStop" href="func_allStop.html" />
     <link rel="prev" title="Functions" href="index.html" /> 
 </head>
 
@@ -88,6 +89,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="func_allStop.html">allStop</a></li>
 </ul>
 </li>
 </ul>
@@ -158,7 +160,31 @@
             
   <div class="section" id="pidmoveto">
 <span id="class-animatedsprite3d"></span><h1>PIDMoveTo<a class="headerlink" href="#pidmoveto" title="Permalink to this headline">¶</a></h1>
-<p>Moves to a point.</p>
+<dl class="function">
+<dt id="_CPPv49PIDMoveToPcib">
+<span id="_CPPv39PIDMoveToPcib"></span><span id="_CPPv29PIDMoveToPcib"></span><span id="PIDMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a5df7032b6ea536922700cc132d3d2702"></span>void <code class="sig-name descname">PIDMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><br /></dt>
+<dd><p><p>This is some funky non-xml compliant text: &lt;&amp; !&gt;&lt;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This reStructuredText has been handled correctly.</p>
+</div>
+ <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">test</span> <span class="n">code</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+ Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fName</span></code>: the file name of trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the number of lines/commands in trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preload</span></code>: If true, the file will be preloaded and won’t start until the start light turns on. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
 <p>Animations are created using a <span class="xref std std-ref">SpriteFrames</span> resource, which can be configured in the editor via the SpriteFrames panel.</p>
@@ -209,6 +235,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="func_allStop.html" class="btn btn-neutral float-right" title="allStop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

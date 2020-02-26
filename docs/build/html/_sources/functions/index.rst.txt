@@ -3,7 +3,7 @@ Functions
 
 .. toctree::
    :maxdepth: 1
-   :name: toc-class-ref
+   :name: toc-func-ref
    :glob:
 
    func_*

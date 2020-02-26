@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Team<sp/>E3&apos;s<sp/>Code</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[Code<sp/>Documentation](https://fehrobot.readthedocs.io/)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[![Documentation<sp/>Status](https://readthedocs.org/projects/fehrobot/badge/?version=latest)](https://fehrobot.readthedocs.io/en/latest/?badge=latest)</highlight></codeline>
+    </programlisting>
+    <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/README.md"/>
+  </compounddef>
+</doxygen>

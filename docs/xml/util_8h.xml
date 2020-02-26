@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="util_8h" kind="file" language="C++">
+    <compoundname>util.h</compoundname>
+    <includedby refid="main_8cpp" local="yes">/Users/aqchen/Documents/OSU/1282/FEHRobot/main.cpp</includedby>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="util_8h_1a5df7032b6ea536922700cc132d3d2702" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PIDMoveTo</definition>
+        <argsstring>(char *fName, int size, bool preload)</argsstring>
+        <name>PIDMoveTo</name>
+        <param>
+          <type>char *</type>
+          <declname>fName</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>preload</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the file name of trajectory profile. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of lines/commands in trajectory profile. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>preload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If true, the file will be preloaded and won&apos;t start until the start light turns on. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/util.h" line="17" column="6" bodyfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/main.cpp" bodystart="151" bodyend="344" declfile="/Users/aqchen/Documents/OSU/1282/FEHRobot/util.h" declline="17" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="17"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PIDMoveTo(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fName,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>preload);</highlight></codeline>
+    </programlisting>
+    <location file="/Users/aqchen/Documents/OSU/1282/FEHRobot/util.h"/>
+  </compounddef>
+</doxygen>

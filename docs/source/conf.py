@@ -13,9 +13,18 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
 
 breathe_projects = { "FEHRobot": "../xml" }
 breathe_default_project = "FEHRobot"
+breathe_show_define_initializer = True
+
+# FOR THOSE LOOKING AT THIS IN THE FUTURE, THE LINE BELOW IS DANGEROUS!
+# (ONLY HAVE BREATHE IGNORE .h FILES IF YOU ONLY HAVE GLOBAL FUNCTIONS)
+breathe_implementation_filename_extensions = ['.h']
+
+
 
 # -- Project information -----------------------------------------------------
 

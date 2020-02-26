@@ -138,6 +138,8 @@
   </compound>
   <compound refid="pid2_8d" kind="file"><name>pid2.d</name>
   </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
   <compound refid="simplemovement_8cpp" kind="file"><name>simplemovement.cpp</name>
   </compound>
   <compound refid="simplemovement_8d" kind="file"><name>simplemovement.d</name>
@@ -145,5 +147,7 @@
   <compound refid="simplemovement_8h" kind="file"><name>simplemovement.h</name>
   </compound>
   <compound refid="size_8txt" kind="file"><name>size.txt</name>
+  </compound>
+  <compound refid="md___users_aqchen__documents__o_s_u_1282__f_e_h_robot__r_e_a_d_m_e" kind="page"><name>md__Users_aqchen_Documents_OSU_1282_FEHRobot_README</name>
   </compound>
 </doxygenindex>

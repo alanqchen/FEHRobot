@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.17">
+  <compounddef id="md___users_aqchen__documents__o_s_u_1282__f_e_h_robot__r_e_a_d_m_e" kind="page">
+    <compoundname>md__Users_aqchen_Documents_OSU_1282_FEHRobot_README</compoundname>
+    <title>Team E3&apos;s Code</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ulink url="https://fehrobot.readthedocs.io/">Code Documentation</ulink></para>
+<para><ulink url="https://fehrobot.readthedocs.io/en/latest/?badge=latest"><image type="html" name="?version=latest" inline="yes"></image>
+</ulink> </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
