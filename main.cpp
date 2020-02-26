@@ -8,7 +8,6 @@
 #include <FEHSD.h>
 #include <math.h>
 #include <string>
-#include "util.h"
 
 #define MOTOR_ANGLE_1 0.0*M_PI/180.0
 #define MOTOR_ANGLE_2 120*M_PI/180.0
@@ -19,7 +18,7 @@
 #define R 0.11176
 #define r 0.03429
 #define COUNTS_PER_INCH 35
-#define MARGIN_ERROR 0.1
+#define ERROR_MARGIN 0.5
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
@@ -132,6 +131,20 @@ float countsToRadDisp(int newCount, int old) {
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
 }
 
+void rotateCC(float percent, int degree) {
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(InvPercent(percent));
+    motor2.SetPercent(InvPercent(percent));
+    motor3.SetPercent(InvPercent(percent));
+
+    while((motor1_encoder.Counts() + motor2_encoder.Counts()+ motor3_encoder.Counts())/3< 2.69420*degree);
+    allStop();
+
+}
+
+
 int getCdsColor() {
     // Red
     if(CdS_cell.Value() < 1 ) {
@@ -166,9 +179,9 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
                 currError *= -1;
                 currError = 360 - currError;
             }
-            oldErr = currError;
+            oldError = currError;
             // Check if overshoot
-            if(currError - oldErr > 0) {
+            if(currError - oldError > 0) {
                 break;
             }
             rotateCC(25, 0.1);
@@ -178,13 +191,13 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
         // Turn clockwise
         currError = 360.0 - finalHeading + initHeading;
         while(currError < ERROR_MARGIN) {
-            oldErr = currError;
+            oldError = currError;
             // Check if overshoot
             if(currError > 0) {
                 break;
             }
             rotateCC(-25, 0.1);
-            currError = RPS.Heading - finalHeading;
+            currError = RPS.Heading() - finalHeading;
         }
     }
 }
@@ -413,19 +426,6 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     SD.FClose(fOutVelptr);
 }
 
-void rotateCC(float percent, int degree) {
-    motor1_encoder.ResetCounts();
-    motor2_encoder.ResetCounts();
-    motor3_encoder.ResetCounts();
-    motor1.SetPercent(InvPercent(percent));
-    motor2.SetPercent(InvPercent(percent));
-    motor3.SetPercent(InvPercent(percent));
-
-    while((motor1_encoder.Counts() + motor2_encoder.Counts()+ motor3_encoder.Counts())/3< 2.69420*degree);
-    allStop();
-
-}
-
 void moveForward(float percent, float inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -643,9 +643,10 @@ int main(void)
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     //PIDMoveTo("90Med.txt", 41, false);
-    RPS.InitializeTouchMenu();
-    actual();
 
+    //RPS.InitializeTouchMenu();
+    //actual();
+    performance3();
 
 
     return 0;
