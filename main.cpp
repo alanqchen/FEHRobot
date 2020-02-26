@@ -8,6 +8,7 @@
 #include <FEHSD.h>
 #include <math.h>
 #include <string>
+#include "util.h"
 
 #define MOTOR_ANGLE_1 0.0*M_PI/180.0
 #define MOTOR_ANGLE_2 120*M_PI/180.0
@@ -18,7 +19,8 @@
 #define R 0.11176
 #define r 0.03429
 #define COUNTS_PER_INCH 35
-#define ERROR_MARGIN 0.5
+#define ERROR_MARGIN 5
+#define DIST_ERROR_MARGIN 0.2
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
@@ -40,6 +42,11 @@ float errorCurr3 = 0.0;
 
 float InvPercent(float percent) {
     return percent * -1.0;
+}
+
+// convert degrees from RPS to radian
+float degreeToRadian(float degree) {
+    return degree * M_PI/180.0;
 }
 
 // Stops all motors
@@ -131,20 +138,6 @@ float countsToRadDisp(int newCount, int old) {
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
 }
 
-void rotateCC(float percent, int degree) {
-    motor1_encoder.ResetCounts();
-    motor2_encoder.ResetCounts();
-    motor3_encoder.ResetCounts();
-    motor1.SetPercent(InvPercent(percent));
-    motor2.SetPercent(InvPercent(percent));
-    motor3.SetPercent(InvPercent(percent));
-
-    while((motor1_encoder.Counts() + motor2_encoder.Counts()+ motor3_encoder.Counts())/3< 2.69420*degree);
-    allStop();
-
-}
-
-
 int getCdsColor() {
     // Red
     if(CdS_cell.Value() < 1 ) {
@@ -168,37 +161,79 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
         boundaryHeading -= 360.0;
     }
     float currError;
+    float currHeading;
     
     // Fix heading
     if(boundaryHeading - initHeading > 0) {
+        currHeading = RPS.Heading();
+        while(!(currHeading > finalHeading - ERROR_MARGIN && currHeading < finalHeading + ERROR_MARGIN)) {
+            //oldError = currError;
+            rotateCC(25, 0.1);
+            Sleep(100);
+            allStop();
+            //currError = finalHeading - (RPS.Heading() + initHeading);
+            // Check if overshoot
+            //if(currError - oldError > 0) {
+            //    break;
+            //}
+        }
+
         // Turn counter-clockwise
-        
+        // Normalize headings
+        /*
+        float diff = 360 - initHeading;
+        finalHeading += diff;
+        initHeading = 0;
+        //initHeading = 360.0;
+        currError = finalHeading;
         while(currError > ERROR_MARGIN) {
-            currError = finalHeading - initHeading;
-            if(currError < 0) {
-                currError *= -1;
-                currError = 360 - currError;
-            }
             oldError = currError;
+            rotateCC(25, 0.1);
+            Sleep(100);
+            allStop();
+            currError = finalHeading - (RPS.Heading() + initHeading);
             // Check if overshoot
             if(currError - oldError > 0) {
                 break;
             }
-            rotateCC(25, 0.1);
-            currError = RPS.Heading() - finalHeading;
         }
+        */
     } else {
         // Turn clockwise
-        currError = 360.0 - finalHeading + initHeading;
-        while(currError < ERROR_MARGIN) {
-            oldError = currError;
-            // Check if overshoot
-            if(currError > 0) {
-                break;
-            }
+        currHeading = RPS.Heading();
+        while(!(currHeading > finalHeading - ERROR_MARGIN && currHeading < finalHeading + ERROR_MARGIN)) {
+            //oldError = currError;
             rotateCC(-25, 0.1);
-            currError = RPS.Heading() - finalHeading;
+            Sleep(100);
+            allStop();
+            //currError = finalHeading - (RPS.Heading() + initHeading);
+            // Check if overshoot
+            //if(currError - oldError > 0) {
+            //    break;
+            //}
         }
+    }
+    // Calculate slope of perpindicular line
+    float xSlope = tan(degreeToRadian(finalHeading));
+    float ySlope = 1.0/xSlope;
+    float posX = RPS.X();
+    float posY = RPS.Y();
+    while(!((posY - finalY)/(posX - finalX) > ySlope - DIST_ERROR_MARGIN && (posY - finalY)/(posX - finalX) < ySlope + DIST_ERROR_MARGIN)) {
+        if(posX - finalX < 0) {
+            PIDMoveTo("corrX.txt", 2, false);
+        } else {
+            PIDMoveTo("nCorrX.txt", 2, false);
+        }
+        posX = RPS.X();
+        posY = RPS.Y();
+    }
+    while(!(posY > finalY - DIST_ERROR_MARGIN && posY < finalY + DIST_ERROR_MARGIN)) {
+        if(posY - finalY > 0) {
+            forward12(-20.0, .1);
+        } else {
+            forward12(20.0, .1);
+        }
+        posY = RPS.Y();
     }
 }
 
@@ -426,6 +461,19 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     SD.FClose(fOutVelptr);
 }
 
+void rotateCC(float percent, int degree) {
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(InvPercent(percent));
+    motor2.SetPercent(InvPercent(percent));
+    motor3.SetPercent(InvPercent(percent));
+
+    while((motor1_encoder.Counts() + motor2_encoder.Counts()+ motor3_encoder.Counts())/3< 2.69420*degree);
+    allStop();
+
+}
+
 void moveForward(float percent, float inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -643,10 +691,9 @@ int main(void)
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     //PIDMoveTo("90Med.txt", 41, false);
-
     //RPS.InitializeTouchMenu();
     //actual();
-    performance3();
+    RPSCorrectError(21, 53.3, 0);
 
 
     return 0;
