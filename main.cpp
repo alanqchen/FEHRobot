@@ -147,7 +147,7 @@ int getCdsColor() {
 }
 
 // TODO: Change name to PIMoveTO
-/* PIDMoveTO
+/*! PIDMoveTo
  * Uses a PI controller to move the robot using a trajectory profile as the reference data.
  *  The passed in trajectory profile should have 6 columns. The first 3 are the total angular
  *  displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular
@@ -159,10 +159,9 @@ int getCdsColor() {
  *  angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to
  *  convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.
  *
- * Parameters:
- *  fName - file name of trajectory profile  
- *  size - number of lines/commands in trajectory profile
- *  preload - If true, the file will be preloaded and won't start until the start light turns on
+ *  @param fName the file name of trajectory profile.
+ *  @param size the number of lines/commands in trajectory profile.
+ *  @param preload if true, the file will be preloaded and won't start until the start light turns on.
  */
 void PIDMoveTo(char* fName, int size, bool preload) {
     //float xMeters = inchestoMeters(x);
@@ -193,16 +192,12 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     float errorTotal2 = 0.0;
     float errorTotal3 = 0.0;
     float Kp = 20.0;
-    float Ki = 0.0                 ;
+    float Ki = 2.0;
     float Kd = 0.0;
     float pidMarginError = 0.1; // in inches
     // might remove this
     bool setup = true;
     
-    /* Reset encoder counts */
-    motor1_encoder.ResetCounts();
-    motor2_encoder.ResetCounts();
-    motor3_encoder.ResetCounts();
 
 
     //int len = fName.length();
@@ -252,7 +247,10 @@ void PIDMoveTo(char* fName, int size, bool preload) {
         LCD.Clear(FEHLCD::Green);
         while(getCdsColor() == 0); // wait until a light turns on
     }
-    
+    /* Reset encoder counts */
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
     /* PI LOOP */
     // Yes, not PID as the derivative term isn't needed currently
     for (int i = 0; i < size; i++) {
@@ -332,13 +330,13 @@ void PIDMoveTo(char* fName, int size, bool preload) {
         motorSpeed3 = Kp * errorCurr3 + Ki * DELTA_T * (errorTotal3);
 
         /* Use the reference velocities to determine if motor speed should change signs */
-        if(vel_ref[0][i] < 0.0) {
+        if(vel_ref[0][i] < 0.0 || (errorCurr1 < 0 && motorSpeed1 < 0)) {
             motorSpeed1 *= -1.0;
         }
-        if(vel_ref[1][i] < 0.0) {
+        if(vel_ref[1][i] < 0.0 || (errorCurr2 < 0 && motorSpeed2 < 0)) {
             motorSpeed2 *= -1.0;
         }
-        if(vel_ref[2][i] < 0.0) {
+        if(vel_ref[2][i] < 0.0 || (errorCurr3 < 0 && motorSpeed3 < 0)) {
             motorSpeed3 *= -1.0;
         }
 
@@ -521,21 +519,7 @@ void performance2() {
     forward12(-25, 23);
 }
 
-int main(void)
-{
-
-    jukebox_servo.SetMin(700);
-    jukebox_servo.SetMax(2380);
-    arm_servo.SetMin(508);
-    arm_servo.SetMax(2464);
-    arm_servo.SetDegree(65);
-    jukebox_servo.SetDegree(5.0);
-    motor1_encoder.ResetCounts();
-    motor2_encoder.ResetCounts();
-    motor3_encoder.ResetCounts();
-
-    while(getCdsColor() == 0);
-
+void performance3() {
     // to center of ramp
     PIDMoveTo("start1.txt", 31, true);
 
@@ -543,20 +527,23 @@ int main(void)
     PIDMoveTo("mR34.txt", 31, false);
 
     //east to wall
-    forward12(-25, 15);
+    forward12(-25, 17);
 
     //west off wall
-    forward12(25, 1.5);
+    //forward12(25, 1.5);
+    forward12(25, .75);
 
     //rotate towards burger
-    rotateCC(25, 23);
+    rotateCC(25, 22);
+    //PIDMoveTo("ss.txt", 6, false);
 
     arm_servo.SetDegree(0);
 
     //north towards burger
-    forward31(25, 8);
-
-    arm_servo.SetDegree(50);
+    forward31(25, 8.1);
+    // back off from burger
+    forward31(-25, .15);
+    arm_servo.SetDegree(55);
     Sleep(1.5);
     arm_servo.SetDegree(0);
     Sleep(1.5);
@@ -575,6 +562,34 @@ int main(void)
     arm_servo.SetDegree(40);
     Sleep(1.5);
     arm_servo.SetDegree(70);
+}
+
+void actual() {
+    PIDMoveTo("toJL.txt", 21, true);
+    int cdsValue = getCdsColor();
+    if(cdsValue == 2) {
+        PIDMoveTo("toRed.txt", 61, false);
+    } else if(cdsValue == 1) {
+        PIDMoveTo("toBlue.txt", 31, false);
+    }
+}
+
+int main(void)
+{
+
+    jukebox_servo.SetMin(700);
+    jukebox_servo.SetMax(2380);
+    arm_servo.SetMin(508);
+    arm_servo.SetMax(2464);
+    arm_servo.SetDegree(65);
+    jukebox_servo.SetDegree(5.0);
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    //PIDMoveTo("90Med.txt", 41, false);
+    actual();
+
+
 
     return 0;
 }
