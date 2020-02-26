@@ -148,7 +148,6 @@ int getCdsColor() {
 }
 
 // TODO: Change name to PIMoveTO
-<<<<<<< HEAD
 /*! 
 \rst
 
@@ -177,23 +176,6 @@ convert the angular speeds to percent and limit them within operating range, and
  @param fName the file name of trajectory profile.
  @param size the number of lines/commands in trajectory profile.
  @param preload If true, the file will be preloaded and won't start until the start light turns on.
-=======
-/*! PIDMoveTo
- * Uses a PI controller to move the robot using a trajectory profile as the reference data.
- *  The passed in trajectory profile should have 6 columns. The first 3 are the total angular
- *  displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular
- *  velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in
- *  encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be
- *  added to the total angular displacement for each motor, and these calculated values will be subracted
- *  with the reference angular displacements to get the error for each motor. These errors are then summed
- *  to the motors individual total error counter, and based on the error values and P & I constants,
- *  angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to
- *  convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.
- *
- *  @param fName the file name of trajectory profile.
- *  @param size the number of lines/commands in trajectory profile.
- *  @param preload if true, the file will be preloaded and won't start until the start light turns on.
->>>>>>> 3b3dc1e97adb77e56deb165e4168db0ead59a5fd
  */
 void PIDMoveTo(char* fName, int size, bool preload) {
     //float xMeters = inchestoMeters(x);
