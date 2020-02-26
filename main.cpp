@@ -19,7 +19,7 @@
 #define R 0.11176
 #define r 0.03429
 #define COUNTS_PER_INCH 35
-
+#define MARGIN_ERROR 0.1
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
@@ -144,6 +144,48 @@ int getCdsColor() {
     } else {
         LCD.Clear(FEHLCD::Green);
         return 0;
+    }
+}
+
+void RPSCorrectError(float finalX, float finalY, float finalHeading) {
+    float oldError;
+    float initHeading = RPS.Heading();
+    float boundaryHeading = finalHeading + 180.0;
+    if(boundaryHeading > 360) {
+        boundaryHeading -= 360.0;
+    }
+    float currError;
+    
+    // Fix heading
+    if(boundaryHeading - initHeading > 0) {
+        // Turn counter-clockwise
+        
+        while(currError > ERROR_MARGIN) {
+            currError = finalHeading - initHeading;
+            if(currError < 0) {
+                currError *= -1;
+                currError = 360 - currError;
+            }
+            oldErr = currError;
+            // Check if overshoot
+            if(currError - oldErr > 0) {
+                break;
+            }
+            rotateCC(25, 0.1);
+            currError = RPS.Heading() - finalHeading;
+        }
+    } else {
+        // Turn clockwise
+        currError = 360.0 - finalHeading + initHeading;
+        while(currError < ERROR_MARGIN) {
+            oldErr = currError;
+            // Check if overshoot
+            if(currError > 0) {
+                break;
+            }
+            rotateCC(-25, 0.1);
+            currError = RPS.Heading - finalHeading;
+        }
     }
 }
 
@@ -601,6 +643,7 @@ int main(void)
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     //PIDMoveTo("90Med.txt", 41, false);
+    RPS.InitializeTouchMenu();
     actual();
 
 
