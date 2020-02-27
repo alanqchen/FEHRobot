@@ -2,7 +2,7 @@ PID Deep Dive
 =============
 
 .. note::
-    Looking for the function documentation? See :doc:`functions/func_PIDMoveTo`
+    Looking for the function documentation? See :doc:`functions/func_PIDMoveTo`.
 
 In this section the process for developing the PID controller is detailed.
 This includes deriving the kinematic relationships and creating trajectory
@@ -144,6 +144,7 @@ a large delay that negatively impacts the accuracy of the error,
 especially as the robot moves.
 
 The profiles are generated in matlab, using the code shown in
-:doc:`mat_trajGen`.
+:doc:`mat_trajGen`. The each trajectory profile outputted has the same
+format:
 
 

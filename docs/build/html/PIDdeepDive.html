@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="_static/cropped-egg3.ico"/>
+  
   
   
 
@@ -37,7 +39,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Performance Tasks" href="perfTasks/index.html" />
-    <link rel="prev" title="Welcome to Team E3’s Robot’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Main File" href="mainFile.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,7 +83,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">PID Deep Dive</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PID Deep Dive</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PID Deep Dive</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
@@ -110,12 +115,21 @@
 <p class="caption"><span class="caption-text">Function reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_InvPercent.html">InvPercent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_PIDMoveTo.html">PIDMoveTo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#working-example">Working Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#variables">Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_correctHeading.html">correctHeading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_countsToRadDisp.html">countsToRadDisp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward12.html">forward12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward23.html">forward23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward31.html">forward31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_getCdsColor.html">getCdsColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_rotateCC.html">rotateCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_sinkDump.html">sinkDump</a></li>
 </ul>
 </li>
 </ul>
@@ -191,7 +205,7 @@
 <h1>PID Deep Dive<a class="headerlink" href="#pid-deep-dive" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Looking for the function documentation? See <a class="reference internal" href="functions/func_PIDMoveTo.html"><span class="doc">PIDMoveTo</span></a></p>
+<p>Looking for the function documentation? See <a class="reference internal" href="functions/func_PIDMoveTo.html"><span class="doc">PIDMoveTo</span></a>.</p>
 </div>
 <p>In this section the process for developing the PID controller is detailed.
 This includes deriving the kinematic relationships and creating trajectory
@@ -317,7 +331,8 @@ profiles are generated for every movement. This is because RPS has
 a large delay that negatively impacts the accuracy of the error,
 especially as the robot moves.</p>
 <p>The profiles are generated in matlab, using the code shown in
-<a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>.</p>
+<a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>. The each trajectory profile outputted has the same
+format:</p>
 </div>
 </div>
 
@@ -332,7 +347,7 @@ especially as the robot moves.</p>
         <a href="perfTasks/index.html" class="btn btn-neutral float-right" title="Performance Tasks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Team E3’s Robot’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mainFile.html" class="btn btn-neutral float-left" title="Main File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
