@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="PID Deep Dive" href="PIDdeepDive.html" /> 
+    <link rel="next" title="Main File" href="mainFile.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,7 +80,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">PID Deep Dive</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PID Deep Dive</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html">PID Deep Dive</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#motivation">Motivation</a></li>
@@ -91,7 +94,10 @@
 <li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
@@ -106,14 +112,28 @@
 <p class="caption"><span class="caption-text">Function reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_InvPercent.html">InvPercent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_PIDMoveTo.html">PIDMoveTo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#working-example">Working Example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#variables">Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_correctHeading.html">correctHeading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_countsToRadDisp.html">countsToRadDisp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward12.html">forward12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward23.html">forward23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward31.html">forward31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_getCdsColor.html">getCdsColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_rotateCC.html">rotateCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_sinkDump.html">sinkDump</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">MATLab code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
 </ul>
 
             
@@ -182,6 +202,11 @@
 <h1>Welcome to Team E3’s Robot’s documentation!<a class="headerlink" href="#welcome-to-team-e3-s-robot-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound" id="pid">
 <p class="caption"><span class="caption-text">PID Deep Dive</span><a class="headerlink" href="#pid" title="Permalink to this toctree">¶</a></p>
 <ul>
@@ -194,7 +219,10 @@
 <li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -209,31 +237,13 @@
 <li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a></li>
 </ul>
 </div>
-<dl class="function">
-<dt id="_CPPv49PIDMoveToPcib">
-<span id="_CPPv39PIDMoveToPcib"></span><span id="_CPPv29PIDMoveToPcib"></span><span id="PIDMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a5df7032b6ea536922700cc132d3d2702"></span>void <code class="sig-name descname">PIDMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49PIDMoveToPcib" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p><p>This is some funky non-xml compliant text: &lt;&amp; !&gt;&lt;</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This reStructuredText has been handled correctly.</p>
-</div>
- <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
-    <span class="o">//</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">test</span> <span class="n">code</span>
-<span class="p">}</span>
-</pre></div>
-</div>
- Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</p>
-<p><dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">fName</span></code>: the file name of trajectory profile. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the number of lines/commands in trajectory profile. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">preload</span></code>: If true, the file will be preloaded and won’t start until the start light turns on. </p></li>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">MATLab code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
 </ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
+</div>
 </div>
 
 
@@ -244,7 +254,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="PIDdeepDive.html" class="btn btn-neutral float-right" title="PID Deep Dive" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mainFile.html" class="btn btn-neutral float-right" title="Main File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

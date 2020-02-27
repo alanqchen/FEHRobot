@@ -92,7 +92,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#implementation">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trajectory-profiles">Trajectory profiles</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
@@ -115,6 +118,11 @@
 <li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">MATLab code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
 </ul>
 
             
@@ -300,7 +308,17 @@ implemented as it was found to be not neccessary.</p>
 </div>
 <div class="section" id="implementation">
 <h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h1>
-<p>To be filled in.</p>
+<p>With the mathematical concepts defined, the code implementation can
+be constructed.</p>
+<div class="section" id="trajectory-profiles">
+<h2>Trajectory profiles<a class="headerlink" href="#trajectory-profiles" title="Permalink to this headline">¶</a></h2>
+<p>To represent the reference angular positions, pre-generated trajectory
+profiles are generated for every movement. This is because RPS has
+a large delay that negatively impacts the accuracy of the error,
+especially as the robot moves.</p>
+<p>The profiles are generated in matlab, using the code shown in
+<a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>.</p>
+</div>
 </div>
 
 

@@ -54,5 +54,3 @@ Code
 
 .. doxygenfunction:: performance1
    :project: FEHRobot
-
-----

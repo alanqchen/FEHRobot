@@ -133,4 +133,17 @@ implemented as it was found to be not neccessary.
 
 Implementation
 ==============
-To be filled in.
+With the mathematical concepts defined, the code implementation can
+be constructed.
+
+Trajectory profiles
+-------------------
+To represent the reference angular positions, pre-generated trajectory
+profiles are generated for every movement. This is because RPS has
+a large delay that negatively impacts the accuracy of the error,
+especially as the robot moves.
+
+The profiles are generated in matlab, using the code shown in
+:doc:`mat_trajGen`.
+
+

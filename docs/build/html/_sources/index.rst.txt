@@ -11,6 +11,11 @@ Welcome to Team E3's Robot's documentation!
    :caption: Contents:
 
 .. toctree::
+   :maxdepth: 1
+
+   mainFile
+
+.. toctree::
    :maxdepth: 2
    :caption: PID Deep Dive
    :name: PID
@@ -29,8 +34,12 @@ Welcome to Team E3's Robot's documentation!
 
    functions/index
 
-.. doxygenfunction:: PIDMoveTo
-   :project: FEHRobot
+.. toctree::
+   :maxdepth: 1
+   :caption: MATLab code
+
+   mat_trajGen
+   mat_errPlot
 
 .. Indices and tables
 .. ------------------
