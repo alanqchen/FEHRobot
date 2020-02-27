@@ -496,65 +496,34 @@ void forward12(float percent, float inch) {
     allStop();
 }
 
-void correctHeading(float finalHeading) {
-        float currHeading = RPS.Heading();
-        if(currHeading == -1) {
-            LCD.Clear(FEHLCD::Red);
-            return;
-        }
-        float boundaryHeading = finalHeading + 180.0;
-        if(boundaryHeading > 360) {
-            boundaryHeading -= 360.0;
-        }
-
-        float lowerBound = finalHeading - ERROR_MARGIN;
-        if(lowerBound < 0) {
-            lowerBound = 360.0 - fabsf(lowerBound);
-        }
-        float upperBound = finalHeading + ERROR_MARGIN;
-        if(upperBound >= 360) {
-            upperBound = 360 - upperBound;
-        }
-
-
-        // Counterclock wise
+void correctHeading(float finalHeading) {        
         for(int i = 0; i < NUM_CORR_ITERATIONS; i++) {
-            currHeading = RPS.Heading();
-            // THIS IF STATEMENT IS PROB WRONG
-            if(fabsf(finalHeading - currHeading) > fabsf(currHeading - (finalHeading + 360.0))) {
-                if(currHeading == -1) {
-                    LCD.Clear(FEHLCD::Red);
-                    return;
-                }
+        	currHeading = RPS.Heading();
+		float angle = fabsf(finalHeading - currHeading);
+		float power = 18.0;
 
-                float angle = finalHeading - currHeading;
-                if(angle < 0) {
-                    angle += 360.0;
-                }
-                rotateCC(18, angle);
-            // Turn clockwise
-            } else {
-                if(currHeading == -1) {
-                    LCD.Clear(FEHLCD::Red);
-                    return;
-                }
-                float angle = currHeading - finalHeading;
-                if(angle < 0) {
-                    angle += 360.0;
-                }
-                rotateCC(-18, angle);
-            }
-            Sleep(100);
+		if (currHeading == -1) {
+                	LCD.Clear(FEHLCD::Red);
+                	return;
+        	}
+
+        	if(angle < 180) {
+                	if (currHeading > finalHeading) {
+                        	power *= -1.0;
+                	}
+            	} else {
+			angle = 360 - angle;
+			if (currHeading < finalHeading) {
+                        	power *= -1.0;
+			}
+            	}
+  	    	rotateCC(power, angle);
+            	Sleep(100);
         }
 }
 
 void RPSCorrectError(float finalX, float finalY, float finalHeading) {
-    float oldError;
     float currHeading = RPS.Heading();
-    float boundaryHeading = finalHeading + 180.0;
-    if(boundaryHeading > 360) {
-        boundaryHeading -= 360.0;
-    }
     float currX = RPS.X();
     float currY = RPS.Y();
 
@@ -587,6 +556,9 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
 
 
     float deltaTheta = fabsf(currHeading - theta);
+    if (deltaTheta > 180) {
+        deltaTheta = 360 - deltaTheta;
+    }
     float power = 20.0;
     if(deltaTheta < 90.0) {
         correctHeading(deltaTheta);
