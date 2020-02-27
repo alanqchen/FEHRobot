@@ -49,6 +49,11 @@ float degreeToRadian(float degree) {
     return degree * M_PI/180.0;
 }
 
+// convert degrees from RPS to radian
+float radianToDegree(float radian) {
+    return radian * 180.0/M_PI;
+}
+
 // Stops all motors
 void allStop() {
     motor1.Stop();
@@ -491,115 +496,113 @@ void forward12(float percent, float inch) {
     allStop();
 }
 
+void correctHeading(float finalHeading) {
+        float currHeading = RPS.Heading();
+        if(currHeading == -1) {
+            LCD.Clear(FEHLCD::Red);
+            return;
+        }
+        float boundaryHeading = finalHeading + 180.0;
+        if(boundaryHeading > 360) {
+            boundaryHeading -= 360.0;
+        }
+
+        float lowerBound = finalHeading - ERROR_MARGIN;
+        if(lowerBound < 0) {
+            lowerBound = 360.0 - fabsf(lowerBound);
+        }
+        float upperBound = finalHeading + ERROR_MARGIN;
+        if(upperBound >= 360) {
+            upperBound = 360 - upperBound;
+        }
+
+
+        // Counterclock wise
+        for(int i = 0; i < NUM_CORR_ITERATIONS; i++) {
+            currHeading = RPS.Heading();
+            // THIS IF STATEMENT IS PROB WRONG
+            if(fabsf(finalHeading - currHeading) > fabsf(currHeading - (finalHeading + 360.0))) {
+                if(currHeading == -1) {
+                    LCD.Clear(FEHLCD::Red);
+                    return;
+                }
+
+                float angle = finalHeading - currHeading;
+                if(angle < 0) {
+                    angle += 360.0;
+                }
+                rotateCC(18, angle);
+            // Turn clockwise
+            } else {
+                if(currHeading == -1) {
+                    LCD.Clear(FEHLCD::Red);
+                    return;
+                }
+                float angle = currHeading - finalHeading;
+                if(angle < 0) {
+                    angle += 360.0;
+                }
+                rotateCC(-18, angle);
+            }
+            Sleep(100);
+        }
+}
+
 void RPSCorrectError(float finalX, float finalY, float finalHeading) {
     float oldError;
-    float currHeading;
+    float currHeading = RPS.Heading();
     float boundaryHeading = finalHeading + 180.0;
     if(boundaryHeading > 360) {
         boundaryHeading -= 360.0;
     }
-    float currError;
-
-
-    float lowerBound = finalHeading - ERROR_MARGIN;
-    if(lowerBound < 0) {
-        lowerBound = 360.0 - fabsf(lowerBound);
-    }
-    float upperBound = finalHeading + ERROR_MARGIN;
-    if(upperBound >= 360) {
-        upperBound = 360 - upperBound;
-    }
-
-
-    // Counterclock wise
-    for(int i = 0; i < NUM_CORR_ITERATIONS; i++) {
-        currHeading = RPS.Heading();
-        if(fabsf(finalHeading - currHeading) > fabsf(currHeading - (finalHeading + 360.0))) {
-
-            if(currHeading == -1) {
-                LCD.Clear(FEHLCD::Red);
-                return;
-            }
-            /*
-            while(currHeading <= lowerBound || currHeading >= upperBound) {
-                //oldError = currError;
-                motor1.SetPercent(-18);
-                motor2.SetPercent(-18);
-                motor3.SetPercent(-18);
-                Sleep(100);
-                allStop();
-                currHeading = RPS.Heading();
-            }
-            */
-            float angle = finalHeading - currHeading;
-            if(angle < 0) {
-                angle += 360.0;
-            }
-            rotateCC(18, angle);
-        // Turn clockwise
-        } else {
-            if(currHeading == -1) {
-                LCD.Clear(FEHLCD::Red);
-                return;
-            }
-            float angle = currHeading - finalHeading;
-            if(angle < 0) {
-                angle += 360.0;
-            }
-            rotateCC(-18, angle);
-            /*
-            while(currHeading <= lowerBound || currHeading >= upperBound) {
-                //oldError = currError;
-                motor1.SetPercent(18);
-                motor2.SetPercent(18);
-                motor3.SetPercent(18);
-                Sleep(100);
-                allStop();
-                currHeading = RPS.Heading();
-            }
-            */
-        }
-    }
-    // Calculate slope of perpindicular line
-    float xSlope = tan(degreeToRadian(RPS.Heading()));
-    float ySlope = (1.0/xSlope)*-1.0;
     float currX = RPS.X();
     float currY = RPS.Y();
-    /*
-    while((currY - finalY)/(currX - finalX) <= ySlope - DIST_ERROR_MARGIN || (currY - finalY)/(currX - finalX) >= ySlope + DIST_ERROR_MARGIN) {
-        if(currX - finalX < 0) {
-            //PIDMoveTo("corrX.txt", 3, false);
-            motor1.SetPercent(InvPercent(-13.4569260625));
-            motor2.SetPercent(InvPercent(-13.4569260625));
-            motor3.SetPercent(InvPercent(26.9138521249));
-            Sleep(200);
-            allStop();
-        } else {
-            //PIDMoveTo("nCorrX.txt", 3, false);
-            motor1.SetPercent(InvPercent(13.4569260625));
-            motor2.SetPercent(InvPercent(13.4569260625));
-            motor3.SetPercent(InvPercent(-26.9138521249));
-            Sleep(200);
-            allStop();
-        }
-        currX = RPS.X();
-        currY = RPS.Y();
+
+
+    float deltaX = finalX - currX;
+    if(deltaX == 0.0) {
+        deltaX += 0.0000000000000000000001;
     }
-    */
-
-    currHeading = RPS.Heading();
-    xSlope = tan(degreesToRadians(currHeading-90+120));
-    ySlope = (1.0/xSlope)*-1.0;
-
-
-    while(currY <= finalY - DIST_ERROR_MARGIN || currY >= finalY + DIST_ERROR_MARGIN) {
-        if(currY - finalY > 0) {
-            forward12(-20.0, .3);
-        } else {
-            forward12(20.0, .3);
-        }
-        currY = RPS.Y();
+    float deltaY = finalY - currY;
+    if(deltaY == 0.0) {
+        deltaY += 0.0000000000000000000001;
     }
+    float theta;
+    // Q1
+    if(deltaX >= 0 && deltaY >= 0) {
+        theta = radianToDegree(atan((deltaY)/(deltaX)));
+    // Q2
+    } else if(deltaX < 0 && deltaY >=0) {
+        theta = radianToDegree(atan((-1.0*deltaX)/(deltaY)));
+        theta += 90.0;
+    // Q3
+    } else if(deltaX < 0 && deltaY < 0) {
+        theta = radianToDegree(atan((-1.0*deltaY)/(-1.0*deltaX)));
+        theta += 180;
+    // Q4
+    } else {
+        theta = radianToDegree(atan((deltaX)/(-1.0*deltaY)));
+        theta += 270;
+    }
+
+
+    float deltaTheta = fabsf(currHeading - theta);
+    float power = 20.0;
+    if(deltaTheta < 90.0) {
+        correctHeading(deltaTheta);
+    } else {
+        deltaTheta += 180.0;
+        if(deltaTheta > 360.0) {
+            deltaTheta -= 360;
+        }
+        correctHeading(deltaTheta);
+        power = -20.0;
+    }
+
+    float dist = sqrtf(deltaX * deltaX + deltaY * deltaY);
+    forward12(power, dist);
+
+    correctHeading(finalHeading);
 }
 
 void performance2() {
@@ -720,8 +723,8 @@ int main(void)
     //PIDMoveTo("90Med.txt", 41, false);
     RPS.InitializeTouchMenu();
     //actual();
-    RPSCorrectError(21, 53.3, 0);
-
+    //RPSCorrectError(21, 53.3, 90);
+    correctHeading(90);
 
     return 0;
 }
