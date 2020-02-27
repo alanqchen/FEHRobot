@@ -89,8 +89,10 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#derivation">Derivation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#control-laws">Control Laws</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#implementation">Implementation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
@@ -181,7 +183,7 @@
 <h1>PID Deep Dive<a class="headerlink" href="#pid-deep-dive" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>this is a work in progress</p>
+<p>Looking for the function documentation? See <a class="reference internal" href="functions/func_PIDMoveTo.html"><span class="doc">PIDMoveTo</span></a></p>
 </div>
 <p>In this section the process for developing the PID controller is detailed.
 This includes deriving the kinematic relationships and creating trajectory
@@ -193,6 +195,11 @@ profiles.</p>
 </div>
 <div class="section" id="derivation">
 <h1>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The derivation presented is a summary of the work by T.A. Baede, Motion control of an
+omnidirectional mobile robot (2006).</p>
+</div>
 <p>Essential to any advanced PID controller, the kinematic relationships and
 control laws were developed for a tri-omni wheel robot.</p>
 <div class="section" id="kinematic-relationships">
@@ -205,17 +212,95 @@ wheels 1, 2, and 3 are <span class="math notranslate nohighlight">\(a_1=0^\circ\
 and <span class="math notranslate nohighlight">\(a_3=240^\circ\)</span> respectively.</p>
 <p>Next, the translational velocity of each wheel, <span class="math notranslate nohighlight">\(v_i\)</span> that make up
 the robot’s velocity can be split into its components:</p>
-<p><span class="math notranslate nohighlight">\(v_i = v_{trans, i} + v_{rot}\)</span></p>
+<p><span class="math notranslate nohighlight">\(v_i = v_{trans, i} + v_{rot}\tag{1}\label{eq:1}\)</span></p>
 <p>Looking at <span class="math notranslate nohighlight">\(v_{trans, i}\)</span>, we can map the vector onto <span class="math notranslate nohighlight">\(\dot{x}\)</span> and
 <span class="math notranslate nohighlight">\(\dot{y}\)</span> leading to the general equation for translation at each wheel:</p>
-<p><span class="math notranslate nohighlight">\(v_{trans, i} = -\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)\dot{y}\)</span></p>
-<p>Now consider the case were the robot only performs a rotation. Each wheel
-velocity, <span class="math notranslate nohighlight">\(v_{rot}\)</span>, will have to be the following:</p>
-<p><span class="math notranslate nohighlight">\(v_{rot}=R\dot{\theta}\)</span></p>
-<p>Where <span class="math notranslate nohighlight">\(R\)</span> is the radius from the center of the robot to the wheels. Note
+<p><span class="math notranslate nohighlight">\(v_{trans, i} = -\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)\dot{y}\tag{2}\)</span></p>
+<p>Now consider the case were the robot only performs a rotation. Each wheel’s
+translational velocity, <span class="math notranslate nohighlight">\(v_{rot}\)</span>, will have to be the following:</p>
+<p><span class="math notranslate nohighlight">\(v_{rot}=R\dot{\theta}\tag{3}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(R\)</span> is the radius from the center of the robot to the wheels. Note
 that each wheel will have the same equation as <span class="math notranslate nohighlight">\(R\)</span> is the same for all
-wheels.</p>
+wheels. The value of <span class="math notranslate nohighlight">\(R\)</span> for our robot was measured to be 0.0869 meters.</p>
+<p>Substituting the equations for <span class="math notranslate nohighlight">\(v_{trans, i}\)</span> and <span class="math notranslate nohighlight">\(v_{rot}\)</span> into
+the equation <span class="math notranslate nohighlight">\(\eqref{eq:1}\)</span>, the following equation is created:</p>
+<p><span class="math notranslate nohighlight">\(v_i=-\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)+R\dot{\theta}\tag{4}\label{eq:4}\)</span></p>
+<p>This equation transforms the robot’s velocities into the translational
+velocity of each wheel. However, we can also relate the robot’s velocities
+into the angular velocity of each wheel as translational velocities are
+directly related to angular velocities:</p>
+<p><span class="math notranslate nohighlight">\(v_i=r\dot{\phi_i}\tag{5}\label{eq:5}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(r\)</span> is the radius of the wheels, measured to be 0.027 meters.</p>
+<p>Substituting <span class="math notranslate nohighlight">\(\eqref{eq:5}\)</span> into <span class="math notranslate nohighlight">\(\eqref{eq:4}\)</span> and rearranging to
+solve for <span class="math notranslate nohighlight">\(\dot{\phi}\)</span>, we get:</p>
+<p><span class="math notranslate nohighlight">\(\dot{\phi}_i=\frac{1}{r}(-\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)+R\dot{\theta})\tag{6}\label{eq:6}\)</span></p>
+<p>Converting <span class="math notranslate nohighlight">\(\eqref{eq:6}\)</span> from global coordinates to local coordinates is
+out-of-scope of the documentation (see Baede’s paper). However, the end result
+is the following equation for each wheel’s angular velocity given the robot’s
+velocities and steering in the local frame, defined as <span class="math notranslate nohighlight">\([x_L, y_L]\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(\dot{\phi}_i=(-\sin(\theta+a_i)\cos(\theta)\dot{x}_L+\cos(\theta+a_i)\cos(\theta)\dot{y}_L+R\dot{\theta})/r\tag{7}\label{eq:7}\)</span></p>
 </div>
+<div class="section" id="control-laws">
+<h2>Control Laws<a class="headerlink" href="#control-laws" title="Permalink to this headline">¶</a></h2>
+<p>When controlling a robot, we will have an idea of the movement it should
+perform, called the reference movement. However, simply using
+<span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span> to find the angular velocities of each wheel
+and setting each motor to the respective percent values will not
+suffice. This is because of effects such as friction and motor powers not
+being equivalent or consistent. Thus, it is neccessary to produce control
+laws to use for a feedback loop.</p>
+<p>We can use <span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span> to produce reference angular velocities
+of each wheel, <span class="math notranslate nohighlight">\(\dot{\phi}_{ref,i}\)</span>, and through integration can also
+create reference angular positions of each wheel, <span class="math notranslate nohighlight">\(\phi_{ref,i}\)</span>.</p>
+<p>It was choosen to use a position controller as converting from encoder
+counts directly to angular postion is more likely to be more accurate
+rather than having to estimate an average velocity during program execution.</p>
+<hr class="docutils" />
+<p>Control actions is calculated based on the difference between reference
+angular positions and actual angular positions:</p>
+<p><span class="math notranslate nohighlight">\(e=\phi_{ref,i}-\phi_i\tag{8}\)</span></p>
+<p><span class="math notranslate nohighlight">\(e\)</span> is the tracking error. Note that the units for <span class="math notranslate nohighlight">\(e\)</span>,
+<span class="math notranslate nohighlight">\(\phi_{ref,i}\)</span>, and <span class="math notranslate nohighlight">\(\phi_i\)</span> are radians.</p>
+<p>For use in a program, the discrete form of the PID control law is
+implemented:</p>
+<p><span class="math notranslate nohighlight">\(u_k=K_pe_k+K_i\Delta T\sum_{j=1}^k e_j+\frac{K_d}
+{\Delta T}(e_k-e_{k-1})\tag{9}\)</span></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(u\)</span></p></td>
+<td><p>Control signal</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td><p>Control loop iteration</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(K_p\)</span></p></td>
+<td><p>Proportional constant</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K_i\)</span></p></td>
+<td><p>Integral constant</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(K_d\)</span></p></td>
+<td><p>Derivative constant</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(e\)</span></p></td>
+<td><p>Tracking error</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\Delta T\)</span></p></td>
+<td><p>Time between interations</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that for the final control loop, the derivative term was not
+implemented as it was found to be not neccessary.</p>
+</div>
+</div>
+<div class="section" id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h1>
+<p>To be filled in.</p>
 </div>
 
 
