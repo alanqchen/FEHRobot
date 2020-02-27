@@ -76,5 +76,7 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_favicon = 'cropped-egg3.ico'
+
 # Breathe Configuration
 breathe_default_project = "FEHRobot"
