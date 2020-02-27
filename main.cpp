@@ -463,6 +463,12 @@ void sinkDump() {
     }
 }
 
+/*!
+Moves forward in the direction of motors 2 & 3 for the given inch distance
+
+@param percent the power for motors 2 & 3.
+@param inch the distance to move.
+ */
 void forward23(float percent, int inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -474,6 +480,12 @@ void forward23(float percent, int inch) {
     allStop();
 }
 
+/*!
+Moves forward in the direction of motors 3 & 1 for the given inch distance
+
+@param percent the power for motors 3 & 1.
+@param inch the distance to move.
+ */
 void forward31(float percent, float inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -485,6 +497,12 @@ void forward31(float percent, float inch) {
     allStop();
 }
 
+/*!
+Moves forward in the direction of motors 1 & 2 for the given inch distance
+
+@param percent the power for motors 1 & 2.
+@param inch the distance to move.
+ */
 void forward12(float percent, float inch) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -497,29 +515,30 @@ void forward12(float percent, float inch) {
 }
 
 void correctHeading(float finalHeading) {        
-        for(int i = 0; i < NUM_CORR_ITERATIONS; i++) {
-        	currHeading = RPS.Heading();
-		float angle = fabsf(finalHeading - currHeading);
-		float power = 18.0;
+    float currHeading;
+    for(int i = 0; i < 1; i++) {
+        currHeading = RPS.Heading();
+        float angle = fabsf(finalHeading - currHeading);
+        float power = 18.0;
 
-		if (currHeading == -1) {
-                	LCD.Clear(FEHLCD::Red);
-                	return;
-        	}
-
-        	if(angle < 180) {
-                	if (currHeading > finalHeading) {
-                        	power *= -1.0;
-                	}
-            	} else {
-			angle = 360 - angle;
-			if (currHeading < finalHeading) {
-                        	power *= -1.0;
-			}
-            	}
-  	    	rotateCC(power, angle);
-            	Sleep(100);
+        if (currHeading == -1) {
+            LCD.Clear(FEHLCD::Red);
+            return;
         }
+
+        if(angle < 180) {
+            if (currHeading > finalHeading) {
+                    power *= -1.0;
+            }
+        } else {
+            angle = 360 - angle;
+            if (currHeading < finalHeading) {
+                power *= -1.0;
+            }
+        }
+        rotateCC(power, angle);
+        Sleep(100);
+    }
 }
 
 void RPSCorrectError(float finalX, float finalY, float finalHeading) {
@@ -554,7 +573,7 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
         theta += 270;
     }
 
-
+    // THIS IS PROB WRONG
     float deltaTheta = fabsf(currHeading - theta);
     if (deltaTheta > 180) {
         deltaTheta = 360 - deltaTheta;
@@ -693,10 +712,8 @@ int main(void)
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     //PIDMoveTo("90Med.txt", 41, false);
-    RPS.InitializeTouchMenu();
-    //actual();
-    //RPSCorrectError(21, 53.3, 90);
-    correctHeading(90);
+    //RPS.InitializeTouchMenu();
+    actual();
 
     return 0;
 }
