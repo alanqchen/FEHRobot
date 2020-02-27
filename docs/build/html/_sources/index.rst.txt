@@ -11,7 +11,7 @@ Welcome to Team E3's Robot's documentation!
    :caption: Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: PID Deep Dive
    :name: PID
 
