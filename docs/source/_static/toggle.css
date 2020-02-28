@@ -1,8 +1,15 @@
 .toggle .header {
     display: flex;
     justify-content: space-between;
-    color: darkgoldenrod;
+    align-items: center;
+    color: #404040;
     clear: both;
+    background-color: #e7f2fa;
+}
+
+.toggle .header p {
+    margin-bottom: 0px !important;
+    padding: 5px;
 }
 
 .toggle .header:hover {
@@ -11,6 +18,7 @@
 
 .toggle .header::after {
     content: " ▶";
+    margin-right: 1%;
 }
 
 .toggle .header.open::after {

@@ -6,18 +6,6 @@
 Welcome to Team E3's Robot's documentation!
 ===========================================
 
-.. container:: toggle
-
-    .. container:: header
-
-        **Show/Hide Code**
-
-    .. code-block:: xml
-       :linenos:
-
-       from plone import api
-       ...
-
 .. toctree::
    :maxdepth: 1
    :caption: Contents:

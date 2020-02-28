@@ -142,7 +142,7 @@ To represent the reference angular positions, pre-generated trajectory
 profiles are generated for every movement. This is because the RPS has
 a large delay that negatively impacts the accuracy of the error,
 especially as the robot moves. To solve this, trajectory profiles are
-generated in matlab, using the code shown in :doc:`mat_trajGen`. Then
+generated in MATLab, using the code shown in :doc:`mat_trajGen`. Then
 the Proteus will read the profile file in the SD card, and store the
 reference values in an 2D array, which will be compared to in real time. 
 Each trajectory profile outputted has the same format:
@@ -163,6 +163,225 @@ to determine error, reference angular velocity is used to help decide which
 direction to wheels should spin in response to error as encoder counts can only
 increase.
 
+To generate the reference values, the desired
+:math:`x_L`, :math:`y_L`, and :math:`\theta` displacement values are first set
+along with their respective time stamps:
+
+.. code-block:: matlab
+
+   wpts = [0 0.5; 0 0.2; THETA THETA];
+
+The above code sets the waypoints in a matrix, in the form [:math:`x_1~x_2 ...
+x_n`; :math:`~y_1~y_2 ... y_n`; :math:`~\theta_1~\theta_2 ... \theta_n`]
+with the first waypoint always having 0 as the x and y values. It also sets
+the final waypoint 0.5 meters in the positive x and 0.2 meters in the
+positive y, with respect to the robot's local frame. THETA can defined to be
+the offset of motor 1 from the local :math:`x_L` axis. For
+our robot, THETA was defined as :math:`\pi/6` such that motors 1 and 2 would
+move the robot forward. An offset can also be added to the :math:`\theta`
+waypoint values so that the local frame of the robot can be rotated.
+For example, if the way points were:
+
+.. code-block:: matlab
+
+   wpts = [0 0.5; 0 0.2; THETA+pi/2 THETA+pi/2];
+
+Then the robot's local frame (with it's x and y axis) is rotated 90 degrees
+counter-clockwise.
+
+Next, the timestamps need to be set for each waypoint:
+
+.. code-block:: matlab
+
+   tpts = [0, 2];
+   tvec = 0:0.1:2;
+
+``tpts`` stores the timestamp in seconds for each waypoint. The first time
+is aways zero, and each waypoint must have it's own timestamp. I.e, for
+:math:`n` waypoints in wpts, there must be :math:`n` timestamps in tpts.
+``tvec`` stores the overall update rate of the trajectory profile and also
+the PID control loop. In the example above, there will be a reference value
+ever 0.1 seconds. Note that both ``tps`` and ``tvec`` must end with the same
+time value.
+
+The displacement and timestamp values are passed into ``cubicpolytraj`` which
+produces a cubic trajectory profile. We're specifically interested in the
+reference positions and velocities, stored in ``q`` and ``qd`` respectively.
+
 PID function
 ------------
+For your convenience, the code for the PID function is shown here:
+
+.. container:: toggle
+
+    .. container:: header
+
+        **Show/Hide PID Function Code**
+
+    .. code-block:: c++
+       :linenos:
+
+       void PIDMoveTo(char* fName, int size, bool preload) {
+
+            /* Set important variables */
+            int countNew1 = 0;
+            int countNew2 = 0;
+            int countNew3 = 0;
+            int countOld1 = 0;
+            int countOld2 = 0;
+            int countOld3 = 0;
+            float displacement1 = 0.0;
+            float displacement2 = 0.0;
+            float displacement3 = 0.0;
+            float refSpeed1;
+            float refSpeed2;
+            float refSpeed3;
+            float phiVel1 = 0.0;
+            float phiVel2 = 0.0;
+            float phiVel3 = 0.0;
+            float phi1 = 0.0;
+            float phi2 = 0.0;
+            float phi3 = 0.0;
+            float motorSpeed1 = 0.0; 
+            float motorSpeed2 = 0.0; 
+            float motorSpeed3 = 0.0; 
+            float errorTotal1 = 0.0;
+            float errorTotal2 = 0.0;
+            float errorTotal3 = 0.0;
+            float Kp = 20.0;
+            float Ki = 2.0;
+            float Kd = 0.0;
+            float pidMarginError = 0.1; // in inches
+            // might remove this
+            bool setup = true;
+            
+            /* Get trajectory profile from file */
+            FEHFile *fptr = SD.FOpen(fName,"r");
+            /* Open write files to track error and delta angular displacement */
+            // This is useful for tuning among other things
+            FEHFile *fOutErrptr = SD.FOpen("errorLog.txt","w");
+            FEHFile *fOutDispptr = SD.FOpen("dispLog.txt","w");
+            FEHFile *fOutVelptr = SD.FOpen("velLog.txt","w");
+            
+            /* Init 2d arrays to store reference data and other temp variables to read from file */
+            float pos_ref[3][size];
+            float vel_ref[3][size];
+            float temp1;
+            float temp2;
+            float temp3;
+            /* If file failed to open, or invalid profile, return and make the screen red */
+            if(SD.FEof(fptr)) {
+                LCD.Clear(FEHLCD::Red);
+                return;
+            }
+            /* Parse trajectory file */
+            int i = 0;
+            while(!SD.FEof(fptr)) {
+                SD.FScanf(fptr, "%f%f%f%f%f%f", &temp1, &temp2, &temp3, &refSpeed1, &refSpeed2, &refSpeed3);
+                pos_ref[0][i] = temp1;
+                pos_ref[1][i] = temp2;
+                pos_ref[2][i] = temp3;
+                vel_ref[0][i] = refSpeed1;
+                vel_ref[1][i] = refSpeed2;
+                vel_ref[2][i] = refSpeed3;
+                i++;
+            }
+            if(size < i) {
+                LCD.Clear(FEHLCD::Red);
+                return;
+            }
+            size = i;
+            /* Close trajectory file */
+            SD.FClose(fptr);
+            /* PRELOAD LOOP */
+            if(preload) {
+                // Set green to show it's ready
+                LCD.Clear(FEHLCD::Green);
+                while(getCdsColor(true) == 0); // wait until a light turns on
+            }
+            /* Reset encoder counts */
+            motor1_encoder.ResetCounts();
+            motor2_encoder.ResetCounts();
+            motor3_encoder.ResetCounts();
+            /* PI LOOP */
+            // Yes, not PID as the derivative term isn't needed currently
+            for (int i = 0; i < size; i++) {
+                /* Get new encoder counts */
+                countNew1 = motor1_encoder.Counts();
+                countNew2 = motor2_encoder.Counts();
+                countNew3 = motor3_encoder.Counts();
+                if(errorCurr1 < 0.0) {
+                    displacement1 = countsToRadDisp(countNew1, countOld1) * -1;
+                } else {
+                    displacement1 = countsToRadDisp(countNew1, countOld1);
+                }
+                if(errorCurr2 < 0.0) {
+                    displacement2 = countsToRadDisp(countNew2, countOld2) * -1;
+                } else {
+                    displacement2 = countsToRadDisp(countNew2, countOld2);
+                }
+                if(errorCurr3 < 0.0) {
+                    displacement3 = countsToRadDisp(countNew3, countOld3) * -1;
+                } else {
+                    displacement3 = countsToRadDisp(countNew3, countOld3);
+                }
+                // Set old counts to new counts for the next iteration
+                countOld1 = countNew1;
+                countOld2 = countNew2;
+                countOld3 = countNew3;
+                // Add to total angular displacement
+                phi1 += displacement1;
+                phi2 += displacement2;
+                phi3 += displacement3;
+                
+                // Write to log file
+                SD.FPrintf(fOutDispptr, "%f\t%f\t%f\n", displacement1, displacement2, displacement3);
+                
+                /* Calculate current error relative to reference angular positions for each encoder */
+                errorCurr1 = pos_ref[0][i] - phi1;
+                errorCurr2 = pos_ref[1][i] - phi2;
+                errorCurr3 = pos_ref[2][i] - phi3;
+                
+                // Saftey check in case something goes terribly wrong, may or may not be needed later
+                if(errorCurr1 > 3)
+                    return;
+
+
+                // Write errors to log file
+                SD.FPrintf(fOutErrptr, "%f\t%f\t%f\n", errorCurr1, errorCurr2, errorCurr3);
+                // Add to total error (for integral term)
+                errorTotal1 += errorCurr1;
+                errorTotal2 += errorCurr2;
+                errorTotal3 += errorCurr3;
+                
+                /* Calc motor speeds (rad/s) using P and I */
+                motorSpeed1 = Kp * errorCurr1 + Ki * DELTA_T * (errorTotal1);
+                motorSpeed2 = Kp * errorCurr2 + Ki * DELTA_T * (errorTotal2);
+                motorSpeed3 = Kp * errorCurr3 + Ki * DELTA_T * (errorTotal3);
+
+                /* Use the reference velocities to determine if motor speed should change signs */
+                if(vel_ref[0][i] < 0.0 || (errorCurr1 < 0 && motorSpeed1 < 0)) {
+                    motorSpeed1 *= -1.0;
+                }
+                if(vel_ref[1][i] < 0.0 || (errorCurr2 < 0 && motorSpeed2 < 0)) {
+                    motorSpeed2 *= -1.0;
+                }
+                if(vel_ref[2][i] < 0.0 || (errorCurr3 < 0 && motorSpeed3 < 0)) {
+                    motorSpeed3 *= -1.0;
+                }
+
+                SD.FPrintf(fOutVelptr, "%f\t%f\t%f\n", motorSpeed1, motorSpeed2, motorSpeed3);
+                /* Set motors to speed */
+                setRadSToPercent(motorSpeed1, motorSpeed2, motorSpeed3);
+                /* Wait 0.1 seconds (100 miliseconds) */
+                Sleep(100);
+            }
+            /* Done with trajectory profile, stop all motors */
+            allStop();
+            /* Close all log files */
+            SD.FClose(fOutErrptr);
+            SD.FClose(fOutDispptr);
+            SD.FClose(fOutVelptr);
+        }
+
 To be filled.
