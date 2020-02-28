@@ -523,32 +523,26 @@ void forward12(float percent, float inch) {
 
 void correctHeading(float finalHeading, float power) {
     float currHeading;
-    for(int i = 0; i < 1; i++) {
+    currHeading = RPS.Heading();
+    while (currHeading < 0) {
         currHeading = RPS.Heading();
-        while (currHeading < 0) {
-            currHeading = RPS.Heading();
-            Sleep(50);
-        }
-        float angle = fabsf(finalHeading - currHeading);
-
-        if (currHeading == -1) {
-            LCD.Clear(FEHLCD::Red);
-            return;
-        }
-
-        if(angle < 180) {
-            if (currHeading > finalHeading) {
-                    power *= -1.0;
-            }
-        } else {
-            angle = 360 - angle;
-            if (currHeading < finalHeading) {
-                power *= -1.0;
-            }
-        }
-        rotateCC(power, angle);
-        Sleep(100);
+        LCD.Clear(FEHLCD::Red);
+        Sleep(50);
     }
+    float angle = fabsf(finalHeading - currHeading);
+
+    if(angle < 180) {
+        if (currHeading > finalHeading) {
+                power *= -1.0;
+        }
+    } else {
+        angle = 360 - angle;
+        if (currHeading < finalHeading) {
+            power *= -1.0;
+        }
+    }
+    rotateCC(power, angle);
+    Sleep(100);
 }
 
 void RPSCorrectError(float finalX, float finalY, float finalHeading) {
@@ -707,9 +701,12 @@ void leverDown() {
 
 void actual() {
     arm_servo.SetDegree(65);
+
+    //go from start to jukebox light, press correct button, go to from of ramp
     PIDMoveTo("toJL.txt", 21, true);
     Sleep(0.100);
     int cdsValue = getCdsColor(false);
+    correctHeading(270, 18);
     if(cdsValue == 2) {
         PIDMoveTo("toRed.txt", 61, false);
         PIDMoveTo("rToRamp.txt", 61, false);
@@ -718,24 +715,62 @@ void actual() {
         PIDMoveTo("bToRamp.txt", 31, false);
     }
 
-    correctHeading(180, 30);
 
-    float deltaX = 19 - RPS.X();
-    forward12(18, -1.0*deltaX);
 
+    //correct heading and X before ramp
+    correctHeading(0, 35);
+    float currX = RPS.X();
+    float deltaX = fabsf(17.5 - currX);
+    if (17.5 > currX) {
+        forward12(18, deltaX);
+    } else {
+        forward12(-18, deltaX);
+    }
+
+
+    //go up ramp and throw tray into sink
+    arm_servo.SetDegree(45);
+    PIDMoveTo("upRamp3.txt", 31, false);
+    arm_servo.SetDegree(90);
+    Sleep(100);
+    PIDMoveTo("toLevers.txt", 31, false);
+
+    //correct X after ramp
+    currX = RPS.X();
+    deltaX = fabsf(17.5 - currX);
+    if (17.5 > currX) {
+        forward12(18, deltaX);
+    } else {
+        forward12(-18, deltaX);
+    }
+
+    //prep for lever
+    correctHeading(350, 35);
+    arm_servo.SetDegree(70);
+
+    /* OLD TRAY DUMP METHOD
+    //go up ramp and throw tray into sink
     PIDMoveTo("upRamp.txt", 31, false);
 
-    deltaX = 18 - RPS.X();
-    forward12(18, -1.0*deltaX);
+    //correct X after ramp
+    currX = RPS.X();
+    deltaX = fabsf(17.75 - currX);
+    if (17.75 > currX) {
+        forward12(18, deltaX);
+    } else {
+        forward12(-18, deltaX);
+    }
 
-    correctHeading(90, 25);
+    correctHeading(90, 35);
 
     PIDMoveTo("toSink.txt", 31, false);
+
     sinkDump();
 
     correctHeading(170, 30);
     arm_servo.SetDegree(70);
     int lever = RPS.GetIceCream();
+    */
 
     /*
     if (lever == 1) {
@@ -745,10 +780,11 @@ void actual() {
     } else {
         PIDMoveTo("toL3.txt", 31, false);
     }
-    */
+    *
     PIDMoveTo("toL2.txt", 31, false);
 
     leverDown();
+    */
 
 }
 
