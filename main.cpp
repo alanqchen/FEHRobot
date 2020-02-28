@@ -143,18 +143,25 @@ float countsToRadDisp(int newCount, int old) {
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
 }
 
-int getCdsColor() {
+int getCdsColor(bool start) {
     // Red
-    if(CdS_cell.Value() < 1 ) {
-        LCD.Clear(RED);
-        return 2;
-    // Blue
-    } else if(CdS_cell.Value() >= 1 && CdS_cell.Value() < 1.8 ) {
-        LCD.Clear(BLUE);
-        return 1;
+    if (start) {
+        if(CdS_cell.Value() < 1.5 ) {
+            LCD.Clear(RED);
+            return 2;
+        } else {
+            LCD.Clear(FEHLCD::Green);
+            return 0;
+        }
     } else {
-        LCD.Clear(FEHLCD::Green);
-        return 0;
+        if(CdS_cell.Value() < 1.1 ) {
+            LCD.Clear(RED);
+            return 2;
+        // Blue
+        } else {
+            LCD.Clear(BLUE);
+            return 1;
+        }
     }
 }
 
@@ -270,7 +277,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     if(preload) {
         // Set green to show it's ready
         LCD.Clear(FEHLCD::Green);
-        while(getCdsColor() == 0); // wait until a light turns on
+        while(getCdsColor(true) == 0); // wait until a light turns on
     }
     /* Reset encoder counts */
     motor1_encoder.ResetCounts();
@@ -411,7 +418,7 @@ void performance1() {
     moveForward(25, 18);
     allStop();
     // Read Cds Cell
-    int cdsValue = getCdsColor();
+    int cdsValue = getCdsColor(false);
     Sleep(1.5);
     // If blue
     if(cdsValue == 1)  {
@@ -514,12 +521,15 @@ void forward12(float percent, float inch) {
     allStop();
 }
 
-void correctHeading(float finalHeading) {        
+void correctHeading(float finalHeading, float power) {
     float currHeading;
     for(int i = 0; i < 1; i++) {
         currHeading = RPS.Heading();
+        while (currHeading < 0) {
+            currHeading = RPS.Heading();
+            Sleep(50);
+        }
         float angle = fabsf(finalHeading - currHeading);
-        float power = 18.0;
 
         if (currHeading == -1) {
             LCD.Clear(FEHLCD::Red);
@@ -580,20 +590,20 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
     }
     float power = 20.0;
     if(deltaTheta < 90.0) {
-        correctHeading(deltaTheta);
+        correctHeading(deltaTheta, 18.0);
     } else {
         deltaTheta += 180.0;
         if(deltaTheta > 360.0) {
             deltaTheta -= 360;
         }
-        correctHeading(deltaTheta);
+        correctHeading(deltaTheta, 18.0);
         power = -20.0;
     }
 
     float dist = sqrtf(deltaX * deltaX + deltaY * deltaY);
     forward12(power, dist);
 
-    correctHeading(finalHeading);
+    correctHeading(finalHeading, 18.0);
 }
 
 void performance2() {
@@ -614,7 +624,7 @@ void performance2() {
     //PIDMoveTo("r90CW.txt", 31);
     rotateCC(-25, 90);
     Sleep(0.5);
-    PIDMoveTo("toSink2.txt", 31, false);
+    PIDMoveTo("toSink.txt", 31, false);
 
 
     Sleep(0.5);
@@ -689,19 +699,61 @@ void performance3() {
     arm_servo.SetDegree(70);
 }
 
+void leverDown() {
+    arm_servo.SetDegree(40);
+    Sleep(0.300);
+    arm_servo.SetDegree(70);
+}
+
 void actual() {
+    arm_servo.SetDegree(65);
     PIDMoveTo("toJL.txt", 21, true);
-    int cdsValue = getCdsColor();
+    Sleep(0.100);
+    int cdsValue = getCdsColor(false);
     if(cdsValue == 2) {
         PIDMoveTo("toRed.txt", 61, false);
+        PIDMoveTo("rToRamp.txt", 61, false);
     } else if(cdsValue == 1) {
         PIDMoveTo("toBlue.txt", 31, false);
+        PIDMoveTo("bToRamp.txt", 31, false);
     }
+
+    correctHeading(180, 30);
+
+    float deltaX = 19 - RPS.X();
+    forward12(18, -1.0*deltaX);
+
+    PIDMoveTo("upRamp.txt", 31, false);
+
+    deltaX = 18 - RPS.X();
+    forward12(18, -1.0*deltaX);
+
+    correctHeading(90, 25);
+
+    PIDMoveTo("toSink.txt", 31, false);
+    sinkDump();
+
+    correctHeading(170, 30);
+    arm_servo.SetDegree(70);
+    int lever = RPS.GetIceCream();
+
+    /*
+    if (lever == 1) {
+        PIDMoveTo("toL1.txt", 31, false);
+    } else if (lever == 2) {
+        PIDMoveTo("toL2.txt", 31, false);
+    } else {
+        PIDMoveTo("toL3.txt", 31, false);
+    }
+    */
+    PIDMoveTo("toL2.txt", 31, false);
+
+    leverDown();
+
 }
 
 int main(void)
 {
-
     jukebox_servo.SetMin(700);
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
@@ -711,8 +763,7 @@ int main(void)
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
-    //PIDMoveTo("90Med.txt", 41, false);
-    //RPS.InitializeTouchMenu();
+    RPS.InitializeTouchMenu();
     actual();
 
     return 0;
