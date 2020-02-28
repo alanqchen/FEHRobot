@@ -36,6 +36,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/toggle.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Main File" href="mainFile.html" /> 
@@ -98,6 +99,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#pid-function">PID function</a></li>
 </ul>
 </li>
 </ul>
@@ -202,6 +204,16 @@
             
   <div class="section" id="welcome-to-team-e3-s-robot-s-documentation">
 <h1>Welcome to Team E3’s Robot’s documentation!<a class="headerlink" href="#welcome-to-team-e3-s-robot-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toggle docutils container">
+<div class="header docutils container">
+<p><strong>Show/Hide Code</strong></p>
+</div>
+<div class="highlight-xml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span></span>from plone import api
+...
+</pre></div>
+</td></tr></table></div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -223,6 +235,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#pid-function">PID function</a></li>
 </ul>
 </li>
 </ul>
@@ -292,7 +305,18 @@
   
   
     
-   
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
 
 </body>
 </html>

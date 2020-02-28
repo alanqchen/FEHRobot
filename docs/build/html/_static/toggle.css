@@ -1,0 +1,18 @@
+.toggle .header {
+    display: flex;
+    justify-content: space-between;
+    color: darkgoldenrod;
+    clear: both;
+}
+
+.toggle .header:hover {
+    cursor: pointer;
+}
+
+.toggle .header::after {
+    content: " ▶";
+}
+
+.toggle .header.open::after {
+    content: " ▼";
+}

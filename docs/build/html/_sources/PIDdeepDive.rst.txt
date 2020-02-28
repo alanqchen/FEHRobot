@@ -139,12 +139,30 @@ be constructed.
 Trajectory profiles
 -------------------
 To represent the reference angular positions, pre-generated trajectory
-profiles are generated for every movement. This is because RPS has
+profiles are generated for every movement. This is because the RPS has
 a large delay that negatively impacts the accuracy of the error,
-especially as the robot moves.
+especially as the robot moves. To solve this, trajectory profiles are
+generated in matlab, using the code shown in :doc:`mat_trajGen`. Then
+the Proteus will read the profile file in the SD card, and store the
+reference values in an 2D array, which will be compared to in real time. 
+Each trajectory profile outputted has the same format:
 
-The profiles are generated in matlab, using the code shown in
-:doc:`mat_trajGen`. The each trajectory profile outputted has the same
-format:
+.. code-block::
+       :linenos:
 
+        0.000000	0.000000	0.000000	0.000000	0.000000	0.000000
+        0.051794	0.051794	0.103589	-1.035885	-1.035885	2.071770
+        0.192379	0.192379	0.384757	-1.775803	-1.775803	3.551606
+        0.392157	0.392157	0.784313	-2.219754	-2.219754	4.439508
+        0.621531	0.621531	1.243062	-2.367738	-2.367738	4.735475
 
+From left to right, the columns are wheel 1's, wheel 2's, and wheel 3's
+refererence total angular displacement, and wheel 1's, wheel 2's, and wheel 3's
+refererence angular velocity. Although we only use total angular displacement
+to determine error, reference angular velocity is used to help decide which
+direction to wheels should spin in response to error as encoder counts can only
+increase.
+
+PID function
+------------
+To be filled.

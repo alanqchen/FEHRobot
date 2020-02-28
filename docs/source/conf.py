@@ -25,7 +25,8 @@ breathe_show_define_initializer = True
 breathe_implementation_filename_extensions = ['.h']
 #html_sidebars = { '**': ['globaltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html'] }
 
-
+def setup(app):
+    app.add_stylesheet('toggle.css')
 
 # -- Project information -----------------------------------------------------
 

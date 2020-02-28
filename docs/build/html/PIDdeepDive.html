@@ -36,6 +36,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/toggle.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Performance Tasks" href="perfTasks/index.html" />
@@ -99,6 +100,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#implementation">Implementation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pid-function">PID function</a></li>
 </ul>
 </li>
 </ul>
@@ -327,12 +329,34 @@ be constructed.</p>
 <div class="section" id="trajectory-profiles">
 <h2>Trajectory profiles<a class="headerlink" href="#trajectory-profiles" title="Permalink to this headline">¶</a></h2>
 <p>To represent the reference angular positions, pre-generated trajectory
-profiles are generated for every movement. This is because RPS has
+profiles are generated for every movement. This is because the RPS has
 a large delay that negatively impacts the accuracy of the error,
-especially as the robot moves.</p>
-<p>The profiles are generated in matlab, using the code shown in
-<a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>. The each trajectory profile outputted has the same
-format:</p>
+especially as the robot moves. To solve this, trajectory profiles are
+generated in matlab, using the code shown in <a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>. Then
+the Proteus will read the profile file in the SD card, and store the
+reference values in an 2D array, which will be compared to in real time.
+Each trajectory profile outputted has the same format:</p>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>
+ <span class="mf">0.051794</span>        <span class="mf">0.051794</span>        <span class="mf">0.103589</span>        <span class="o">-</span><span class="mf">1.035885</span>       <span class="o">-</span><span class="mf">1.035885</span>       <span class="mf">2.071770</span>
+ <span class="mf">0.192379</span>        <span class="mf">0.192379</span>        <span class="mf">0.384757</span>        <span class="o">-</span><span class="mf">1.775803</span>       <span class="o">-</span><span class="mf">1.775803</span>       <span class="mf">3.551606</span>
+ <span class="mf">0.392157</span>        <span class="mf">0.392157</span>        <span class="mf">0.784313</span>        <span class="o">-</span><span class="mf">2.219754</span>       <span class="o">-</span><span class="mf">2.219754</span>       <span class="mf">4.439508</span>
+ <span class="mf">0.621531</span>        <span class="mf">0.621531</span>        <span class="mf">1.243062</span>        <span class="o">-</span><span class="mf">2.367738</span>       <span class="o">-</span><span class="mf">2.367738</span>       <span class="mf">4.735475</span>
+</pre></div>
+</td></tr></table></div>
+<p>From left to right, the columns are wheel 1’s, wheel 2’s, and wheel 3’s
+refererence total angular displacement, and wheel 1’s, wheel 2’s, and wheel 3’s
+refererence angular velocity. Although we only use total angular displacement
+to determine error, reference angular velocity is used to help decide which
+direction to wheels should spin in response to error as encoder counts can only
+increase.</p>
+</div>
+<div class="section" id="pid-function">
+<h2>PID function<a class="headerlink" href="#pid-function" title="Permalink to this headline">¶</a></h2>
+<p>To be filled.</p>
 </div>
 </div>
 
@@ -382,7 +406,18 @@ format:</p>
   
   
     
-   
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
 
 </body>
 </html>
