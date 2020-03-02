@@ -22,6 +22,8 @@
 #define DIST_ERROR_MARGIN 1
 #define NUM_CORR_ITERATIONS 2
 
+float forwardTimeOut = 10;
+
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
 FEHMotor motor3(FEHMotor::Motor2, 9.0);
@@ -477,13 +479,15 @@ Moves forward in the direction of motors 2 & 3 for the given inch distance
 @param inch the distance to move.
  */
 void forward23(float percent, int inch) {
+    float start = TimeNow();
+    float timeOut = 3;
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor2.SetPercent(InvPercent(percent));
     motor3.SetPercent(percent);
 
-    while((motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -494,13 +498,15 @@ Moves forward in the direction of motors 3 & 1 for the given inch distance
 @param inch the distance to move.
  */
 void forward31(float percent, float inch) {
+    float start = TimeNow();
+    float timeOut = 3;
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor3.SetPercent(InvPercent(percent));
     motor1.SetPercent(percent);
 
-    while((motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -511,13 +517,14 @@ Moves forward in the direction of motors 1 & 2 for the given inch distance
 @param inch the distance to move.
  */
 void forward12(float percent, float inch) {
+    float start = TimeNow();
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor1.SetPercent(InvPercent(percent));
     motor2.SetPercent(percent);
 
-    while((motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -704,7 +711,7 @@ void actual() {
 
     //go from start to jukebox light, press correct button, go to from of ramp
     PIDMoveTo("toJL.txt", 21, true);
-    Sleep(0.100);
+    Sleep(100);
     int cdsValue = getCdsColor(false);
     correctHeading(270, 18);
     if(cdsValue == 2) {
@@ -731,22 +738,25 @@ void actual() {
     //go up ramp and throw tray into sink
     arm_servo.SetDegree(45);
     PIDMoveTo("upRamp3.txt", 31, false);
-    arm_servo.SetDegree(90);
     Sleep(100);
-    PIDMoveTo("toLevers.txt", 31, false);
-
-    //correct X after ramp
+    correctHeading(0, 18);
     currX = RPS.X();
-    deltaX = fabsf(17.5 - currX);
-    if (17.5 > currX) {
+    deltaX = fabsf(15.5 - currX);
+    forwardTimeOut = 1.5;
+    if (15.5 > currX) {
         forward12(18, deltaX);
     } else {
         forward12(-18, deltaX);
     }
+    forwardTimeOut = 10;
+    arm_servo.SetDegree(80);
+    Sleep(100);
 
-    //prep for lever
-    correctHeading(350, 35);
+    //center between three levers from side of sink
+    PIDMoveTo("toLevers.txt", 31, false);
     arm_servo.SetDegree(70);
+    Sleep(100);
+    correctHeading(345, 35);
 
     /* OLD TRAY DUMP METHOD
     //go up ramp and throw tray into sink
@@ -780,11 +790,12 @@ void actual() {
     } else {
         PIDMoveTo("toL3.txt", 31, false);
     }
-    *
-    PIDMoveTo("toL2.txt", 31, false);
-
-    leverDown();
     */
+
+    //PIDMoveTo("toL2.txt", 31, false);
+
+    //leverDown();
+
 
 }
 
@@ -800,7 +811,11 @@ int main(void)
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     RPS.InitializeTouchMenu();
+
     actual();
+    while (true) {
+        LCD.WriteLine(RPS.Y());
+    }
 
     return 0;
 }
