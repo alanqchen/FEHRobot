@@ -204,9 +204,59 @@ the PID control loop. In the example above, there will be a reference value
 ever 0.1 seconds. Note that both ``tps`` and ``tvec`` must end with the same
 time value.
 
-The displacement and timestamp values are passed into ``cubicpolytraj`` which
-produces a cubic trajectory profile. We're specifically interested in the
-reference positions and velocities, stored in ``q`` and ``qd`` respectively.
+The displacement and timestamp values are passed into ``cubicpolytraj``, part
+of the Robotics System Toolbox, which produces a cubic trajectory profile.
+We're specifically interested in the reference positions and velocities,
+stored in ``q`` and ``qd`` respectively.
+
+The kinematic relationship defined previously in equation :math:`\eqref{eq:7}`
+is used to convert the generated reference velocities into reference angular
+velocities for each wheel:
+
+.. code-block:: mathlab
+
+    phiVel1 = (-sin(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+    phiVel2 = (-sin(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+    phiVel3 = (-sin(q(3,:)+MOTOR_ANGLE_3).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_3).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+
+Now to convert the reference angular velocities into reference total angular
+displacment, numerical integration is performed using the following
+approximation based on the trapezoidal rule:
+
+:math:`\phi_{ref}[i]=\phi_{ref}[i-1]+\frac{\Delta T}{2}(\dot{\phi}_{ref}[i]+\dot{\phi}_{ref}[i-1])\tag{10}`
+
+
+This formula is implemented in MATLab as:
+
+.. code-block:: matlab
+
+    phiRef1(1) = 0;
+    phiRef2(1) = 0;
+    phiRef3(1) = 0;
+    for i=2:length(phiVel1)
+        phiRef1(i)= phiRef1(i-1)+abs((DELTA_T/2)*(phiVel1(i)+phiVel1(i-1)));
+        phiRef2(i)= phiRef2(i-1)+abs((DELTA_T/2)*(phiVel2(i)+phiVel2(i-1)));
+        phiRef3(i)= phiRef3(i-1)+abs((DELTA_T/2)*(phiVel3(i)+phiVel3(i-1)));
+    end
+
+Note that the initial total angular displacement is always set to 0.
+Also note the addition of an absolute value to the implementation.
+This is because encoder counts only can increase in our hardware,
+thus making the actual angular displacements always positive.
+
+The reference total angular displacement values are then written to
+the output file
+
+.. code-block:: mathlab
+
+    fileID = fopen(FILE_NAME,'w');
+    for i=1:length(phiRef1)
+        fprintf(fileID, '%f\t%f\t%f\t%f\t%f\t%f\r\n', abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)), phiVel1(i), phiVel2(i), phiVel3(i));
+        %fprintf(fileID, '%f\t%f\t%f\n', abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)));
+    end
+
+which results in a output with format of the example trajectory profile shown
+above.
 
 PID function
 ------------

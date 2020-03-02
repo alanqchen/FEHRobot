@@ -386,9 +386,48 @@ is aways zero, and each waypoint must have it’s own timestamp. I.e, for
 the PID control loop. In the example above, there will be a reference value
 ever 0.1 seconds. Note that both <code class="docutils literal notranslate"><span class="pre">tps</span></code> and <code class="docutils literal notranslate"><span class="pre">tvec</span></code> must end with the same
 time value.</p>
-<p>The displacement and timestamp values are passed into <code class="docutils literal notranslate"><span class="pre">cubicpolytraj</span></code> which
-produces a cubic trajectory profile. We’re specifically interested in the
-reference positions and velocities, stored in <code class="docutils literal notranslate"><span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">qd</span></code> respectively.</p>
+<p>The displacement and timestamp values are passed into <code class="docutils literal notranslate"><span class="pre">cubicpolytraj</span></code>, part
+of the Robotics System Toolbox, which produces a cubic trajectory profile.
+We’re specifically interested in the reference positions and velocities,
+stored in <code class="docutils literal notranslate"><span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">qd</span></code> respectively.</p>
+<p>The kinematic relationship defined previously in equation <span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span>
+is used to convert the generated reference velocities into reference angular
+velocities for each wheel:</p>
+<div class="highlight-mathlab notranslate"><div class="highlight"><pre><span></span>phiVel1 = (-sin(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+phiVel2 = (-sin(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+phiVel3 = (-sin(q(3,:)+MOTOR_ANGLE_3).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_3).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
+</pre></div>
+</div>
+<p>Now to convert the reference angular velocities into reference total angular
+displacment, numerical integration is performed using the following
+approximation based on the trapezoidal rule:</p>
+<p><span class="math notranslate nohighlight">\(\phi_{ref}[i]=\phi_{ref}[i-1]+\frac{\Delta T}{2}(\dot{\phi}_{ref}[i]+\dot{\phi}_{ref}[i-1])\tag{10}\)</span></p>
+<p>This formula is implemented in MATLab as:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">phiRef1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">phiRef2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">phiRef3</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="nb">i</span><span class="p">=</span><span class="mi">2</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">phiVel1</span><span class="p">)</span>
+    <span class="n">phiRef1</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef1</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel1</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel1</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+    <span class="n">phiRef2</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef2</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel2</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel2</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+    <span class="n">phiRef3</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef3</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel3</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel3</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Note that the initial total angular displacement is always set to 0.
+Also note the addition of an absolute value to the implementation.
+This is because encoder counts only can increase in our hardware,
+thus making the actual angular displacements always positive.</p>
+<p>The reference total angular displacement values are then written to
+the output file</p>
+<div class="highlight-mathlab notranslate"><div class="highlight"><pre><span></span>fileID = fopen(FILE_NAME,&#39;w&#39;);
+for i=1:length(phiRef1)
+    fprintf(fileID, &#39;%f\t%f\t%f\t%f\t%f\t%f\r\n&#39;, abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)), phiVel1(i), phiVel2(i), phiVel3(i));
+    %fprintf(fileID, &#39;%f\t%f\t%f\n&#39;, abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)));
+end
+</pre></div>
+</div>
+<p>which results in a output with format of the example trajectory profile shown
+above.</p>
 </div>
 <div class="section" id="pid-function">
 <h2>PID function<a class="headerlink" href="#pid-function" title="Permalink to this headline">¶</a></h2>
