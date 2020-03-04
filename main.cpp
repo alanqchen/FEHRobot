@@ -701,14 +701,12 @@ void performance3() {
 }
 
 void leverDown() {
-    arm_servo.SetDegree(40);
+    arm_servo.SetDegree(140);
     Sleep(0.300);
-    arm_servo.SetDegree(70);
+    arm_servo.SetDegree(110);
 }
 
 void actual() {
-    arm_servo.SetDegree(65);
-
     //go from start to jukebox light, press correct button, go to from of ramp
     PIDMoveTo("toJL.txt", 21, true);
     Sleep(100);
@@ -722,8 +720,6 @@ void actual() {
         PIDMoveTo("bToRamp.txt", 31, false);
     }
 
-
-
     //correct heading and X before ramp
     correctHeading(0, 35);
     float currX = RPS.X();
@@ -734,12 +730,14 @@ void actual() {
         forward12(-18, deltaX);
     }
 
-
-    //go up ramp and throw tray into sink
-    arm_servo.SetDegree(45);
+    //go up ramp
     PIDMoveTo("upRamp3.txt", 31, false);
+
+    //align X and headnig (and later Y) at sink
     Sleep(100);
     correctHeading(0, 18);
+    //correct Y using new moveX function to ensure RPS.Y() 42.1 ?
+    //correctHeading(0, 18);
     currX = RPS.X();
     deltaX = fabsf(15.5 - currX);
     forwardTimeOut = 1.5;
@@ -749,52 +747,45 @@ void actual() {
         forward12(-18, deltaX);
     }
     forwardTimeOut = 10;
+
+    //throw tray
+    arm_servo.SetDegree(60);
+    Sleep(150);
     arm_servo.SetDegree(80);
+    Sleep(150);
+    arm_servo.SetDegree(100);
+    correctHeading(0, 18);
     Sleep(100);
 
     //center between three levers from side of sink
     PIDMoveTo("toLevers.txt", 31, false);
-    arm_servo.SetDegree(70);
+    arm_servo.SetDegree(110);
     Sleep(100);
     correctHeading(345, 35);
-
-    /* OLD TRAY DUMP METHOD
-    //go up ramp and throw tray into sink
-    PIDMoveTo("upRamp.txt", 31, false);
-
-    //correct X after ramp
-    currX = RPS.X();
-    deltaX = fabsf(17.75 - currX);
-    if (17.75 > currX) {
-        forward12(18, deltaX);
+    float currY = RPS.Y();
+    float deltaY = fabsf(57.2 - RPS.Y());
+    if (57.2 > currY) {
+        forward23(18, deltaY);
     } else {
-        forward12(-18, deltaX);
+        forward23(-18, deltaY);
     }
 
-    correctHeading(90, 35);
 
-    PIDMoveTo("toSink.txt", 31, false);
-
-    sinkDump();
-
-    correctHeading(170, 30);
-    arm_servo.SetDegree(70);
-    int lever = RPS.GetIceCream();
-    */
-
+    //flip correct lever down
     /*
     if (lever == 1) {
         PIDMoveTo("toL1.txt", 31, false);
     } else if (lever == 2) {
         PIDMoveTo("toL2.txt", 31, false);
     } else {
-        PIDMoveTo("toL3.txt", 31, false);
+        PIDMoveTo("toL2.txt", 31, false);
+        forward13(-35, 4);
     }
     */
 
-    //PIDMoveTo("toL2.txt", 31, false);
+    PIDMoveTo("toL2.txt", 31, false);
 
-    //leverDown();
+    leverDown();
 
 
 }
@@ -805,7 +796,7 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(65);
+    arm_servo.SetDegree(45);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
