@@ -21,6 +21,8 @@
 #define ERROR_MARGIN 3
 #define DIST_ERROR_MARGIN 1
 #define NUM_CORR_ITERATIONS 2
+#define RPS_POS_CORR_SPEED 20
+#define RPS_HEAD_CORR_SPEED 35
 
 float forwardTimeOut = 10;
 
@@ -226,7 +228,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     float errorTotal2 = 0.0;
     float errorTotal3 = 0.0;
     float Kp = 20.0;
-    float Ki = 2.0;
+    float Ki = 1.0;
     float Kd = 0.0;
     float pidMarginError = 0.1; // in inches
     // might remove this
@@ -480,7 +482,6 @@ Moves forward in the direction of motors 2 & 3 for the given inch distance
  */
 void forward23(float percent, int inch) {
     float start = TimeNow();
-    float timeOut = 3;
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
@@ -499,7 +500,6 @@ Moves forward in the direction of motors 3 & 1 for the given inch distance
  */
 void forward31(float percent, float inch) {
     float start = TimeNow();
-    float timeOut = 3;
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
@@ -525,6 +525,19 @@ void forward12(float percent, float inch) {
     motor2.SetPercent(percent);
 
     while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    allStop();
+}
+
+void forwardX(float percent, float inch) {
+    float start = TimeNow();
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(percent/2.0);
+    motor2.SetPercent(percent/2.0);
+    motor3.SetPercent(InvPercent(percent));
+
+    while(TimeNow() - start < forwardTimeOut && motor3_encoder.Counts() < COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -711,7 +724,7 @@ void actual() {
     PIDMoveTo("toJL.txt", 21, true);
     Sleep(100);
     int cdsValue = getCdsColor(false);
-    correctHeading(270, 18);
+    correctHeading(270, RPS_HEAD_CORR_SPEED);
     if(cdsValue == 2) {
         PIDMoveTo("toRed.txt", 61, false);
         PIDMoveTo("rToRamp.txt", 61, false);
@@ -721,30 +734,36 @@ void actual() {
     }
 
     //correct heading and X before ramp
-    correctHeading(0, 35);
+    correctHeading(0, 1.33*RPS_HEAD_CORR_SPEED);
     float currX = RPS.X();
-    float deltaX = fabsf(17.5 - currX);
-    if (17.5 > currX) {
-        forward12(18, deltaX);
+    float deltaX = fabsf(18 - currX);
+    if (18 > currX) {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
-        forward12(-18, deltaX);
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
     }
 
     //go up ramp
     PIDMoveTo("upRamp3.txt", 31, false);
 
-    //align X and headnig (and later Y) at sink
+    //align X, Y, and heading at sink
     Sleep(100);
-    correctHeading(0, 18);
-    //correct Y using new moveX function to ensure RPS.Y() 42.1 ?
-    //correctHeading(0, 18);
+    correctHeading(0, RPS_HEAD_CORR_SPEED);
+    float currY = RPS.Y();
+    float deltaY = fabsf(41.4 - RPS.Y());
+    if (41.4 > currY) {
+        forwardX(-RPS_POS_CORR_SPEED, deltaY);
+    } else {
+        forwardX(RPS_POS_CORR_SPEED, deltaY);
+    }
+    correctHeading(0, RPS_HEAD_CORR_SPEED);
     currX = RPS.X();
     deltaX = fabsf(15.5 - currX);
-    forwardTimeOut = 1.5;
+    forwardTimeOut = 1.75;
     if (15.5 > currX) {
-        forward12(18, deltaX);
+        forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
-        forward12(-18, deltaX);
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
     }
     forwardTimeOut = 10;
 
@@ -754,40 +773,70 @@ void actual() {
     arm_servo.SetDegree(80);
     Sleep(150);
     arm_servo.SetDegree(100);
-    correctHeading(0, 18);
+    correctHeading(0, RPS_HEAD_CORR_SPEED);
     Sleep(100);
 
     //center between three levers from side of sink
     PIDMoveTo("toLevers.txt", 31, false);
     arm_servo.SetDegree(110);
     Sleep(100);
-    correctHeading(345, 35);
-    float currY = RPS.Y();
-    float deltaY = fabsf(57.2 - RPS.Y());
-    if (57.2 > currY) {
-        forward23(18, deltaY);
+    currX = RPS.X();
+    deltaX = fabsf(21.7 - RPS.X());
+    if (21.7 > currX) {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
-        forward23(-18, deltaY);
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
+    }
+    correctHeading(345, RPS_HEAD_CORR_SPEED);
+    currY = RPS.Y();
+    deltaY = fabsf(57.2 - RPS.Y());
+    if (57.2 > currY) {
+        forward23(RPS_POS_CORR_SPEED, deltaY);
+    } else {
+        forward23(-RPS_POS_CORR_SPEED, deltaY);
     }
 
 
-    //flip correct lever down
-    /*
+    //flip correct lever down and move near burger
+    int lever = 1; //RPS.IceCream();
     if (lever == 1) {
         PIDMoveTo("toL1.txt", 31, false);
+        leverDown();
+        PIDMoveTo("L1toBgr.txt", 31, false);
+        arm_servo.SetDegree(0);
     } else if (lever == 2) {
         PIDMoveTo("toL2.txt", 31, false);
+        leverDown();
+        PIDMoveTo("L2toBgr.txt", 31, false);
+        arm_servo.SetDegree(0);
     } else {
         PIDMoveTo("toL2.txt", 31, false);
-        forward13(-35, 4);
+        forward31(-35, 3.75);
+        leverDown();
+        Sleep(200);
+        forward31(35, 3.75);
+        PIDMoveTo("L2toBgr.txt", 31, false);
+        arm_servo.SetDegree(0);
     }
-    */
 
-    PIDMoveTo("toL2.txt", 31, false);
+    //move to and align to burger
+    correctHeading(180, RPS_HEAD_CORR_SPEED);
+    currX = RPS.X();
+    deltaX = fabsf(30.1 - RPS.X());
+    if (30.1 > currX) {
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
+    } else {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
+    }
+    correctHeading(200, RPS_HEAD_CORR_SPEED);
+    forwardTimeOut = 1.75;
+    forward31(RPS_POS_CORR_SPEED, 62.6 - RPS.Y());
+    forwardTimeOut = 10;
 
-    leverDown();
-
-
+    //flip burger
+    arm_servo.SetDegree(55);
+    Sleep(2000);
+    arm_servo.SetDegree(0);
 }
 
 int main(void)
@@ -805,6 +854,8 @@ int main(void)
 
     actual();
     while (true) {
+        LCD.Write(RPS.X());
+        LCD.Write("  ");
         LCD.WriteLine(RPS.Y());
     }
 
