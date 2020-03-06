@@ -34,6 +34,7 @@ float RPS_LEVERS_Y = 0.0;
 float RPS_LEVERS_HEADING = 0.0;
 
 float RPS_BURGER_X = 0.0;
+float RPS_BURGER_Y = 0.0;
 
 float forwardTimeOut = 10;
 
@@ -725,8 +726,8 @@ void performance3() {
 }
 
 void leverDown() {
-    arm_servo.SetDegree(140);
-    Sleep(0.300);
+    arm_servo.SetDegree(150);
+    Sleep(750);
     arm_servo.SetDegree(110);
 }
 
@@ -746,6 +747,7 @@ void actual() {
 
     //correct heading and X before ramp
     correctHeading(RPS_RAMP_START_HEADING, 1.33*RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     float currX = RPS.X();
     // OLD: 18.3
     float deltaX = fabsf(RPS_RAMP_START_X - currX);
@@ -761,14 +763,16 @@ void actual() {
     //align X, Y, and heading at sink
     Sleep(100);
     correctHeading(RPS_RAMP_START_HEADING, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     float currY = RPS.Y();
-    float deltaY = fabsf(41.4 - RPS.Y());
+    float deltaY = fabsf(41.4 - currY);
     if (41.4 > currY) {
         forwardX(-RPS_POS_CORR_SPEED, deltaY);
     } else {
         forwardX(RPS_POS_CORR_SPEED, deltaY);
     }
     correctHeading(0, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     currX = RPS.X();
     deltaX = fabsf(15.5 - currX);
     forwardTimeOut = 1.75;
@@ -799,10 +803,10 @@ void actual() {
     //center between three levers from side of sink
     PIDMoveTo("toLevers.txt", 31, false);
     arm_servo.SetDegree(110);
-    Sleep(100);
+    Sleep(500);
     currX = RPS.X();
     // OLD 20.4
-    deltaX = fabsf(RPS_LEVERS_X - RPS.X());
+    deltaX = fabsf(RPS_LEVERS_X - currX);
     if (RPS_LEVERS_X > currX) {
         forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
@@ -810,9 +814,10 @@ void actual() {
     }
     // OLD 345
     correctHeading(RPS_LEVERS_HEADING, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     currY = RPS.Y();
     // OLD: 57.2
-    deltaY = fabsf(RPS_LEVERS_Y - RPS.Y());
+    deltaY = fabsf(RPS_LEVERS_Y - currY);
     if (RPS_LEVERS_Y > currY) {
         forward23(RPS_POS_CORR_SPEED, deltaY);
     } else {
@@ -821,17 +826,15 @@ void actual() {
 
 
     //flip correct lever down and move near burger
-    int lever = 3; //RPS.IceCream();
-    if (lever == 1) {
+    int lever = RPS.GetIceCream();
+    if (lever == 0) {
         PIDMoveTo("toL1.txt", 31, false);
         leverDown();
         PIDMoveTo("L1toBgr.txt", 31, false);
-        arm_servo.SetDegree(0);
-    } else if (lever == 2) {
+    } else if (lever == 1) {
         PIDMoveTo("toL2.txt", 31, false);
         leverDown();
         PIDMoveTo("L2toBgr.txt", 31, false);
-        arm_servo.SetDegree(0);
     } else {
         PIDMoveTo("toL2.txt", 31, false);
         forward31(-35, 3.75);
@@ -839,14 +842,15 @@ void actual() {
         Sleep(200);
         forward31(35, 3.75);
         PIDMoveTo("L2toBgr.txt", 31, false);
-        arm_servo.SetDegree(0);
     }
 
     //move to and align to burger
+    arm_servo.SetDegree(8);
     correctHeading(180, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     currX = RPS.X();
     // OLD: 29.7
-    deltaX = fabsf(RPS_BURGER_X - RPS.X());
+    deltaX = fabsf(RPS_BURGER_X - currX);
     if (RPS_BURGER_X > currX) {
         forward12(-RPS_POS_CORR_SPEED, deltaX);
     } else {
@@ -854,17 +858,19 @@ void actual() {
     }
     correctHeading(200, RPS_HEAD_CORR_SPEED);
     forwardTimeOut = 1.75;
-    forward31(RPS_POS_CORR_SPEED, 62.6 - RPS.Y());
+    Sleep(500);
+    currY = RPS.Y();
+    forward31(RPS_POS_CORR_SPEED, RPS_BURGER_Y - currY);
     forwardTimeOut = 10;
 
     //flip burger
-    arm_servo.SetDegree(55);
+    arm_servo.SetDegree(85);
     Sleep(2000);
-    arm_servo.SetDegree(0);
+    arm_servo.SetDegree(8);
 }
 
 void setupRPS() {
-    Sleep(750);
+    Sleep(1000);
     float trash_x;
     float trash_y;
     LCD.Clear(FEHLCD::Black);
@@ -916,6 +922,7 @@ void setupRPS() {
     while(RPS_BURGER_X == -1.0) {
         RPS_BURGER_X = RPS.X();
     }
+    RPS_BURGER_Y = RPS.Y();
     Buzzer.Tone( FEHBuzzer::D6,  300 );
     Sleep(500);
 
@@ -936,7 +943,7 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(0);
+    arm_servo.SetDegree(8);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -945,6 +952,7 @@ int main(void)
     setupRPS();
     arm_servo.SetDegree(45);
     actual();
+
     while (true) {
         LCD.Write(RPS.X());
         LCD.Write("  ");
