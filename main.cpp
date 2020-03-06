@@ -1,5 +1,6 @@
 #include <FEHLCD.h>
 #include <FEHUtility.h>
+#include <FEHBuzzer.h>
 #include <FEHRPS.h>
 #include <FEHSD.h>
 #include <FEHServo.h>
@@ -21,8 +22,18 @@
 #define ERROR_MARGIN 3
 #define DIST_ERROR_MARGIN 1
 #define NUM_CORR_ITERATIONS 2
-#define RPS_POS_CORR_SPEED 20
+#define RPS_POS_CORR_SPEED 25
 #define RPS_HEAD_CORR_SPEED 35
+
+float RPS_RAMP_START_X = 0.0;
+float RPS_RAMP_START_Y = 0.0;
+float RPS_RAMP_START_HEADING = 0.0;
+
+float RPS_LEVERS_X = 0.0;
+float RPS_LEVERS_Y = 0.0;
+float RPS_LEVERS_HEADING = 0.0;
+
+float RPS_BURGER_X = 0.0;
 
 float forwardTimeOut = 10;
 
@@ -734,10 +745,11 @@ void actual() {
     }
 
     //correct heading and X before ramp
-    correctHeading(0, 1.33*RPS_HEAD_CORR_SPEED);
+    correctHeading(RPS_RAMP_START_HEADING, 1.33*RPS_HEAD_CORR_SPEED);
     float currX = RPS.X();
-    float deltaX = fabsf(18 - currX);
-    if (18 > currX) {
+    // OLD: 18.3
+    float deltaX = fabsf(RPS_RAMP_START_X - currX);
+    if (RPS_RAMP_START_X > currX) {
         forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
         forward12(-RPS_POS_CORR_SPEED, deltaX);
@@ -748,7 +760,7 @@ void actual() {
 
     //align X, Y, and heading at sink
     Sleep(100);
-    correctHeading(0, RPS_HEAD_CORR_SPEED);
+    correctHeading(RPS_RAMP_START_HEADING, RPS_HEAD_CORR_SPEED);
     float currY = RPS.Y();
     float deltaY = fabsf(41.4 - RPS.Y());
     if (41.4 > currY) {
@@ -771,9 +783,17 @@ void actual() {
     arm_servo.SetDegree(60);
     Sleep(150);
     arm_servo.SetDegree(80);
-    Sleep(150);
+    Sleep(50);
     arm_servo.SetDegree(100);
+    Sleep(50);
+    arm_servo.SetDegree(120);
+    Sleep(10);
+    arm_servo.SetDegree(115);
+    Sleep(10);
+    arm_servo.SetDegree(110);
+    Sleep(50);
     correctHeading(0, RPS_HEAD_CORR_SPEED);
+    arm_servo.SetDegree(80);
     Sleep(100);
 
     //center between three levers from side of sink
@@ -781,16 +801,19 @@ void actual() {
     arm_servo.SetDegree(110);
     Sleep(100);
     currX = RPS.X();
-    deltaX = fabsf(21.7 - RPS.X());
-    if (21.7 > currX) {
+    // OLD 20.4
+    deltaX = fabsf(RPS_LEVERS_X - RPS.X());
+    if (RPS_LEVERS_X > currX) {
         forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
         forward12(-RPS_POS_CORR_SPEED, deltaX);
     }
-    correctHeading(345, RPS_HEAD_CORR_SPEED);
+    // OLD 345
+    correctHeading(RPS_LEVERS_HEADING, RPS_HEAD_CORR_SPEED);
     currY = RPS.Y();
-    deltaY = fabsf(57.2 - RPS.Y());
-    if (57.2 > currY) {
+    // OLD: 57.2
+    deltaY = fabsf(RPS_LEVERS_Y - RPS.Y());
+    if (RPS_LEVERS_Y > currY) {
         forward23(RPS_POS_CORR_SPEED, deltaY);
     } else {
         forward23(-RPS_POS_CORR_SPEED, deltaY);
@@ -798,7 +821,7 @@ void actual() {
 
 
     //flip correct lever down and move near burger
-    int lever = 1; //RPS.IceCream();
+    int lever = 3; //RPS.IceCream();
     if (lever == 1) {
         PIDMoveTo("toL1.txt", 31, false);
         leverDown();
@@ -822,8 +845,9 @@ void actual() {
     //move to and align to burger
     correctHeading(180, RPS_HEAD_CORR_SPEED);
     currX = RPS.X();
-    deltaX = fabsf(30.1 - RPS.X());
-    if (30.1 > currX) {
+    // OLD: 29.7
+    deltaX = fabsf(RPS_BURGER_X - RPS.X());
+    if (RPS_BURGER_X > currX) {
         forward12(-RPS_POS_CORR_SPEED, deltaX);
     } else {
         forward12(RPS_POS_CORR_SPEED, deltaX);
@@ -839,24 +863,94 @@ void actual() {
     arm_servo.SetDegree(0);
 }
 
+void setupRPS() {
+    Sleep(750);
+    float trash_x;
+    float trash_y;
+    LCD.Clear(FEHLCD::Black);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR RAMP POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_RAMP_START_X = RPS.X();
+    while(RPS_RAMP_START_X == -1.0) {
+        RPS_RAMP_START_X = RPS.X();
+    }
+    RPS_RAMP_START_Y = RPS.Y();
+    RPS_RAMP_START_HEADING = RPS.Heading();
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Gray);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR LEVERS POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_LEVERS_X = RPS.X();
+    while(RPS_LEVERS_X == -1.0) {
+        RPS_LEVERS_X = RPS.X();
+    }
+    RPS_LEVERS_Y = RPS.Y();
+    RPS_LEVERS_HEADING = RPS.Heading();
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Scarlet);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR BURGER POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_BURGER_X = RPS.X();
+    while(RPS_BURGER_X == -1.0) {
+        RPS_BURGER_X = RPS.X();
+    }
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Blue);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP TO LOAD");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+}
+
 int main(void)
 {
     jukebox_servo.SetMin(700);
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(45);
+    arm_servo.SetDegree(0);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     RPS.InitializeTouchMenu();
-
+    setupRPS();
+    arm_servo.SetDegree(45);
     actual();
     while (true) {
         LCD.Write(RPS.X());
         LCD.Write("  ");
-        LCD.WriteLine(RPS.Y());
+        LCD.Write(RPS.Y());
+        LCD.Write(" ");
+        LCD.WriteLine(RPS.Heading());
     }
 
     return 0;
