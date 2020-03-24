@@ -1,5 +1,6 @@
 #include <FEHLCD.h>
 #include <FEHUtility.h>
+#include <FEHBuzzer.h>
 #include <FEHRPS.h>
 #include <FEHSD.h>
 #include <FEHServo.h>
@@ -21,6 +22,21 @@
 #define ERROR_MARGIN 3
 #define DIST_ERROR_MARGIN 1
 #define NUM_CORR_ITERATIONS 2
+#define RPS_POS_CORR_SPEED 25
+#define RPS_HEAD_CORR_SPEED 35
+
+float RPS_RAMP_START_X = 0.0;
+float RPS_RAMP_START_Y = 0.0;
+float RPS_RAMP_START_HEADING = 0.0;
+
+float RPS_LEVERS_X = 0.0;
+float RPS_LEVERS_Y = 0.0;
+float RPS_LEVERS_HEADING = 0.0;
+
+float RPS_BURGER_X = 0.0;
+float RPS_BURGER_Y = 0.0;
+
+float forwardTimeOut = 10;
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
@@ -224,7 +240,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     float errorTotal2 = 0.0;
     float errorTotal3 = 0.0;
     float Kp = 20.0;
-    float Ki = 2.0;
+    float Ki = 1.0;
     float Kd = 0.0;
     float pidMarginError = 0.1; // in inches
     // might remove this
@@ -477,13 +493,14 @@ Moves forward in the direction of motors 2 & 3 for the given inch distance
 @param inch the distance to move.
  */
 void forward23(float percent, int inch) {
+    float start = TimeNow();
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor2.SetPercent(InvPercent(percent));
     motor3.SetPercent(percent);
 
-    while((motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -494,13 +511,14 @@ Moves forward in the direction of motors 3 & 1 for the given inch distance
 @param inch the distance to move.
  */
 void forward31(float percent, float inch) {
+    float start = TimeNow();
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor3.SetPercent(InvPercent(percent));
     motor1.SetPercent(percent);
 
-    while((motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -511,13 +529,27 @@ Moves forward in the direction of motors 1 & 2 for the given inch distance
 @param inch the distance to move.
  */
 void forward12(float percent, float inch) {
+    float start = TimeNow();
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     motor1.SetPercent(InvPercent(percent));
     motor2.SetPercent(percent);
 
-    while((motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    allStop();
+}
+
+void forwardX(float percent, float inch) {
+    float start = TimeNow();
+    motor1_encoder.ResetCounts();
+    motor2_encoder.ResetCounts();
+    motor3_encoder.ResetCounts();
+    motor1.SetPercent(percent/2.0);
+    motor2.SetPercent(percent/2.0);
+    motor3.SetPercent(InvPercent(percent));
+
+    while(TimeNow() - start < forwardTimeOut && motor3_encoder.Counts() < COUNTS_PER_INCH*inch);
     allStop();
 }
 
@@ -694,19 +726,17 @@ void performance3() {
 }
 
 void leverDown() {
-    arm_servo.SetDegree(40);
-    Sleep(0.300);
-    arm_servo.SetDegree(70);
+    arm_servo.SetDegree(150);
+    Sleep(750);
+    arm_servo.SetDegree(110);
 }
 
 void actual() {
-    arm_servo.SetDegree(65);
-
     //go from start to jukebox light, press correct button, go to from of ramp
     PIDMoveTo("toJL.txt", 21, true);
-    Sleep(0.100);
+    Sleep(100);
     int cdsValue = getCdsColor(false);
-    correctHeading(270, 18);
+    correctHeading(270, RPS_HEAD_CORR_SPEED);
     if(cdsValue == 2) {
         PIDMoveTo("toRed.txt", 61, false);
         PIDMoveTo("rToRamp.txt", 61, false);
@@ -715,77 +745,196 @@ void actual() {
         PIDMoveTo("bToRamp.txt", 31, false);
     }
 
-
-
     //correct heading and X before ramp
-    correctHeading(0, 35);
+    correctHeading(RPS_RAMP_START_HEADING, 1.33*RPS_HEAD_CORR_SPEED);
+    Sleep(500);
     float currX = RPS.X();
-    float deltaX = fabsf(17.5 - currX);
-    if (17.5 > currX) {
-        forward12(18, deltaX);
+    // OLD: 18.3
+    float deltaX = fabsf(RPS_RAMP_START_X - currX);
+    if (RPS_RAMP_START_X > currX) {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
-        forward12(-18, deltaX);
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
     }
 
-
-    //go up ramp and throw tray into sink
-    arm_servo.SetDegree(45);
+    //go up ramp
     PIDMoveTo("upRamp3.txt", 31, false);
-    arm_servo.SetDegree(90);
+
+    //align X, Y, and heading at sink
     Sleep(100);
+    correctHeading(RPS_RAMP_START_HEADING, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
+    float currY = RPS.Y();
+    float deltaY = fabsf(41.4 - currY);
+    if (41.4 > currY) {
+        forwardX(-RPS_POS_CORR_SPEED, deltaY);
+    } else {
+        forwardX(RPS_POS_CORR_SPEED, deltaY);
+    }
+    correctHeading(0, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
+    currX = RPS.X();
+    deltaX = fabsf(15.5 - currX);
+    forwardTimeOut = 1.75;
+    if (15.5 > currX) {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
+    } else {
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
+    }
+    forwardTimeOut = 10;
+
+    //throw tray
+    arm_servo.SetDegree(60);
+    Sleep(150);
+    arm_servo.SetDegree(80);
+    Sleep(50);
+    arm_servo.SetDegree(100);
+    Sleep(50);
+    arm_servo.SetDegree(120);
+    Sleep(10);
+    arm_servo.SetDegree(115);
+    Sleep(10);
+    arm_servo.SetDegree(110);
+    Sleep(50);
+    correctHeading(0, RPS_HEAD_CORR_SPEED);
+    arm_servo.SetDegree(80);
+    Sleep(100);
+
+    //center between three levers from side of sink
     PIDMoveTo("toLevers.txt", 31, false);
-
-    //correct X after ramp
+    arm_servo.SetDegree(110);
+    Sleep(500);
     currX = RPS.X();
-    deltaX = fabsf(17.5 - currX);
-    if (17.5 > currX) {
-        forward12(18, deltaX);
+    // OLD 20.4
+    deltaX = fabsf(RPS_LEVERS_X - currX);
+    if (RPS_LEVERS_X > currX) {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
-        forward12(-18, deltaX);
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
+    }
+    // OLD 345
+    correctHeading(RPS_LEVERS_HEADING, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
+    currY = RPS.Y();
+    // OLD: 57.2
+    deltaY = fabsf(RPS_LEVERS_Y - currY);
+    if (RPS_LEVERS_Y > currY) {
+        forward23(RPS_POS_CORR_SPEED, deltaY);
+    } else {
+        forward23(-RPS_POS_CORR_SPEED, deltaY);
     }
 
-    //prep for lever
-    correctHeading(350, 35);
-    arm_servo.SetDegree(70);
 
-    /* OLD TRAY DUMP METHOD
-    //go up ramp and throw tray into sink
-    PIDMoveTo("upRamp.txt", 31, false);
-
-    //correct X after ramp
-    currX = RPS.X();
-    deltaX = fabsf(17.75 - currX);
-    if (17.75 > currX) {
-        forward12(18, deltaX);
-    } else {
-        forward12(-18, deltaX);
-    }
-
-    correctHeading(90, 35);
-
-    PIDMoveTo("toSink.txt", 31, false);
-
-    sinkDump();
-
-    correctHeading(170, 30);
-    arm_servo.SetDegree(70);
+    //flip correct lever down and move near burger
     int lever = RPS.GetIceCream();
-    */
-
-    /*
-    if (lever == 1) {
+    if (lever == 0) {
         PIDMoveTo("toL1.txt", 31, false);
-    } else if (lever == 2) {
+        leverDown();
+        PIDMoveTo("L1toBgr.txt", 31, false);
+    } else if (lever == 1) {
         PIDMoveTo("toL2.txt", 31, false);
+        leverDown();
+        PIDMoveTo("L2toBgr.txt", 31, false);
     } else {
-        PIDMoveTo("toL3.txt", 31, false);
+        PIDMoveTo("toL2.txt", 31, false);
+        forward31(-35, 3.75);
+        leverDown();
+        Sleep(200);
+        forward31(35, 3.75);
+        PIDMoveTo("L2toBgr.txt", 31, false);
     }
-    *
-    PIDMoveTo("toL2.txt", 31, false);
 
-    leverDown();
-    */
+    //move to and align to burger
+    arm_servo.SetDegree(8);
+    correctHeading(180, RPS_HEAD_CORR_SPEED);
+    Sleep(500);
+    currX = RPS.X();
+    // OLD: 29.7
+    deltaX = fabsf(RPS_BURGER_X - currX);
+    if (RPS_BURGER_X > currX) {
+        forward12(-RPS_POS_CORR_SPEED, deltaX);
+    } else {
+        forward12(RPS_POS_CORR_SPEED, deltaX);
+    }
+    correctHeading(200, RPS_HEAD_CORR_SPEED);
+    forwardTimeOut = 1.75;
+    Sleep(500);
+    currY = RPS.Y();
+    forward31(RPS_POS_CORR_SPEED, RPS_BURGER_Y - currY);
+    forwardTimeOut = 10;
 
+    //flip burger
+    arm_servo.SetDegree(85);
+    Sleep(2000);
+    arm_servo.SetDegree(8);
+}
+
+void setupRPS() {
+    Sleep(1000);
+    float trash_x;
+    float trash_y;
+    LCD.Clear(FEHLCD::Black);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR RAMP POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_RAMP_START_X = RPS.X();
+    while(RPS_RAMP_START_X == -1.0) {
+        RPS_RAMP_START_X = RPS.X();
+    }
+    RPS_RAMP_START_Y = RPS.Y();
+    RPS_RAMP_START_HEADING = RPS.Heading();
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Gray);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR LEVERS POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_LEVERS_X = RPS.X();
+    while(RPS_LEVERS_X == -1.0) {
+        RPS_LEVERS_X = RPS.X();
+    }
+    RPS_LEVERS_Y = RPS.Y();
+    RPS_LEVERS_HEADING = RPS.Heading();
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Scarlet);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP FOR BURGER POS");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
+    RPS_BURGER_X = RPS.X();
+    while(RPS_BURGER_X == -1.0) {
+        RPS_BURGER_X = RPS.X();
+    }
+    RPS_BURGER_Y = RPS.Y();
+    Buzzer.Tone( FEHBuzzer::D6,  300 );
+    Sleep(500);
+
+    LCD.Clear(FEHLCD::Blue);
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("-");
+    LCD.WriteLine("TAP TO LOAD");
+    while(!LCD.Touch(&trash_x, &trash_y));
+    Buzzer.Tone( FEHBuzzer::G5,  300 );
 }
 
 int main(void)
@@ -794,13 +943,23 @@ int main(void)
     jukebox_servo.SetMax(2380);
     arm_servo.SetMin(508);
     arm_servo.SetMax(2464);
-    arm_servo.SetDegree(65);
+    arm_servo.SetDegree(8);
     jukebox_servo.SetDegree(5.0);
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     RPS.InitializeTouchMenu();
+    setupRPS();
+    arm_servo.SetDegree(45);
     actual();
+
+    while (true) {
+        LCD.Write(RPS.X());
+        LCD.Write("  ");
+        LCD.Write(RPS.Y());
+        LCD.Write(" ");
+        LCD.WriteLine(RPS.Heading());
+    }
 
     return 0;
 }
