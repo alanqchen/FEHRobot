@@ -213,7 +213,7 @@ The kinematic relationship defined previously in equation :math:`\eqref{eq:7}`
 is used to convert the generated reference velocities into reference angular
 velocities for each wheel:
 
-.. code-block:: mathlab
+.. code-block:: matlab
 
     phiVel1 = (-sin(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_1).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
     phiVel2 = (-sin(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(1,:)+cos(q(3,:)+MOTOR_ANGLE_2).*cos(q(3,:)).*qd(2,:)+R.*qd(3,:))/r;
@@ -247,7 +247,7 @@ thus making the actual angular displacements always positive.
 The reference total angular displacement values are then written to
 the output file
 
-.. code-block:: mathlab
+.. code-block:: matlab
 
     fileID = fopen(FILE_NAME,'w');
     for i=1:length(phiRef1)
@@ -383,7 +383,7 @@ For your convenience, the code for the PID function is shown here:
                 phi1 += displacement1;
                 phi2 += displacement2;
                 phi3 += displacement3;
-                
+ 
                 // Write to log file
                 SD.FPrintf(fOutDispptr, "%f\t%f\t%f\n", displacement1, displacement2, displacement3);
                 

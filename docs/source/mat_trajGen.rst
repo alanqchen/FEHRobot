@@ -4,7 +4,16 @@ Trajectory Profile Generation
 .. code-block:: matlab
    :linenos:
 
-   OFFSET = 0;
+   % CONSTANTS
+    %MOTOR_ANGLE_1 = 30*pi/180;
+    %MOTOR_ANGLE_2 = 150*pi/180;
+    %MOTOR_ANGLE_3 = 270*pi/180;
+    % GOAL 90 CC: 4.950884
+    % GOAL 10 IN: 7.239000
+    % GOAL: 5.075636
+    % 4.79098806
+    %OFFSET = (2*pi)/3;
+    OFFSET = 0;
     MOTOR_ANGLE_1 = 0*pi/180+OFFSET;
     MOTOR_ANGLE_2 = 120*pi/180+OFFSET;
     MOTOR_ANGLE_3 = 240*pi/180+OFFSET;
@@ -21,27 +30,26 @@ Trajectory Profile Generation
     r = 0.027;
     %r = 0.021;
     %r = 0.021; 
-    DELTA_T = .1;
 
-    Kp = 20;
-    Ki = 0;
-
-    FILE_NAME = 'CorrX.txt';
+    % TEST WAYPOINTS
+    %wpts = [0 -0.254; 0 -0.1905; THETA THETA];
+    %wpts = [0 0.31242; 0 0.2667; THETA THETA];
+    %wpts = [0 -0.2667; 0 -0.1651-0.0127; THETA THETA];
 
     % Waypoints
     %wpts = [0 0; 0 0.4064; THETA THETA];
-    % TO JUKEBOX LIGHT
-    %wpts = [0 0.4318; 0 -0.1397; THETA THETA];
-    % TO RED JUKEBOX BUTTON
-    %wpts = [0 0.0254 0.0254 0.0254 0; 0 0 0.13335 0 0; THETA THETA THETA THETA THETA];
-    % TO BLUE JUKEBOX BUTTON
-    %wpts = [0 -0.0508  -0.0508; 0 0 0.13335; THETA THETA THETA];
+    % TO JUKEBOX LIGHT 1.3 secs / 1.7s
+    %wpts = [0 0.43688; 0 -0.1397; THETA THETA];
+    % TO RED JUKEBOX BUTTON 0, .8, 1.8
+    %wpts = [0 0.07874 0.07874; 0 0 0.11938; THETA THETA THETA];
+    % TO BLUE JUKEBOX BUTTON 0 .7
+    %wpts = [0 0; 0 0.127; THETA THETA];
     % START
     %wpts = [0 0.2667; 0 0.22987; THETA THETA];
-    % SINK
+    % SINK 1 s
     %wpts = [0 -0.254; 0 -0.1905; THETA THETA];
     %wpts = [0 0.31242; 0 0.2667; THETA THETA];
-    %wpts = [0 -0.2286; 0 -0.1651; THETA THETA];
+    %wpts = [0 -0.2667; 0 -0.1651-0.0127; THETA THETA];
     %wpts = [0 0; 0 .3; THETA THETA];
     % Rotate 90 CC
     %wpts = [0 0; 0 0; THETA THETA+pi/2];
@@ -49,26 +57,55 @@ Trajectory Profile Generation
     %wpts = [0 0; 0 0; THETA THETA-pi/2];
     % To slide
     %wpts = [0 0.635; 0 0.1016; THETA THETA];
-    % Up ramp 2
-    %wpts = [0 0.9144; 0 0; THETA THETA];
+    % Up ramp 2.5s
+    % wpts = [0 -0.889; 0 0; THETA THETA];
+    % UP RAMP 3 1.8s
+    %wpts = [0 -0.508-0.1524; 0 0; THETA THETA];
+    % TO LEVERS 1.3
+    %wpts = [0 -0.2794; 0 0; THETA THETA];
     % Turn pi/6
     %wpts = [0 0; 0 0; THETA THETA+pi/6];
     % SLIDE TICKET 4 in
     %wpts = [0 0.127; 0 0; THETA THETA];
-    % TO LEVER
-    %
     % Small sidestep
     %wpts = [0 0.009; 0 0; THETA THETA];
     % CORRECT X (RPS)
-    wpts = [0 0.0127; 0 0; THETA THETA];
+    %wpts = [0 0.0127; 0 0; THETA THETA];
     % CORRECT X (RPS) NEGATIVE
     %wpts = [0 -0.0127; 0 0; THETA THETA];
+    % RED TO RAMP 1.3 s
+    %wpts = [0 -0.254-0.0254+0.0127; 0 -0.2159; THETA THETA];
+    % BLUE TO RAMP 1.3 s
+    %wpts = [0 -0.1778+0.003175; 0 -0.2159+0.0254; THETA THETA];
+    % UP RAMP 2.5 s
+    %wpts = [0 0.9144; 0 0; THETA THETA];
+    % TO LEVER 1 0 .8 1.6
+    %wpts = [0 0.1143+0.0762 0.1651+0.0762; 0 0 0.1143+0.127; THETA THETA THETA];
+    % TO LEVER 2 0 .8 2
+    %wpts = [0 0.2794; 0 0.1016-0.0762; THETA THETA];
+    % TO LEVERS 1.5
+    %wpts = [0 -0.3683; 0 0.1524; THETA THETA];
+    % TO L3 1.5
+    %wpts = [0 -0.2032+0.0381; 0 -0.2032+0.0635; THETA THETA];
+    % TO L2 1.3
+    %wpts = [0 -0.10795+0.0127+0.00635; 0 -0.2286+0.0127; THETA THETA];
+    %wpts = [0 -0.1143; 0 -0.1905; THETA THETA]; <-
+    % TO L1 1.3
+    %wpts = [0 -0.0889; 0 -0.1905; THETA THETA];
+    %wpts = [0 -0.01905; 0 -0.254; THETA THETA]; <-
+    % L1 to Burger 1.5
+    %wpts = [0 -0.1016; 0 0.381; THETA THETA];
+    % L2 to Burger 0 1.3 2.8 1.5
+    %wpts = [0 0.0889 -0.0254; 0 0.2159 0.2159+0.1778; THETA THETA THETA];
+    wpts = [0 -0.0508; 0 0.3556; THETA THETA];
+
+    FILE_NAME = 'L2toBgr.txt';
 
     % Timestamps for waypoints
-    tpts = [0, .2];
+    tpts = [0, 1.5];
 
     % Time update rate
-    tvec = 0:0.1:.2;
+    tvec = 0:0.1:1.5;
 
     % Calc Trajectory Profile (cubic)
     [q, qd, qdd, pp] = cubicpolytraj(wpts, tpts, tvec);
@@ -148,3 +185,4 @@ Trajectory Profile Generation
     figure(7)
     plot(tvec, abs(phiRef1), tvec, abs(phiRef2), tvec, abs(phiRef3));
     legend('Motor 1 Ang Pos', 'Motor 2 Ang Pos', 'Motor 3 Ang Pos')
+
