@@ -31,6 +31,17 @@
     <member refid="main_8cpp_1a0c09e5677405154c120ab1181f2b886f" kind="define"><name>ERROR_MARGIN</name></member>
     <member refid="main_8cpp_1ae3de98cfb030fcb2b962c0d94a60d81d" kind="define"><name>DIST_ERROR_MARGIN</name></member>
     <member refid="main_8cpp_1a209bc3f2d686038a06191d088c855f3a" kind="define"><name>NUM_CORR_ITERATIONS</name></member>
+    <member refid="main_8cpp_1aa4563c6a1149eec45bd4592065313ec8" kind="define"><name>RPS_POS_CORR_SPEED</name></member>
+    <member refid="main_8cpp_1a7b51090cf7d984290db13f309409f82c" kind="define"><name>RPS_HEAD_CORR_SPEED</name></member>
+    <member refid="main_8cpp_1a1128be699587b3c2de49536b3ac83dd0" kind="variable"><name>RPS_RAMP_START_X</name></member>
+    <member refid="main_8cpp_1a7a7067a29cc04ae3b8fa15b2b78bc9cd" kind="variable"><name>RPS_RAMP_START_Y</name></member>
+    <member refid="main_8cpp_1ade0d230c0cc22b3588f1b88991874b0a" kind="variable"><name>RPS_RAMP_START_HEADING</name></member>
+    <member refid="main_8cpp_1ab57c08c9039045e0d2656fd567b5c4c2" kind="variable"><name>RPS_LEVERS_X</name></member>
+    <member refid="main_8cpp_1a58b74395fb43a26e59820634b0fca602" kind="variable"><name>RPS_LEVERS_Y</name></member>
+    <member refid="main_8cpp_1a07c43c9e2effbf3624c80718bca635c6" kind="variable"><name>RPS_LEVERS_HEADING</name></member>
+    <member refid="main_8cpp_1a688e1af9cff28902766ae8a15da7ebc1" kind="variable"><name>RPS_BURGER_X</name></member>
+    <member refid="main_8cpp_1a2ffb2b410a5ea485fe4857c4cd836247" kind="variable"><name>RPS_BURGER_Y</name></member>
+    <member refid="main_8cpp_1a5d88f50a071a174bbbe975200a0523a2" kind="variable"><name>forwardTimeOut</name></member>
     <member refid="main_8cpp_1ac9b50a344be2172263ad024556debe8a" kind="variable"><name>errorCurr1</name></member>
     <member refid="main_8cpp_1aa6749d05f37d8f5207ebf828823343bf" kind="variable"><name>errorCurr2</name></member>
     <member refid="main_8cpp_1a4ac657d6cedb1d41be8f80b7f3caf8fd" kind="variable"><name>errorCurr3</name></member>
@@ -65,92 +76,21 @@
     <member refid="main_8cpp_1ae84739b4949b4f39f1cd1e08961f791a" kind="function"><name>forward23</name></member>
     <member refid="main_8cpp_1aa4327f8b5660d8e773d3f02938b23f12" kind="function"><name>forward31</name></member>
     <member refid="main_8cpp_1af5ca6b1762d5cdf23eb66c3ec340adf4" kind="function"><name>forward12</name></member>
+    <member refid="main_8cpp_1a38089ce27f210deca1a38d226a747855" kind="function"><name>forwardX</name></member>
     <member refid="main_8cpp_1ae5bd314df3ae254ceb9481fd4af2ce7d" kind="function"><name>correctHeading</name></member>
     <member refid="main_8cpp_1a8962486ab0be7e273fd1c0b401294872" kind="function"><name>RPSCorrectError</name></member>
     <member refid="main_8cpp_1a2f865f9d5e98df3241344e5c7cc673df" kind="function"><name>performance2</name></member>
     <member refid="main_8cpp_1a9a5ebd1e619e865520f45161acd55202" kind="function"><name>performance3</name></member>
     <member refid="main_8cpp_1a1e2eff555ff99168334a46dc9760e8aa" kind="function"><name>leverDown</name></member>
     <member refid="main_8cpp_1a3011bf24b5b470c9afe17dd242708556" kind="function"><name>actual</name></member>
+    <member refid="main_8cpp_1a8e3c66e8a0a086c7545e461b8423d26d" kind="function"><name>setupRPS</name></member>
     <member refid="main_8cpp_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
   </compound>
   <compound refid="main_8d" kind="file"><name>main.d</name>
   </compound>
-  <compound refid="pid2_8cpp" kind="file"><name>pid2.cpp</name>
-    <member refid="pid2_8cpp_1aa73214aa5f2f94f63d90bb4e3d99fe53" kind="define"><name>L</name></member>
-    <member refid="pid2_8cpp_1a62969232668331297e2dca1ae2ddd10d" kind="define"><name>r</name></member>
-    <member refid="pid2_8cpp_1ae4ba7afadcd3f1392de7793af7114069" kind="define"><name>stopAngle</name></member>
-    <member refid="pid2_8cpp_1a23c14c45aa384b7f6374791e44bcfe46" kind="define"><name>stopDistance</name></member>
-    <member refid="pid2_8cpp_1a14232d8a1929d38cd008c4bcd32d289e" kind="define"><name>sqrt3</name></member>
-    <member refid="pid2_8cpp_1aaf005c8535bbfdaba7d5ddb75d7caf57" kind="define"><name>sqrt32</name></member>
-    <member refid="pid2_8cpp_1abce928b5d24c9aba9e50e06e4c021739" kind="define"><name>pi2</name></member>
-    <member refid="pid2_8cpp_1a2748566f4c443ee77aa831e63dbb5ebe" kind="define"><name>P</name></member>
-    <member refid="pid2_8cpp_1a60ef6e1bcfabb95cfeb300e1d03ce470" kind="define"><name>I</name></member>
-    <member refid="pid2_8cpp_1ab9fd76ca1d4c571dde133c4d0456ab1a" kind="define"><name>Vmax</name></member>
-    <member refid="pid2_8cpp_1a106e198f9072d5255e8fe35c49690dfe" kind="define"><name>omegamax</name></member>
-    <member refid="pid2_8cpp_1ad2cfa352a5984783e7ad3c9075c1cf07" kind="variable"><name>Vx</name></member>
-    <member refid="pid2_8cpp_1a2189ecaae737ec2be3795ff896cc2a62" kind="variable"><name>Vy</name></member>
-    <member refid="pid2_8cpp_1a511a252b958a043b4a906ece255dcc3c" kind="variable"><name>Vxm</name></member>
-    <member refid="pid2_8cpp_1aee89c762d255b178ee08f31a78206827" kind="variable"><name>Vym</name></member>
-    <member refid="pid2_8cpp_1a4b796efb484d0ea47e7e3bec9ecf7e53" kind="variable"><name>Vxw</name></member>
-    <member refid="pid2_8cpp_1a1c2a650fcbc7912f41fb1027f9e3f70b" kind="variable"><name>Vyw</name></member>
-    <member refid="pid2_8cpp_1aacaf5331eccc04f29c1ae79f7252b7b8" kind="variable"><name>VxAbs</name></member>
-    <member refid="pid2_8cpp_1a298c5be625c22d114ffb878d1c393487" kind="variable"><name>VyAbs</name></member>
-    <member refid="pid2_8cpp_1a1cecc7a9ab10b9d9b966c1bba3b5ab44" kind="variable"><name>VxmTarget</name></member>
-    <member refid="pid2_8cpp_1a30b014e1f48dad50fbcd6da677082dcf" kind="variable"><name>VymTarget</name></member>
-    <member refid="pid2_8cpp_1a568120b7404f2d6fcef2248e8da352dc" kind="variable"><name>VxwTarget</name></member>
-    <member refid="pid2_8cpp_1a5cb7e7f550ad506f6e1d5ca0fd1cc509" kind="variable"><name>VywTarget</name></member>
-    <member refid="pid2_8cpp_1aced6dfdcf86ec44d53e2137d69bd3c81" kind="variable"><name>omegap</name></member>
-    <member refid="pid2_8cpp_1a192265b7221d2a1d468fe7009c1d5ea1" kind="variable"><name>Vback</name></member>
-    <member refid="pid2_8cpp_1af99d346c7de39a61a567d53ddbbfc97b" kind="variable"><name>Vleft</name></member>
-    <member refid="pid2_8cpp_1a59d7303ac5eb13c0ec68a855970347ec" kind="variable"><name>Vright</name></member>
-    <member refid="pid2_8cpp_1a35905a6dbfda1941235f991ccd6b8c2b" kind="variable"><name>VbackTarget</name></member>
-    <member refid="pid2_8cpp_1a1f8373c4663cef928f4fa643992f942b" kind="variable"><name>VleftTarget</name></member>
-    <member refid="pid2_8cpp_1af5126de9dd1e95261e0e67dfc65a46dc" kind="variable"><name>VrightTarget</name></member>
-    <member refid="pid2_8cpp_1a7c1729bd1897dc1c17678f7dfdbc28bf" kind="variable"><name>omegapL</name></member>
-    <member refid="pid2_8cpp_1aea0d42706311f95ac857a5f6d2ef011e" kind="variable"><name>omegapLVxm2</name></member>
-    <member refid="pid2_8cpp_1ae39aad0008f0d34b9349a642facb41b3" kind="variable"><name>sqrtVym2</name></member>
-    <member refid="pid2_8cpp_1a4570c64283c17343af01fe420c4d9a25" kind="variable"><name>Vxm2</name></member>
-    <member refid="pid2_8cpp_1a6691bf86701c0d9a62e640fd5df6af72" kind="variable"><name>Vback3</name></member>
-    <member refid="pid2_8cpp_1a8919e38a1a2a2ec976b0bbffa9e4f349" kind="variable"><name>Vleft3</name></member>
-    <member refid="pid2_8cpp_1a298698b681f1cc7c55d1121c7a94bb26" kind="variable"><name>Vright3</name></member>
-    <member refid="pid2_8cpp_1a7850aa78f83a79447566ef544ddd1a8e" kind="variable"><name>VxTarget</name></member>
-    <member refid="pid2_8cpp_1a991cc0f4817a26b84b203d89ac0a09ac" kind="variable"><name>VyTarget</name></member>
-    <member refid="pid2_8cpp_1ac835e304e7f89423167f9d55bd491df4" kind="variable"><name>omegapTarget</name></member>
-    <member refid="pid2_8cpp_1af88b946fb90d5f08b5fb740c70e98c10" kind="variable"><name>x</name></member>
-    <member refid="pid2_8cpp_1ab927965981178aa1fba979a37168db2a" kind="variable"><name>y</name></member>
-    <member refid="pid2_8cpp_1a536e2155082b3f8f671e8565147f31b2" kind="variable"><name>xm</name></member>
-    <member refid="pid2_8cpp_1a2d09ebb2f8df5a28cb302b0eb4ff0eec" kind="variable"><name>ym</name></member>
-    <member refid="pid2_8cpp_1a2d170f7d571fbf71856ce12657047659" kind="variable"><name>xOffset</name></member>
-    <member refid="pid2_8cpp_1a0c0a15154ec12ebbc5ea091c8927c4d1" kind="variable"><name>yOffset</name></member>
-    <member refid="pid2_8cpp_1ac774694c169a3afe65739517dbe3345a" kind="variable"><name>xTarget</name></member>
-    <member refid="pid2_8cpp_1a9fac81f13905bed51fc74e0de9c1e735" kind="variable"><name>yTarget</name></member>
-    <member refid="pid2_8cpp_1a88c9b5c65ffb30c7842e40bac6ec6e46" kind="variable"><name>xw</name></member>
-    <member refid="pid2_8cpp_1a5186fef09826fb5bf680f424ae511cee" kind="variable"><name>yw</name></member>
-    <member refid="pid2_8cpp_1aa6a4ea54e359c9cbb346f93bcbd8ccbb" kind="variable"><name>xError</name></member>
-    <member refid="pid2_8cpp_1a66916071a64dc234f92abae65364b782" kind="variable"><name>yError</name></member>
-    <member refid="pid2_8cpp_1a8f3773325590245cf13aeee63e254112" kind="variable"><name>xErrorI</name></member>
-    <member refid="pid2_8cpp_1a6c8e2e019008f474f34d7811902ce755" kind="variable"><name>yErrorI</name></member>
-    <member refid="pid2_8cpp_1aca81c35c21e3a5f7f3a8d24504e76664" kind="variable"><name>theta</name></member>
-    <member refid="pid2_8cpp_1ab729ed26a17e8bee1859deb94263c9af" kind="variable"><name>thetaError</name></member>
-    <member refid="pid2_8cpp_1adb63fd2019a765a077cba6598c8539e4" kind="variable"><name>thetaErrorI</name></member>
-    <member refid="pid2_8cpp_1a3feaa351c0716e5c2219b7647c6ec678" kind="variable"><name>thetaTarget</name></member>
-    <member refid="pid2_8cpp_1a01a3510f70921f144abc054ff2dfb404" kind="variable"><name>timeElapsed</name></member>
-    <member refid="pid2_8cpp_1adae8d8a6ff28515e505bb1c07f2b33c8" kind="variable"><name>phi</name></member>
-    <member refid="pid2_8cpp_1a80d402d10e8341004c0caf10133b80ab" kind="variable"><name>scale</name></member>
-    <member refid="pid2_8cpp_1a682664725567aa08d811032c74002690" kind="function"><name>isStopPose</name></member>
-    <member refid="pid2_8cpp_1a7942587742e3644137b0ffbe7b2e4d9b" kind="function"><name>degree2radian</name></member>
-    <member refid="pid2_8cpp_1a09249abbd9ad633525c5e03f5ff9a638" kind="function"><name>normalizeRadian</name></member>
-    <member refid="pid2_8cpp_1ab63978ceefbe9ea9e52a539941e64407" kind="function"><name>inverseKinematicsMobile</name></member>
-    <member refid="pid2_8cpp_1a5292805efbd8ef05cfac52d11bb37b43" kind="function"><name>forwardKinematicsMobile</name></member>
-    <member refid="pid2_8cpp_1ab04eebe8565124c617a2435de9cdc623" kind="function"><name>forwardKinematicsWorld</name></member>
-    <member refid="pid2_8cpp_1a80623cbb9aca28f63fec3b3c5735c5cf" kind="function"><name>odometryCalculations</name></member>
-    <member refid="pid2_8cpp_1aa24d177c19f7fdd933f5c292d5a54328" kind="function"><name>pidMoveAbsolute</name></member>
-  </compound>
   <compound refid="pid2_8d" kind="file"><name>pid2.d</name>
   </compound>
   <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
-  </compound>
-  <compound refid="simplemovement_8cpp" kind="file"><name>simplemovement.cpp</name>
   </compound>
   <compound refid="simplemovement_8d" kind="file"><name>simplemovement.d</name>
   </compound>

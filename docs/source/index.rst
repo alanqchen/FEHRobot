@@ -13,6 +13,11 @@ Welcome to Team E3's Robot's documentation!
 .. toctree::
    :maxdepth: 1
 
+   Main Documentation <https://u.osu.edu/feh20e3/>
+
+.. toctree::
+   :maxdepth: 1
+
    mainFile
 
 .. toctree::
