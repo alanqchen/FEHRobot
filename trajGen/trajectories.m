@@ -149,7 +149,7 @@ plot(tvec, phiRef1, tvec, phiRef2, tvec, phiRef3);
 legend('Motor 1 Ang Pos', 'Motor 2 Ang Pos', 'Motor 3 Ang Pos')
 title('Angular Position')
 
-% Numerical Integration to turn angular vel into angular positions
+% Numerical Integration to turn angular vel into angular positions (abs b/c encoder counts only increase)
 phiRef1(1) = 0;
 phiRef2(1) = 0;
 phiRef3(1) = 0;
@@ -169,7 +169,7 @@ phiRef1 = phiRef1';
 phiRef2 = phiRef2';
 phiRef3 = phiRef3';
 
-% Write pos ref to file
+% Write pos ref to file (abs b/c encoder counts only increase)
 fileID = fopen(FILE_NAME,'w');
 for i=1:length(phiRef1)
     fprintf(fileID, '%f\t%f\t%f\t%f\t%f\t%f\r\n', abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)), phiVel1(i), phiVel2(i), phiVel3(i));
