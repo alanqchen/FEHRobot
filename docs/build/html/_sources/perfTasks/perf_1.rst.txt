@@ -7,9 +7,9 @@ Performance Task 1
 Code
 ----
 .. code-block:: c++
-   :linenos:
+    :linenos:
 
-   moveForward(25, 18);
+    moveForward(25, 18);
     allStop();
     // Read Cds Cell
     int cdsValue = getCdsColor();
@@ -50,7 +50,4 @@ Code
     moveForward(75, 30);
     Sleep(0.5);
     moveForward(-25, 30);
-    Sleep(0.5);
-
-.. doxygenfunction:: performance1
-   :project: FEHRobot
+    Sleep(0.5);/

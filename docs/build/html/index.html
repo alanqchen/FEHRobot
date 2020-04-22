@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="_static/toggle.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Main File" href="mainFile.html" /> 
+    <link rel="next" title="Main File" href="general/mainFile.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,22 +87,22 @@
 <li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/mainFile.html">Main File</a></li>
 </ul>
-<p class="caption"><span class="caption-text">PID Deep Dive</span></p>
+<p class="caption"><span class="caption-text">PI Deep Dive</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html">PID Deep Dive</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#motivation">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#motivation">Motivation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#derivation">Derivation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#control-laws">Control Laws</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#pid-function">PID function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#pi-function">PI function</a></li>
 </ul>
 </li>
 </ul>
@@ -117,6 +117,10 @@
 <li class="toctree-l3"><a class="reference internal" href="perfTasks/perf_2.html#code">Code</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_3.html">Performance Task 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="perfTasks/perf_3.html#code">Code</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -124,9 +128,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_InvPercent.html">InvPercent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="functions/func_PIDMoveTo.html">PIDMoveTo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#working-example">Working Example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="functions/func_PIDMoveTo.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_PIMoveTo.html">PIMoveTo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions/func_PIMoveTo.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/func_PIMoveTo.html#function-variables">Function Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
@@ -141,10 +145,10 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">MATLab code</span></p>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlabcode/mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlabcode/mat_errPlot.html">Error Plotting</a></li>
 </ul>
 
             
@@ -212,32 +216,30 @@
   <div class="section" id="welcome-to-team-e3-s-robot-s-documentation">
 <h1>Welcome to Team E3’s Robot’s documentation!<a class="headerlink" href="#welcome-to-team-e3-s-robot-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/mainFile.html">Main File</a></li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="pid">
-<p class="caption"><span class="caption-text">PID Deep Dive</span><a class="headerlink" href="#pid" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">PI Deep Dive</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html">PID Deep Dive</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#motivation">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#motivation">Motivation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#derivation">Derivation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#control-laws">Control Laws</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PIDdeepDive.html#implementation">Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PIDdeepDive.html#pid-function">PID function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pidd/PIdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pidd/PIdeepDive.html#pi-function">PI function</a></li>
 </ul>
 </li>
 </ul>
@@ -245,20 +247,38 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="perfTasks/index.html">Performance Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="perfTasks/index.html">Performance Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_1.html">Performance Task 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_2.html">Performance Task 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_3.html">Performance Task 3</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Function reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_InvPercent.html">InvPercent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_PIMoveTo.html">PIMoveTo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_correctHeading.html">correctHeading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_countsToRadDisp.html">countsToRadDisp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward12.html">forward12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward23.html">forward23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward31.html">forward31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_getCdsColor.html">getCdsColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_rotateCC.html">rotateCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_sinkDump.html">sinkDump</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">MATLab code</span></p>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlabcode/mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlabcode/mat_errPlot.html">Error Plotting</a></li>
 </ul>
 </div>
 </div>
@@ -271,7 +291,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="mainFile.html" class="btn btn-neutral float-right" title="Main File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="general/mainFile.html" class="btn btn-neutral float-right" title="Main File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

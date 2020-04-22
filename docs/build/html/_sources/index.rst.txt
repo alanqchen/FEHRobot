@@ -7,44 +7,39 @@ Welcome to Team E3's Robot's documentation!
 ===========================================
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Contents:
-
-.. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    Main Documentation <https://u.osu.edu/feh20e3/>
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
-   mainFile
+   general/mainFile
 
 .. toctree::
    :maxdepth: 2
-   :caption: PID Deep Dive
-   :name: PID
+   :caption: PI Deep Dive
 
-   PIDdeepDive
+   pidd/PIdeepDive
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Performance tasks
 
    perfTasks/index
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Function reference
 
    functions/index
 
 .. toctree::
-   :maxdepth: 1
-   :caption: MATLab code
+   :maxdepth: 2
+   :caption: MATLAB code
 
-   mat_trajGen
-   mat_errPlot
+   matlabcode/mat_trajGen
+   matlabcode/mat_errPlot
 
 .. Indices and tables
 .. ------------------

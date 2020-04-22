@@ -25,8 +25,6 @@
     <member refid="main_8cpp_1a0d0de63cb3b2b767719451b355cb94fa" kind="define"><name>MAX_RPM</name></member>
     <member refid="main_8cpp_1a4247c7a9cda228f8ccda23206d34235c" kind="define"><name>ENCODER_RES</name></member>
     <member refid="main_8cpp_1a5400b1f2028d38732e4377be4f32b255" kind="define"><name>DELTA_T</name></member>
-    <member refid="main_8cpp_1a5c71a5e59a53413cd6c270266d63b031" kind="define"><name>R</name></member>
-    <member refid="main_8cpp_1a62969232668331297e2dca1ae2ddd10d" kind="define"><name>r</name></member>
     <member refid="main_8cpp_1a2db4e618838b95a270b20cfd491ec314" kind="define"><name>COUNTS_PER_INCH</name></member>
     <member refid="main_8cpp_1a0c09e5677405154c120ab1181f2b886f" kind="define"><name>ERROR_MARGIN</name></member>
     <member refid="main_8cpp_1ae3de98cfb030fcb2b962c0d94a60d81d" kind="define"><name>DIST_ERROR_MARGIN</name></member>
@@ -60,15 +58,10 @@
     <member refid="main_8cpp_1a3ecb4246bad455a34426463ed71138ee" kind="function"><name>allStop</name></member>
     <member refid="main_8cpp_1a25b81f4eb624260195952455b36b58b6" kind="function"><name>limitMotorPercent</name></member>
     <member refid="main_8cpp_1a586a637fc7baeb2dd8b25bc39d679596" kind="function"><name>setRadSToPercent</name></member>
-    <member refid="main_8cpp_1a3f2ec0d57d5528ae4f2812db5e2f7566" kind="function"><name>kinematics</name></member>
-    <member refid="main_8cpp_1ad365001a5d84d5ccc3b8eba9b57f2b22" kind="function"><name>moveForwardBackward</name></member>
-    <member refid="main_8cpp_1a69bcfe1b69753bb89700e2423f75fc57" kind="function"><name>moveLeftRight</name></member>
-    <member refid="main_8cpp_1a576be47002cb04e22a80785651d8bf2e" kind="function"><name>spinClockwise</name></member>
-    <member refid="main_8cpp_1a39c61b04cec82c5d4f73e2172b1181ad" kind="function"><name>spin</name></member>
     <member refid="main_8cpp_1ac1c2c79c14f546a6ca7e404a409f43cb" kind="function"><name>inchestoMeters</name></member>
     <member refid="main_8cpp_1a89eb642168c6696d597908e35d7505d9" kind="function"><name>countsToRadDisp</name></member>
     <member refid="main_8cpp_1aebf6e9ebd50eeaedcb5edcb760974a8f" kind="function"><name>getCdsColor</name></member>
-    <member refid="main_8cpp_1a5df7032b6ea536922700cc132d3d2702" kind="function"><name>PIDMoveTo</name></member>
+    <member refid="main_8cpp_1a07341a45e3c97a4b40b97caf0ce147f5" kind="function"><name>PIMoveTo</name></member>
     <member refid="main_8cpp_1a1a235440a3e5a042a924080da0bcb5d2" kind="function"><name>rotateCC</name></member>
     <member refid="main_8cpp_1af3f6a49c913ef91aedc59939aab16da9" kind="function"><name>moveForward</name></member>
     <member refid="main_8cpp_1a0af4c9b7fb9aceed0ecc52eba6b8f849" kind="function"><name>performance1</name></member>

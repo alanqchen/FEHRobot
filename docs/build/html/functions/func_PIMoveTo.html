@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PIMoveTo &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/cropped-egg3.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/toggle.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="allStop" href="func_allStop.html" />
+    <link rel="prev" title="InvPercent" href="func_InvPercent.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Team E3's Robot
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/mainFile.html">Main File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PI Deep Dive</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#motivation">Motivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#control-laws">Control Laws</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#pi-function">PI function</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Performance tasks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../perfTasks/index.html">Performance Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_1.html">Performance Task 1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_1.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_2.html">Performance Task 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_2.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_3.html">Performance Task 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_3.html#code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Function reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="func_InvPercent.html">InvPercent</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PIMoveTo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_allStop.html">allStop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_correctHeading.html">correctHeading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_countsToRadDisp.html">countsToRadDisp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward12.html">forward12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward23.html">forward23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward31.html">forward31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_getCdsColor.html">getCdsColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_rotateCC.html">rotateCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_sinkDump.html">sinkDump</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_errPlot.html">Error Plotting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team E3's Robot</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Functions</a> &raquo;</li>
+        
+      <li>PIMoveTo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/functions/func_PIMoveTo.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pimoveto">
+<h1>PIMoveTo<a class="headerlink" href="#pimoveto" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Looking for a detailed description? See <span class="xref std std-doc">/PIdeepDive</span>.</p>
+</div>
+<dl class="function">
+<dt id="_CPPv48PIMoveToPcib">
+<span id="_CPPv38PIMoveToPcib"></span><span id="_CPPv28PIMoveToPcib"></span><span id="PIMoveTo__cP.i.b"></span><span class="target" id="main_8cpp_1a07341a45e3c97a4b40b97caf0ce147f5"></span>void <code class="sig-name descname">PIMoveTo</code><span class="sig-paren">(</span>char *<em>fName</em>, int <em>size</em>, bool <em>preload</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48PIMoveToPcib" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Uses a PI controller to move the robot using a trajectory profile as the reference data. The passed in trajectory profile should have 6 columns. The first 3 are the total angular displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular velocities(rad/s). The delta time is 0.1 seconds. The loop each iteration will calculate difference in encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be added to the total angular displacement for each motor, and these calculated values will be subracted with the reference angular displacements to get the error for each motor. These errors are then summed to the motors individual total error counter, and based on the error values and P &amp; I constants, angular velocities(rad/s) to set the motors to is calculated. Then the funtion setRadSToPercent is called to convert the angular speeds to percent and limit them within operating range, and then set the motors to that percent.</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fName</span></code>: the file name of trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: the number of lines/commands in trajectory profile. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preload</span></code>: If true, the file will be preloaded and won’t start until the start light turns on. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">PIMoveTo</span><span class="p">(</span><span class="s">&quot;upRamp.txt&quot;</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>Note that while <code class="docutils literal notranslate"><span class="pre">size</span></code> may be any number equal to or larger to the number of lines, it is more effecient for memory
+to keep <code class="docutils literal notranslate"><span class="pre">size</span></code> equal to the number of lines. Additionally, the given file name must match the format shown in
+<a class="reference internal" href="../pidd/PIdeepDive.html#trajectory-profiles"><span class="std std-ref">Trajectory profiles</span></a>.</p>
+<hr class="docutils" />
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">PIMoveTo</span><span class="p">(</span><span class="s">&quot;start.txt&quot;</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">preload</span></code> is true. Thus, it will read the file and populate the arrays, but will not start moving
+until <a class="reference internal" href="func_getCdsColor.html"><span class="doc">getCdsColor</span></a> reports that light is detected.</p>
+</div>
+<div class="section" id="function-variables">
+<h2>Function Variables<a class="headerlink" href="#function-variables" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 16%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countNew1</span></code></p></td>
+<td><p>The current iteration encoder counts for motor 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countNew2</span></code></p></td>
+<td><p>The current iteration encoder counts for motor 2</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countNew3</span></code></p></td>
+<td><p>The current iteration encoder counts for motor 3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countOld1</span></code></p></td>
+<td><p>The previous iteration encoder counts for motor 1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countOld2</span></code></p></td>
+<td><p>The previous iteration encoder counts for motor 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">countOld3</span></code></p></td>
+<td><p>The previous iteration encoder counts for motor 3</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">displacement1</span></code></p></td>
+<td><p>The total angular displacement for motor 1 in radians</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">displacement2</span></code></p></td>
+<td><p>The total angular displacement for motor 2 in radians</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">displacement3</span></code></p></td>
+<td><p>The total angular displacement for motor 3 in radians</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refPos1</span></code></p></td>
+<td><p>Temporary variable to read motor 1’s reference angular position from file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refPos2</span></code></p></td>
+<td><p>Temporary variable to read motor 2’s reference angular position from file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refPos3</span></code></p></td>
+<td><p>Temporary variable to read motor 3’s reference angular position from file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refSpeed1</span></code></p></td>
+<td><p>Temporary variable to read motor 1’s reference angular velocity from file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refSpeed2</span></code></p></td>
+<td><p>Temporary variable to read motor 2’s reference angular velocity from file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refSpeed3</span></code></p></td>
+<td><p>Temporary variable to read motor 3’s reference angular velocity from file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float[][]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pos_ref</span></code></p></td>
+<td><p>Reference angular positions - Columns are each motor, rows are each value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float[][]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vel_ref</span></code></p></td>
+<td><p>Reference angular velocities - Columns are each motor, rows are each value</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">phi1</span></code></p></td>
+<td><p>Stores the actual current total displacement for motor 1 in radians</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">phi2</span></code></p></td>
+<td><p>Stores the actual current total displacement for motor 2 in radians</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">phi3</span></code></p></td>
+<td><p>Stores the actual current total displacement for motor 3 in radians</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">motorSpeed1</span></code></p></td>
+<td><p>Calculated motor 1’s speed in rad/s to correct for error from PI controller</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">motorSpeed2</span></code></p></td>
+<td><p>Calculated motor 2’s speed in rad/s to correct for error from PI controller</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">motorSpeed3</span></code></p></td>
+<td><p>Calculated motor 3’s speed in rad/s to correct for error from PI controller</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">errorTotal1</span></code></p></td>
+<td><p>The total error error for motor 1 used by the integral term</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">errorTotal2</span></code></p></td>
+<td><p>The total error error for motor 2 used by the integral term</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">errorTotal3</span></code></p></td>
+<td><p>The total error error for motor 3 used by the integral term</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Kp</span></code></p></td>
+<td><p>The proportional constant</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ki</span></code></p></td>
+<td><p>The integral constant</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="func_allStop.html" class="btn btn-neutral float-right" title="allStop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="func_InvPercent.html" class="btn btn-neutral float-left" title="InvPercent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jeff Bonner, Alan Chen, Peyton Roth, Zach Salem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PI Deep Dive &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/cropped-egg3.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/toggle.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Performance Tasks" href="perfTasks/index.html" />
+    <link rel="prev" title="Main File" href="mainFile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Team E3's Robot
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mainFile.html">Main File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PI Deep Dive</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#control-laws">Control Laws</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pi-function">PI function</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Performance tasks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="perfTasks/index.html">Performance Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_1.html">Performance Task 1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="perfTasks/perf_1.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_2.html">Performance Task 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="perfTasks/perf_2.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="perfTasks/perf_3.html">Performance Task 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="perfTasks/perf_3.html#code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Function reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/index.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_InvPercent.html">InvPercent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_PIMoveTo.html">PIMoveTo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions/func_PIMoveTo.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/func_PIMoveTo.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_allStop.html">allStop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_correctHeading.html">correctHeading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_countsToRadDisp.html">countsToRadDisp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward12.html">forward12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward23.html">forward23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_forward31.html">forward31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_getCdsColor.html">getCdsColor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_rotateCC.html">rotateCC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions/func_sinkDump.html">sinkDump</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mat_errPlot.html">Error Plotting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Team E3's Robot</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>PI Deep Dive</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PIdeepDive.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pi-deep-dive">
+<h1>PI Deep Dive<a class="headerlink" href="#pi-deep-dive" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Looking for the function documentation? See <a class="reference internal" href="functions/func_PIMoveTo.html"><span class="doc">PIMoveTo</span></a>.</p>
+</div>
+<p>In this section the process for developing the PI controller is detailed.
+This includes deriving the kinematic relationships and creating trajectory
+profiles.</p>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>A PI controller was choosen to be implemented due to…</p>
+</div>
+</div>
+<div class="section" id="derivation">
+<h1>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The derivation presented is a summary of the work by T.A. Baede, Motion control of an
+omnidirectional mobile robot (2006).</p>
+</div>
+<p>Essential to any advanced PID controller, the kinematic relationships and
+control laws were developed for a tri-omni wheel robot.</p>
+<div class="section" id="kinematic-relationships">
+<h2>Kinematic Relationships<a class="headerlink" href="#kinematic-relationships" title="Permalink to this headline">¶</a></h2>
+<p>First, the robot’s location and heading with respect to the course’s frame
+is defined as <span class="math notranslate nohighlight">\((x, y, \theta)\)</span>. Additionally, the robot’s velocity
+with respect to the course’s frame is defined as <span class="math notranslate nohighlight">\((\dot{x}, \dot{y},
+\dot{\theta})\)</span>. With respect to the robot’s frame, the angles for
+wheels 1, 2, and 3 are <span class="math notranslate nohighlight">\(a_1=0^\circ\)</span>, <span class="math notranslate nohighlight">\(a_2=120^\circ\)</span>,
+and <span class="math notranslate nohighlight">\(a_3=240^\circ\)</span> respectively.</p>
+<p>Next, the translational velocity of each wheel, <span class="math notranslate nohighlight">\(v_i\)</span> that make up
+the robot’s velocity can be split into its components:</p>
+<p><span class="math notranslate nohighlight">\(v_i = v_{trans, i} + v_{rot}\tag{1}\label{eq:1}\)</span></p>
+<p>Looking at <span class="math notranslate nohighlight">\(v_{trans, i}\)</span>, we can map the vector onto <span class="math notranslate nohighlight">\(\dot{x}\)</span> and
+<span class="math notranslate nohighlight">\(\dot{y}\)</span> leading to the general equation for translation at each wheel:</p>
+<p><span class="math notranslate nohighlight">\(v_{trans, i} = -\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)\dot{y}\tag{2}\)</span></p>
+<p>Now consider the case were the robot only performs a rotation. Each wheel’s
+translational velocity, <span class="math notranslate nohighlight">\(v_{rot}\)</span>, will have to be the following:</p>
+<p><span class="math notranslate nohighlight">\(v_{rot}=R\dot{\theta}\tag{3}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(R\)</span> is the radius from the center of the robot to the wheels. Note
+that each wheel will have the same equation as <span class="math notranslate nohighlight">\(R\)</span> is the same for all
+wheels. The value of <span class="math notranslate nohighlight">\(R\)</span> for our robot was measured to be 0.0869 meters.</p>
+<p>Substituting the equations for <span class="math notranslate nohighlight">\(v_{trans, i}\)</span> and <span class="math notranslate nohighlight">\(v_{rot}\)</span> into
+the equation <span class="math notranslate nohighlight">\(\eqref{eq:1}\)</span>, the following equation is created:</p>
+<p><span class="math notranslate nohighlight">\(v_i=-\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)+R\dot{\theta}\tag{4}\label{eq:4}\)</span></p>
+<p>This equation transforms the robot’s velocities into the translational
+velocity of each wheel. However, we can also relate the robot’s velocities
+into the angular velocity of each wheel as translational velocities are
+directly related to angular velocities:</p>
+<p><span class="math notranslate nohighlight">\(v_i=r\dot{\phi_i}\tag{5}\label{eq:5}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(r\)</span> is the radius of the wheels, measured to be 0.027 meters.</p>
+<p>Substituting <span class="math notranslate nohighlight">\(\eqref{eq:5}\)</span> into <span class="math notranslate nohighlight">\(\eqref{eq:4}\)</span> and rearranging to
+solve for <span class="math notranslate nohighlight">\(\dot{\phi}\)</span>, we get:</p>
+<p><span class="math notranslate nohighlight">\(\dot{\phi}_i=\frac{1}{r}(-\sin(\theta+a_i)\dot{x}+\cos(\theta+a_i)+R\dot{\theta})\tag{6}\label{eq:6}\)</span></p>
+<p>Converting <span class="math notranslate nohighlight">\(\eqref{eq:6}\)</span> from global coordinates to local coordinates is
+out-of-scope of the documentation (see Baede’s paper). However, the end result
+is the following equation for each wheel’s angular velocity given the robot’s
+velocities and steering in the local frame, defined as <span class="math notranslate nohighlight">\([x_L, y_L]\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(\dot{\phi}_i=(-\sin(\theta+a_i)\cos(\theta)\dot{x}_L+\cos(\theta+a_i)\cos(\theta)\dot{y}_L+R\dot{\theta})/r\tag{7}\label{eq:7}\)</span></p>
+</div>
+<div class="section" id="control-laws">
+<h2>Control Laws<a class="headerlink" href="#control-laws" title="Permalink to this headline">¶</a></h2>
+<p>When controlling a robot, we will have an idea of the movement it should
+perform, called the reference movement. However, simply using
+<span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span> to find the angular velocities of each wheel
+and setting each motor to the respective percent values will not
+suffice. This is because of effects such as friction and motor powers not
+being equivalent or consistent. Thus, it is neccessary to produce control
+laws to use for a feedback loop.</p>
+<p>We can use <span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span> to produce reference angular velocities
+of each wheel, <span class="math notranslate nohighlight">\(\dot{\phi}_{ref,i}\)</span>, and through integration can also
+create reference angular positions of each wheel, <span class="math notranslate nohighlight">\(\phi_{ref,i}\)</span>.</p>
+<p>It was choosen to use a position controller as converting from encoder
+counts directly to angular postion is more likely to be more accurate
+rather than having to estimate an average velocity during program execution.</p>
+<hr class="docutils" />
+<p>Control actions is calculated based on the difference between reference
+angular positions and actual angular positions:</p>
+<p><span class="math notranslate nohighlight">\(e=\phi_{ref,i}-\phi_i\tag{8}\)</span></p>
+<p><span class="math notranslate nohighlight">\(e\)</span> is the tracking error. Note that the units for <span class="math notranslate nohighlight">\(e\)</span>,
+<span class="math notranslate nohighlight">\(\phi_{ref,i}\)</span>, and <span class="math notranslate nohighlight">\(\phi_i\)</span> are radians.</p>
+<p>For use in a program, the discrete form of the PID control law is
+implemented:</p>
+<p><span class="math notranslate nohighlight">\(u_k=K_pe_k+K_i\Delta T\sum_{j=1}^k e_j+\frac{K_d}
+{\Delta T}(e_k-e_{k-1})\tag{9}\)</span></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(u\)</span></p></td>
+<td><p>Control signal</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(k\)</span></p></td>
+<td><p>Control loop iteration</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(K_p\)</span></p></td>
+<td><p>Proportional constant</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(K_i\)</span></p></td>
+<td><p>Integral constant</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(K_d\)</span></p></td>
+<td><p>Derivative constant</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(e\)</span></p></td>
+<td><p>Tracking error</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\Delta T\)</span></p></td>
+<td><p>Time between interations</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that for the final control loop, the derivative term was not
+implemented as it was found to be not neccessary.</p>
+</div>
+</div>
+<div class="section" id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h1>
+<p>With the mathematical concepts defined, the code implementation can
+be constructed. Below is a flowchart of the implementation.</p>
+<img alt="PI Implementation Flowchart" src="_images/PIFlowchartTransparent.png" />
+<div class="section" id="trajectory-profiles">
+<span id="id1"></span><h2>Trajectory profiles<a class="headerlink" href="#trajectory-profiles" title="Permalink to this headline">¶</a></h2>
+<p>To represent the reference angular positions, pre-generated trajectory
+profiles are generated for every movement. This is because the RPS has
+a large delay that negatively impacts the accuracy of the error,
+especially as the robot moves. To solve this, trajectory profiles are
+generated in MATLAB, using the code shown in <a class="reference internal" href="mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>. Then
+the Proteus will read the profile file in the SD card, and store the
+reference values in an 2D array, which will be compared to in real time.
+Each trajectory profile outputted has the same format:</p>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>        <span class="mf">0.000000</span>
+ <span class="mf">0.051794</span>        <span class="mf">0.051794</span>        <span class="mf">0.103589</span>        <span class="o">-</span><span class="mf">1.035885</span>       <span class="o">-</span><span class="mf">1.035885</span>       <span class="mf">2.071770</span>
+ <span class="mf">0.192379</span>        <span class="mf">0.192379</span>        <span class="mf">0.384757</span>        <span class="o">-</span><span class="mf">1.775803</span>       <span class="o">-</span><span class="mf">1.775803</span>       <span class="mf">3.551606</span>
+ <span class="mf">0.392157</span>        <span class="mf">0.392157</span>        <span class="mf">0.784313</span>        <span class="o">-</span><span class="mf">2.219754</span>       <span class="o">-</span><span class="mf">2.219754</span>       <span class="mf">4.439508</span>
+ <span class="mf">0.621531</span>        <span class="mf">0.621531</span>        <span class="mf">1.243062</span>        <span class="o">-</span><span class="mf">2.367738</span>       <span class="o">-</span><span class="mf">2.367738</span>       <span class="mf">4.735475</span>
+</pre></div>
+</td></tr></table></div>
+<p>From left to right, the columns are wheel 1’s, wheel 2’s, and wheel 3’s
+refererence total angular displacement, and wheel 1’s, wheel 2’s, and wheel 3’s
+refererence angular velocity. Although we only use total angular displacement
+to determine error, reference angular velocity is used to help decide which
+direction to wheels should spin in response to error as encoder counts can only
+increase.</p>
+<p>To generate the reference values, the desired
+<span class="math notranslate nohighlight">\(x_L\)</span>, <span class="math notranslate nohighlight">\(y_L\)</span>, and <span class="math notranslate nohighlight">\(\theta\)</span> displacement values are first set
+along with their respective time stamps:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">wpts</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mf">0.5</span><span class="p">;</span> <span class="mi">0</span> <span class="mf">0.2</span><span class="p">;</span> <span class="n">THETA</span> <span class="n">THETA</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>The above code sets the waypoints in a matrix, in the form [<span class="math notranslate nohighlight">\(x_1~x_2 ...
+x_n\)</span>; <span class="math notranslate nohighlight">\(~y_1~y_2 ... y_n\)</span>; <span class="math notranslate nohighlight">\(~\theta_1~\theta_2 ... \theta_n\)</span>]
+with the first waypoint always having 0 as the x and y values. It also sets
+the final waypoint 0.5 meters in the positive x and 0.2 meters in the
+positive y, with respect to the robot’s local frame. THETA can defined to be
+the offset of motor 1 from the local <span class="math notranslate nohighlight">\(x_L\)</span> axis. For
+our robot, THETA was defined as <span class="math notranslate nohighlight">\(\pi/6\)</span> such that motors 1 and 2 would
+move the robot forward. An offset can also be added to the <span class="math notranslate nohighlight">\(\theta\)</span>
+waypoint values so that the local frame of the robot can be rotated.
+For example, if the way points were:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">wpts</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span> <span class="mf">0.5</span><span class="p">;</span> <span class="mi">0</span> <span class="mf">0.2</span><span class="p">;</span> <span class="n">THETA</span><span class="o">+</span><span class="nb">pi</span><span class="o">/</span><span class="mi">2</span> <span class="n">THETA</span><span class="o">+</span><span class="nb">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">];</span>
+</pre></div>
+</div>
+<p>Then the robot’s local frame (with it’s x and y axis) is rotated 90 degrees
+counter-clockwise.</p>
+<p>Next, the timestamps need to be set for each waypoint:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">tpts</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+<span class="n">tvec</span> <span class="p">=</span> <span class="mi">0</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tpts</span></code> stores the timestamp in seconds for each waypoint. The first time
+is aways zero, and each waypoint must have it’s own timestamp. I.e, for
+<span class="math notranslate nohighlight">\(n\)</span> waypoints in wpts, there must be <span class="math notranslate nohighlight">\(n\)</span> timestamps in tpts.
+<code class="docutils literal notranslate"><span class="pre">tvec</span></code> stores the overall update rate of the trajectory profile and also
+the PID control loop. In the example above, there will be a reference value
+ever 0.1 seconds. Note that both <code class="docutils literal notranslate"><span class="pre">tps</span></code> and <code class="docutils literal notranslate"><span class="pre">tvec</span></code> must end with the same
+time value.</p>
+<p>The displacement and timestamp values are passed into <code class="docutils literal notranslate"><span class="pre">cubicpolytraj</span></code>, part
+of the Robotics System Toolbox, which produces a cubic trajectory profile.
+We’re specifically interested in the reference positions and velocities,
+stored in <code class="docutils literal notranslate"><span class="pre">q</span></code> and <code class="docutils literal notranslate"><span class="pre">qd</span></code> respectively.</p>
+<p>The kinematic relationship defined previously in equation <span class="math notranslate nohighlight">\(\eqref{eq:7}\)</span>
+is used to convert the generated reference velocities into reference angular
+velocities for each wheel:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">phiVel1</span> <span class="p">=</span> <span class="p">(</span><span class="o">-</span><span class="nb">sin</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_1</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">+</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_1</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span><span class="o">+</span><span class="n">R</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">/</span><span class="n">r</span><span class="p">;</span>
+<span class="n">phiVel2</span> <span class="p">=</span> <span class="p">(</span><span class="o">-</span><span class="nb">sin</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_2</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">+</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_2</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span><span class="o">+</span><span class="n">R</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">/</span><span class="n">r</span><span class="p">;</span>
+<span class="n">phiVel3</span> <span class="p">=</span> <span class="p">(</span><span class="o">-</span><span class="nb">sin</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_3</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">+</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)</span><span class="o">+</span><span class="n">MOTOR_ANGLE_3</span><span class="p">)</span><span class="o">.*</span><span class="nb">cos</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span><span class="o">+</span><span class="n">R</span><span class="o">.*</span><span class="n">qd</span><span class="p">(</span><span class="mi">3</span><span class="p">,:))</span><span class="o">/</span><span class="n">r</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now to convert the reference angular velocities into reference total angular
+displacment, numerical integration is performed using the following
+approximation based on the trapezoidal rule:</p>
+<p><span class="math notranslate nohighlight">\(\phi_{ref}[i]=\phi_{ref}[i-1]+\frac{\Delta T}{2}(\dot{\phi}_{ref}[i]+\dot{\phi}_{ref}[i-1])\tag{10}\)</span></p>
+<p>This formula is implemented in MATLAB as:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">phiRef1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">phiRef2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">phiRef3</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="nb">i</span><span class="p">=</span><span class="mi">2</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">phiVel1</span><span class="p">)</span>
+    <span class="n">phiRef1</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef1</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel1</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel1</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+    <span class="n">phiRef2</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef2</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel2</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel2</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+    <span class="n">phiRef3</span><span class="p">(</span><span class="nb">i</span><span class="p">)=</span> <span class="n">phiRef3</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="nb">abs</span><span class="p">((</span><span class="n">DELTA_T</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">phiVel3</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">+</span><span class="n">phiVel3</span><span class="p">(</span><span class="nb">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)));</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>Note that the initial total angular displacement is always set to 0.
+Also note the addition of an absolute value to the implementation.
+This is because encoder counts only can increase in our hardware,
+thus making the actual angular displacements always positive.</p>
+<p>The reference total angular displacement values are then written to
+the output file</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">fileID</span> <span class="p">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">FILE_NAME</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">);</span>
+<span class="k">for</span> <span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">phiRef1</span><span class="p">)</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">fileID</span><span class="p">,</span> <span class="s">&#39;%f\t%f\t%f\t%f\t%f\t%f\r\n&#39;</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">phiRef1</span><span class="p">(</span><span class="nb">i</span><span class="p">)),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">phiRef2</span><span class="p">(</span><span class="nb">i</span><span class="p">)),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">phiRef3</span><span class="p">(</span><span class="nb">i</span><span class="p">)),</span> <span class="n">phiVel1</span><span class="p">(</span><span class="nb">i</span><span class="p">),</span> <span class="n">phiVel2</span><span class="p">(</span><span class="nb">i</span><span class="p">),</span> <span class="n">phiVel3</span><span class="p">(</span><span class="nb">i</span><span class="p">));</span>
+    <span class="c">%fprintf(fileID, &#39;%f\t%f\t%f\n&#39;, abs(phiRef1(i)), abs(phiRef2(i)), abs(phiRef3(i)));</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>which results in a output with format of the example trajectory profile shown
+above.</p>
+</div>
+<div class="section" id="pi-function">
+<h2>PI function<a class="headerlink" href="#pi-function" title="Permalink to this headline">¶</a></h2>
+<p>For your convenience, the code for the PID function is shown here:</p>
+<div class="toggle docutils container">
+<div class="header docutils container">
+<p><strong>Show/Hide PID Function Code</strong></p>
+</div>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">PIMoveTo</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">fName</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">preload</span><span class="p">)</span> <span class="p">{</span>
+
+     <span class="cm">/* Set important variables */</span>
+     <span class="kt">int</span> <span class="n">countNew1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">countNew2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">countNew3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">countOld1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">countOld2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">int</span> <span class="n">countOld3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">displacement1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">displacement2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">displacement3</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">refSpeed1</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">refSpeed2</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">refSpeed3</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phiVel1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phiVel2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phiVel3</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phi1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phi2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">phi3</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">motorSpeed1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">motorSpeed2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">motorSpeed3</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">errorTotal1</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">errorTotal2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">errorTotal3</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">Kp</span> <span class="o">=</span> <span class="mf">20.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">Ki</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">Kd</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+
+     <span class="cm">/* Get trajectory profile from file */</span>
+     <span class="n">FEHFile</span> <span class="o">*</span><span class="n">fptr</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">FOpen</span><span class="p">(</span><span class="n">fName</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">);</span>
+     <span class="cm">/* Open write files to track error and delta angular displacement */</span>
+     <span class="c1">// This is useful for tuning among other things</span>
+     <span class="n">FEHFile</span> <span class="o">*</span><span class="n">fOutErrptr</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">FOpen</span><span class="p">(</span><span class="s">&quot;errorLog.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+     <span class="n">FEHFile</span> <span class="o">*</span><span class="n">fOutDispptr</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">FOpen</span><span class="p">(</span><span class="s">&quot;dispLog.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+     <span class="n">FEHFile</span> <span class="o">*</span><span class="n">fOutVelptr</span> <span class="o">=</span> <span class="n">SD</span><span class="p">.</span><span class="n">FOpen</span><span class="p">(</span><span class="s">&quot;velLog.txt&quot;</span><span class="p">,</span><span class="s">&quot;w&quot;</span><span class="p">);</span>
+
+     <span class="cm">/* Init 2d arrays to store reference data and other temp variables to read from file */</span>
+     <span class="kt">float</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">size</span><span class="p">];</span>
+     <span class="kt">float</span> <span class="n">vel_ref</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">size</span><span class="p">];</span>
+     <span class="kt">float</span> <span class="n">temp1</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">temp2</span><span class="p">;</span>
+     <span class="kt">float</span> <span class="n">temp3</span><span class="p">;</span>
+     <span class="cm">/* If file failed to open, or invalid profile, return and make the screen red */</span>
+     <span class="k">if</span><span class="p">(</span><span class="n">SD</span><span class="p">.</span><span class="n">FEof</span><span class="p">(</span><span class="n">fptr</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">LCD</span><span class="p">.</span><span class="n">Clear</span><span class="p">(</span><span class="n">FEHLCD</span><span class="o">::</span><span class="n">Red</span><span class="p">);</span>
+         <span class="k">return</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="cm">/* Parse trajectory file */</span>
+     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">SD</span><span class="p">.</span><span class="n">FEof</span><span class="p">(</span><span class="n">fptr</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">SD</span><span class="p">.</span><span class="n">FScanf</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="s">&quot;%f%f%f%f%f%f&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed3</span><span class="p">);</span>
+         <span class="n">pos_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span><span class="p">;</span>
+         <span class="n">pos_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp2</span><span class="p">;</span>
+         <span class="n">pos_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp3</span><span class="p">;</span>
+         <span class="n">vel_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed1</span><span class="p">;</span>
+         <span class="n">vel_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed2</span><span class="p">;</span>
+         <span class="n">vel_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed3</span><span class="p">;</span>
+         <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">LCD</span><span class="p">.</span><span class="n">Clear</span><span class="p">(</span><span class="n">FEHLCD</span><span class="o">::</span><span class="n">Red</span><span class="p">);</span>
+         <span class="k">return</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="n">size</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+     <span class="cm">/* Close trajectory file */</span>
+     <span class="n">SD</span><span class="p">.</span><span class="n">FClose</span><span class="p">(</span><span class="n">fptr</span><span class="p">);</span>
+     <span class="cm">/* PRELOAD LOOP */</span>
+     <span class="k">if</span><span class="p">(</span><span class="n">preload</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// Set green to show it&#39;s ready</span>
+         <span class="n">LCD</span><span class="p">.</span><span class="n">Clear</span><span class="p">(</span><span class="n">FEHLCD</span><span class="o">::</span><span class="n">Green</span><span class="p">);</span>
+         <span class="k">while</span><span class="p">(</span><span class="n">getCdsColor</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// wait until a light turns on</span>
+     <span class="p">}</span>
+     <span class="cm">/* Reset encoder counts */</span>
+     <span class="n">motor1_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+     <span class="n">motor2_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+     <span class="n">motor3_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+     <span class="cm">/* PI LOOP */</span>
+     <span class="c1">// Yes, not PID as the derivative term isn&#39;t needed currently</span>
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+         <span class="cm">/* Get new encoder counts */</span>
+         <span class="n">countNew1</span> <span class="o">=</span> <span class="n">motor1_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+         <span class="n">countNew2</span> <span class="o">=</span> <span class="n">motor2_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+         <span class="n">countNew3</span> <span class="o">=</span> <span class="n">motor3_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">errorCurr1</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+             <span class="n">displacement1</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew1</span><span class="p">,</span> <span class="n">countOld1</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="n">displacement1</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew1</span><span class="p">,</span> <span class="n">countOld1</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">errorCurr2</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+             <span class="n">displacement2</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew2</span><span class="p">,</span> <span class="n">countOld2</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="n">displacement2</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew2</span><span class="p">,</span> <span class="n">countOld2</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">errorCurr3</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+             <span class="n">displacement3</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew3</span><span class="p">,</span> <span class="n">countOld3</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="n">displacement3</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew3</span><span class="p">,</span> <span class="n">countOld3</span><span class="p">);</span>
+         <span class="p">}</span>
+         <span class="c1">// Set old counts to new counts for the next iteration</span>
+         <span class="n">countOld1</span> <span class="o">=</span> <span class="n">countNew1</span><span class="p">;</span>
+         <span class="n">countOld2</span> <span class="o">=</span> <span class="n">countNew2</span><span class="p">;</span>
+         <span class="n">countOld3</span> <span class="o">=</span> <span class="n">countNew3</span><span class="p">;</span>
+         <span class="c1">// Add to total angular displacement</span>
+         <span class="n">phi1</span> <span class="o">+=</span> <span class="n">displacement1</span><span class="p">;</span>
+         <span class="n">phi2</span> <span class="o">+=</span> <span class="n">displacement2</span><span class="p">;</span>
+         <span class="n">phi3</span> <span class="o">+=</span> <span class="n">displacement3</span><span class="p">;</span>
+
+         <span class="c1">// Write to log file</span>
+         <span class="n">SD</span><span class="p">.</span><span class="n">FPrintf</span><span class="p">(</span><span class="n">fOutDispptr</span><span class="p">,</span> <span class="s">&quot;%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">displacement1</span><span class="p">,</span> <span class="n">displacement2</span><span class="p">,</span> <span class="n">displacement3</span><span class="p">);</span>
+
+         <span class="cm">/* Calculate current error relative to reference angular positions for each encoder */</span>
+         <span class="n">errorCurr1</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi1</span><span class="p">;</span>
+         <span class="n">errorCurr2</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi2</span><span class="p">;</span>
+         <span class="n">errorCurr3</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi3</span><span class="p">;</span>
+
+         <span class="c1">// Saftey check in case something goes terribly wrong, may or may not be needed later</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">errorCurr1</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+             <span class="k">return</span><span class="p">;</span>
+
+
+         <span class="c1">// Write errors to log file</span>
+         <span class="n">SD</span><span class="p">.</span><span class="n">FPrintf</span><span class="p">(</span><span class="n">fOutErrptr</span><span class="p">,</span> <span class="s">&quot;%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">errorCurr1</span><span class="p">,</span> <span class="n">errorCurr2</span><span class="p">,</span> <span class="n">errorCurr3</span><span class="p">);</span>
+         <span class="c1">// Add to total error (for integral term)</span>
+         <span class="n">errorTotal1</span> <span class="o">+=</span> <span class="n">errorCurr1</span><span class="p">;</span>
+         <span class="n">errorTotal2</span> <span class="o">+=</span> <span class="n">errorCurr2</span><span class="p">;</span>
+         <span class="n">errorTotal3</span> <span class="o">+=</span> <span class="n">errorCurr3</span><span class="p">;</span>
+
+         <span class="cm">/* Calc motor speeds (rad/s) using P and I */</span>
+         <span class="n">motorSpeed1</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr1</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal1</span><span class="p">);</span>
+         <span class="n">motorSpeed2</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr2</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal2</span><span class="p">);</span>
+         <span class="n">motorSpeed3</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr3</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal3</span><span class="p">);</span>
+
+         <span class="cm">/* Use the reference velocities to determine if motor speed should change signs */</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr1</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+             <span class="n">motorSpeed1</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr2</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+             <span class="n">motorSpeed2</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr3</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed3</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+             <span class="n">motorSpeed3</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+         <span class="p">}</span>
+
+         <span class="n">SD</span><span class="p">.</span><span class="n">FPrintf</span><span class="p">(</span><span class="n">fOutVelptr</span><span class="p">,</span> <span class="s">&quot;%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\t</span><span class="s">%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">motorSpeed1</span><span class="p">,</span> <span class="n">motorSpeed2</span><span class="p">,</span> <span class="n">motorSpeed3</span><span class="p">);</span>
+         <span class="cm">/* Set motors to speed */</span>
+         <span class="n">setRadSToPercent</span><span class="p">(</span><span class="n">motorSpeed1</span><span class="p">,</span> <span class="n">motorSpeed2</span><span class="p">,</span> <span class="n">motorSpeed3</span><span class="p">);</span>
+         <span class="cm">/* Wait 0.1 seconds (100 miliseconds) */</span>
+         <span class="n">Sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="cm">/* Done with trajectory profile, stop all motors */</span>
+     <span class="n">allStop</span><span class="p">();</span>
+     <span class="cm">/* Close all log files */</span>
+     <span class="n">SD</span><span class="p">.</span><span class="n">FClose</span><span class="p">(</span><span class="n">fOutErrptr</span><span class="p">);</span>
+     <span class="n">SD</span><span class="p">.</span><span class="n">FClose</span><span class="p">(</span><span class="n">fOutDispptr</span><span class="p">);</span>
+     <span class="n">SD</span><span class="p">.</span><span class="n">FClose</span><span class="p">(</span><span class="n">fOutVelptr</span><span class="p">);</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>To be filled.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="perfTasks/index.html" class="btn btn-neutral float-right" title="Performance Tasks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mainFile.html" class="btn btn-neutral float-left" title="Main File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jeff Bonner, Alan Chen, Peyton Roth, Zach Salem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

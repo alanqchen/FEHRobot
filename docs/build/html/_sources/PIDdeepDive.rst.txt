@@ -134,7 +134,10 @@ implemented as it was found to be not neccessary.
 Implementation
 ==============
 With the mathematical concepts defined, the code implementation can
-be constructed.
+be constructed. Below is a flowchart of the implementation.
+
+.. image:: images/PIFlowchartTransparent.png 
+    :alt: PI Implementation Flowchart
 
 Trajectory profiles
 -------------------

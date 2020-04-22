@@ -1,16 +1,16 @@
-PID Deep Dive
+PI Deep Dive
 =============
 
 .. note::
-    Looking for the function documentation? See :doc:`functions/func_PIDMoveTo`.
+    Looking for the function documentation? See :doc:`functions/func_PIMoveTo`.
 
-In this section the process for developing the PID controller is detailed.
+In this section the process for developing the PI controller is detailed.
 This includes deriving the kinematic relationships and creating trajectory
 profiles.
 
 Motivation
 ----------
-A PID controller was choosen to be implemented due to...
+A PI controller was choosen to be implemented due to...
 
 Derivation
 ==========
@@ -134,7 +134,12 @@ implemented as it was found to be not neccessary.
 Implementation
 ==============
 With the mathematical concepts defined, the code implementation can
-be constructed.
+be constructed. Below is a flowchart of the implementation.
+
+.. image:: images/PIFlowchartTransparent.png 
+    :alt: PI Implementation Flowchart
+
+.. _trajectory-profiles:
 
 Trajectory profiles
 -------------------
@@ -142,7 +147,7 @@ To represent the reference angular positions, pre-generated trajectory
 profiles are generated for every movement. This is because the RPS has
 a large delay that negatively impacts the accuracy of the error,
 especially as the robot moves. To solve this, trajectory profiles are
-generated in MATLab, using the code shown in :doc:`mat_trajGen`. Then
+generated in MATLAB, using the code shown in :doc:`mat_trajGen`. Then
 the Proteus will read the profile file in the SD card, and store the
 reference values in an 2D array, which will be compared to in real time. 
 Each trajectory profile outputted has the same format:
@@ -226,7 +231,7 @@ approximation based on the trapezoidal rule:
 :math:`\phi_{ref}[i]=\phi_{ref}[i-1]+\frac{\Delta T}{2}(\dot{\phi}_{ref}[i]+\dot{\phi}_{ref}[i-1])\tag{10}`
 
 
-This formula is implemented in MATLab as:
+This formula is implemented in MATLAB as:
 
 .. code-block:: matlab
 
@@ -258,7 +263,7 @@ the output file
 which results in a output with format of the example trajectory profile shown
 above.
 
-PID function
+PI function
 ------------
 For your convenience, the code for the PID function is shown here:
 
@@ -271,7 +276,7 @@ For your convenience, the code for the PID function is shown here:
     .. code-block:: c++
        :linenos:
 
-       void PIDMoveTo(char* fName, int size, bool preload) {
+       void PIMoveTo(char* fName, int size, bool preload) {
 
             /* Set important variables */
             int countNew1 = 0;
@@ -299,11 +304,8 @@ For your convenience, the code for the PID function is shown here:
             float errorTotal2 = 0.0;
             float errorTotal3 = 0.0;
             float Kp = 20.0;
-            float Ki = 2.0;
+            float Ki = 1.0;
             float Kd = 0.0;
-            float pidMarginError = 0.1; // in inches
-            // might remove this
-            bool setup = true;
             
             /* Get trajectory profile from file */
             FEHFile *fptr = SD.FOpen(fName,"r");
