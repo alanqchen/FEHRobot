@@ -16,8 +16,6 @@
 #define MAX_RPM 236.5398195
 #define ENCODER_RES 318.0
 #define DELTA_T 0.1
-#define R 0.11176
-#define r 0.03429
 #define COUNTS_PER_INCH 35
 #define ERROR_MARGIN 3
 #define DIST_ERROR_MARGIN 1
@@ -114,48 +112,12 @@ void setRadSToPercent(float motor1_RadS, float motor2_RadS, float motor3_RadS) {
     }
 }
 
-/*
- * xVel - m/s
- * theta - rad
- * phi - rad/s
- */
-// Movement using kinematic equations
-void kinematics(float xVel, float yVel, float theta, float phi) {
-    float angVel1 = (-1 * sin(theta+MOTOR_ANGLE_1)*cos(theta)*xVel+cos(theta+MOTOR_ANGLE_1)*cos(theta)*yVel+R*phi)/r;
-    float angVel2 = (-1 * sin(theta+MOTOR_ANGLE_2)*cos(theta)*xVel+cos(theta+MOTOR_ANGLE_2)*cos(theta)*yVel+R*phi)/r;
-    float angVel3 = (-1 * sin(theta+MOTOR_ANGLE_3)*cos(theta)*xVel+cos(theta+MOTOR_ANGLE_3)*cos(theta)*yVel+R*phi)/r;
-    setRadSToPercent(angVel1, angVel2, angVel3);
-}
-
-// vel - 0.215-> 25% 0.85 -> 100%
-// generally keep UNDER .7; .5 or under to be safe
-void moveForwardBackward(float vel, float theta) {
-    kinematics(0.0, vel, theta+M_PI/6.0, 0.0);
-}
-
-// .7 MAX
-void moveLeftRight(float vel, float theta) {
-    kinematics(vel, 0.0, theta+M_PI/6.0, 0.0);
-}
-
-void spinClockwise(float vel, float theta) {
-    kinematics(0.0, vel, theta+M_PI/6.0, 0.0);
-}
-
-// postive for counter clockwise
-// 6.6 MAX, 1.65-> 25%
-void spin(float phi, float theta) {
-    kinematics(0.0, 0.0, theta+M_PI/6.0, phi);
-}
-
 float inchestoMeters(float num) {
     return num/39.37;
 }
 
 float countsToRadDisp(int newCount, int old) {
     int difference = newCount-old;
-    //float degDif = (float)difference * 360.0/318.0;
-    //return degDif * (M_PI / 180.0);
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
 }
 
@@ -183,23 +145,10 @@ int getCdsColor(bool start) {
 
 // TODO: Change name to PIMoveTO
 /*! 
-\rst
-
-This is some funky non-xml compliant text: <& !><
-
-.. note::
-
-   This reStructuredText has been handled correctly.
-\endrst
-\verbatim
-void test() {
-    // This is test code
-}
-\endverbatim
 Uses a PI controller to move the robot using a trajectory profile as the reference data.
 The passed in trajectory profile should have 6 columns. The first 3 are the total angular
 displacements(rad) of motors 1, 2, and 3 repsectively, with the last 3 being the respective angular
-velocities(rad/s). Right now, delta time is 0.1 seconds. The loop each iteration will calculate difference in
+velocities(rad/s). The delta time is 0.1 seconds. The loop each iteration will calculate difference in
 encoder counts to convert it into displacement in radians using countsToRadDisp. This will then be
 added to the total angular displacement for each motor, and these calculated values will be subracted
 with the reference angular displacements to get the error for each motor. These errors are then summed
@@ -211,9 +160,7 @@ convert the angular speeds to percent and limit them within operating range, and
  @param size the number of lines/commands in trajectory profile.
  @param preload If true, the file will be preloaded and won't start until the start light turns on.
  */
-void PIDMoveTo(char* fName, int size, bool preload) {
-    //float xMeters = inchestoMeters(x);
-    //float yMeters = inchestoMeters(y);
+void PIMoveTo(char* fName, int size, bool preload) {
     /* Set important variables */
     int countNew1 = 0;
     int countNew2 = 0;
@@ -227,9 +174,6 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     float refSpeed1;
     float refSpeed2;
     float refSpeed3;
-    float phiVel1 = 0.0;
-    float phiVel2 = 0.0;
-    float phiVel3 = 0.0;
     float phi1 = 0.0;
     float phi2 = 0.0;
     float phi3 = 0.0;
@@ -241,16 +185,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     float errorTotal3 = 0.0;
     float Kp = 20.0;
     float Ki = 1.0;
-    float Kd = 0.0;
-    float pidMarginError = 0.1; // in inches
-    // might remove this
-    bool setup = true;
-    
 
-
-    //int len = fName.length();
-    //char charArr[len+1];
-    //strcpy(charArr, fName.c_str());
     /* Get trajectory profile from file */
     FEHFile *fptr = SD.FOpen(fName,"r");
     /* Open write files to track error and delta angular displacement */
@@ -262,9 +197,9 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     /* Init 2d arrays to store reference data and other temp variables to read from file */
     float pos_ref[3][size];
     float vel_ref[3][size];
-    float temp1;
-    float temp2;
-    float temp3;
+    float refPos1;
+    float refPos2;
+    float refPos3;
     /* If file failed to open, or invalid profile, return and make the screen red */
     if(SD.FEof(fptr)) {
         LCD.Clear(FEHLCD::Red);
@@ -273,10 +208,10 @@ void PIDMoveTo(char* fName, int size, bool preload) {
     /* Parse trajectory file */
     int i = 0;
     while(!SD.FEof(fptr)) {
-        SD.FScanf(fptr, "%f%f%f%f%f%f", &temp1, &temp2, &temp3, &refSpeed1, &refSpeed2, &refSpeed3);
-        pos_ref[0][i] = temp1;
-        pos_ref[1][i] = temp2;
-        pos_ref[2][i] = temp3;
+        SD.FScanf(fptr, "%f%f%f%f%f%f", &refPos1, &refPos2, &refPos3, &refSpeed1, &refSpeed2, &refSpeed3);
+        pos_ref[0][i] = refPos1;
+        pos_ref[1][i] = refPos2;
+        pos_ref[2][i] = refPos3;
         vel_ref[0][i] = refSpeed1;
         vel_ref[1][i] = refSpeed2;
         vel_ref[2][i] = refSpeed3;
@@ -306,20 +241,7 @@ void PIDMoveTo(char* fName, int size, bool preload) {
         countNew1 = motor1_encoder.Counts();
         countNew2 = motor2_encoder.Counts();
         countNew3 = motor3_encoder.Counts();
-        /* Check if first iteration (no old values) */
-        // This is redundant! (remove later)
-        /*
-        if(setup) {
-            displacement1 = countsToRadDisp(countNew1, 0);
-            displacement2 = countsToRadDisp(countNew2, 0);
-            displacement3 = countsToRadDisp(countNew3, 0);
-            setup = false;
-        } else {
-            displacement1 = countsToRadDisp(countNew1, countOld1);
-            displacement2 = countsToRadDisp(countNew2, countOld2);
-            displacement3 = countsToRadDisp(countNew3, countOld3);
-        }
-        */
+
         if(errorCurr1 < 0.0) {
             displacement1 = countsToRadDisp(countNew1, countOld1) * -1;
         } else {
@@ -343,25 +265,18 @@ void PIDMoveTo(char* fName, int size, bool preload) {
         phi1 += displacement1;
         phi2 += displacement2;
         phi3 += displacement3;
-        // Calc average angular velocity (this will be used if we switch to a angular velocity trajectory profile)
-        phiVel1 = displacement1/DELTA_T;
-        phiVel2 = displacement2/DELTA_T;
-        phiVel3 = displacement3/DELTA_T;
         
         // Write to log file
         SD.FPrintf(fOutDispptr, "%f\t%f\t%f\n", displacement1, displacement2, displacement3);
-
-        // TODO: IMPLEMENT DEAD BAND
         
         /* Calculate current error relative to reference angular positions for each encoder */
         errorCurr1 = pos_ref[0][i] - phi1;
         errorCurr2 = pos_ref[1][i] - phi2;
         errorCurr3 = pos_ref[2][i] - phi3;
         
-        // Saftey check in case something goes terribly wrong, may or may not be needed later
+        // Saftey check in case something goes terribly wrong
         if(errorCurr1 > 3)
             return;
-
 
         // Write errors to log file
         SD.FPrintf(fOutErrptr, "%f\t%f\t%f\n", errorCurr1, errorCurr2, errorCurr3);
@@ -369,8 +284,6 @@ void PIDMoveTo(char* fName, int size, bool preload) {
         errorTotal1 += errorCurr1;
         errorTotal2 += errorCurr2;
         errorTotal3 += errorCurr3;
-        
-        // TODO: ADD INTERGRAL WINDUP REMOVAL
         
         /* Calc motor speeds (rad/s) using P and I */
         motorSpeed1 = Kp * errorCurr1 + Ki * DELTA_T * (errorTotal1);
@@ -388,9 +301,6 @@ void PIDMoveTo(char* fName, int size, bool preload) {
             motorSpeed3 *= -1.0;
         }
 
-        //motor1.SetPercent(limitMotorPercent(motorSpeed1));
-        //motor2.SetPercent(limitMotorPercent(motorSpeed2));
-        //motor3.SetPercent(limitMotorPercent(motorSpeed3));
         SD.FPrintf(fOutVelptr, "%f\t%f\t%f\n", motorSpeed1, motorSpeed2, motorSpeed3);
         /* Set motors to speed */
         setRadSToPercent(motorSpeed1, motorSpeed2, motorSpeed3);
@@ -634,7 +544,7 @@ void RPSCorrectError(float finalX, float finalY, float finalHeading) {
 
 void performance2() {
     arm_servo.SetDegree(65);
-    PIDMoveTo("start1.txt", 31, true);
+    PIMoveTo("start1.txt", 31, true);
     for(int i = 65; i >= 45; i-=2) {
         arm_servo.SetDegree(i);
         Sleep(10);
@@ -642,23 +552,23 @@ void performance2() {
     //rotateCC(-25, 120);
     //rotateCC(-25, 90);
     //forward23(75, 34);
-    PIDMoveTo("mR34.txt", 31, false);
+    PIMoveTo("mR34.txt", 31, false);
 
 
 
     Sleep(0.5);
-    //PIDMoveTo("r90CW.txt", 31);
+    //PIMoveTo("r90CW.txt", 31);
     rotateCC(-25, 90);
     Sleep(0.5);
-    PIDMoveTo("toSink.txt", 31, false);
+    PIMoveTo("toSink.txt", 31, false);
 
 
     Sleep(0.5);
 
     //rotateCC(25, 120);
-    //PIDMoveTo("toSink.txt", 31);
+    //PIMoveTo("toSink.txt", 31);
     sinkDump();
-    //PIDMoveTo("toSlide.txt", 31);
+    //PIMoveTo("toSlide.txt", 31);
     rotateCC(-25, 152);
 
     Sleep(0.5);
@@ -666,7 +576,7 @@ void performance2() {
     forward31(25, 24.0);
     forward31(-25, .1);
 
-    //PIDMoveTo("rotate6.txt", 11, false);
+    //PIMoveTo("rotate6.txt", 11, false);
     rotateCC(-25, 30);
 
     arm_servo.SetDegree(90.0);
@@ -675,17 +585,17 @@ void performance2() {
     forward12(25, 5);
     jukebox_servo.SetDegree(160.0);
     Sleep(0.5);
-    PIDMoveTo("slideT.txt", 26, false);
+    PIMoveTo("slideT.txt", 26, false);
     Sleep(0.5);
     forward12(-25, 23);
 }
 
 void performance3() {
     // to center of ramp
-    PIDMoveTo("start1.txt", 31, true);
+    PIMoveTo("start1.txt", 31, true);
 
     //up ramp
-    PIDMoveTo("mR34.txt", 31, false);
+    PIMoveTo("mR34.txt", 31, false);
 
     //east to wall
     forward12(-25, 17);
@@ -696,7 +606,7 @@ void performance3() {
 
     //rotate towards burger
     rotateCC(25, 22);
-    //PIDMoveTo("ss.txt", 6, false);
+    //PIMoveTo("ss.txt", 6, false);
 
     arm_servo.SetDegree(0);
 
@@ -718,7 +628,7 @@ void performance3() {
     arm_servo.SetDegree(70);
 
     //move diagonally to lever
-    PIDMoveTo("toLever.txt", 31, false);
+    PIMoveTo("toLever.txt", 31, false);
 
     arm_servo.SetDegree(40);
     Sleep(1.5);
@@ -733,16 +643,16 @@ void leverDown() {
 
 void actual() {
     //go from start to jukebox light, press correct button, go to from of ramp
-    PIDMoveTo("toJL.txt", 21, true);
+    PIMoveTo("toJL.txt", 21, true);
     Sleep(100);
     int cdsValue = getCdsColor(false);
     correctHeading(270, RPS_HEAD_CORR_SPEED);
     if(cdsValue == 2) {
-        PIDMoveTo("toRed.txt", 61, false);
-        PIDMoveTo("rToRamp.txt", 61, false);
+        PIMoveTo("toRed.txt", 61, false);
+        PIMoveTo("rToRamp.txt", 61, false);
     } else if(cdsValue == 1) {
-        PIDMoveTo("toBlue.txt", 31, false);
-        PIDMoveTo("bToRamp.txt", 31, false);
+        PIMoveTo("toBlue.txt", 31, false);
+        PIMoveTo("bToRamp.txt", 31, false);
     }
 
     //correct heading and X before ramp
@@ -758,7 +668,7 @@ void actual() {
     }
 
     //go up ramp
-    PIDMoveTo("upRamp3.txt", 31, false);
+    PIMoveTo("upRamp3.txt", 31, false);
 
     //align X, Y, and heading at sink
     Sleep(100);
@@ -801,7 +711,7 @@ void actual() {
     Sleep(100);
 
     //center between three levers from side of sink
-    PIDMoveTo("toLevers.txt", 31, false);
+    PIMoveTo("toLevers.txt", 31, false);
     arm_servo.SetDegree(110);
     Sleep(500);
     currX = RPS.X();
@@ -828,20 +738,20 @@ void actual() {
     //flip correct lever down and move near burger
     int lever = RPS.GetIceCream();
     if (lever == 0) {
-        PIDMoveTo("toL1.txt", 31, false);
+        PIMoveTo("toL1.txt", 31, false);
         leverDown();
-        PIDMoveTo("L1toBgr.txt", 31, false);
+        PIMoveTo("L1toBgr.txt", 31, false);
     } else if (lever == 1) {
-        PIDMoveTo("toL2.txt", 31, false);
+        PIMoveTo("toL2.txt", 31, false);
         leverDown();
-        PIDMoveTo("L2toBgr.txt", 31, false);
+        PIMoveTo("L2toBgr.txt", 31, false);
     } else {
-        PIDMoveTo("toL2.txt", 31, false);
+        PIMoveTo("toL2.txt", 31, false);
         forward31(-35, 3.75);
         leverDown();
         Sleep(200);
         forward31(35, 3.75);
-        PIDMoveTo("L2toBgr.txt", 31, false);
+        PIMoveTo("L2toBgr.txt", 31, false);
     }
 
     //move to and align to burger

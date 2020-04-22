@@ -6,6 +6,16 @@
 Welcome to Team E3's Robot's documentation!
 ===========================================
 
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the code documentation website, offering detailed descriptions of the code.
+
+----
+
+Table of Contents
+=================
+
 .. toctree::
    :maxdepth: 2
 
@@ -41,6 +51,7 @@ Welcome to Team E3's Robot's documentation!
    matlabcode/mat_trajGen
    matlabcode/mat_errPlot
 
+----
 .. Indices and tables
 .. ------------------
 ..
