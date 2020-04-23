@@ -34,7 +34,7 @@ float RPS_LEVERS_HEADING = 0.0;
 float RPS_BURGER_X = 0.0;
 float RPS_BURGER_Y = 0.0;
 
-float forwardTimeOut = 10;
+float FORWARD_TIME_OUT = 10;
 
 FEHMotor motor1(FEHMotor::Motor0, 9.0);
 FEHMotor motor2(FEHMotor::Motor1, 9.0);
@@ -54,28 +54,32 @@ float errorCurr1 = 0.0;
 float errorCurr2 = 0.0;
 float errorCurr3 = 0.0;
 
+/*!
+Inverses the given percent.
+ 
+ @param percent The percent to invert.
+ @return The inverted percent.
+ */
 float InvPercent(float percent) {
     return percent * -1.0;
 }
 
-// convert degrees from RPS to radian
-float degreeToRadian(float degree) {
-    return degree * M_PI/180.0;
-}
+/*!
+Stops all motors.
 
-// convert degrees from RPS to radian
-float radianToDegree(float radian) {
-    return radian * 180.0/M_PI;
-}
-
-// Stops all motors
+ */
 void allStop() {
     motor1.Stop();
     motor2.Stop();
     motor3.Stop();
 }
 
-// Limits motor percent to be within operating range
+/*!
+Limits the given motor percent to be within operating range
+
+ @param percent The percent to limit.
+ @return The percent within operating range for the motor.
+ */
 float limitMotorPercent(float percent) {
     if (percent > 100.0) {
         return 100.0;
@@ -87,7 +91,14 @@ float limitMotorPercent(float percent) {
     return percent;
 }
 
-// Converts radians per second to percent
+/*!
+Converts and sets radians per second for each motor into their respective percents.
+This should only be used in the PI controller.
+
+ @param motor1_RadS Motor 1's speed in radians per second.
+ @param motor2_RadS Motor 2's speed in radians per second.
+ @param motor3_RadS Motor 3's speed in radians per second.
+ */
 void setRadSToPercent(float motor1_RadS, float motor2_RadS, float motor3_RadS) {
     float percent1 = (((60.0/(2*M_PI))*motor1_RadS)/MAX_RPM) * 100;
     float percent2 = (((60.0/(2*M_PI))*motor2_RadS)/MAX_RPM) * 100;
@@ -112,15 +123,24 @@ void setRadSToPercent(float motor1_RadS, float motor2_RadS, float motor3_RadS) {
     }
 }
 
-float inchestoMeters(float num) {
-    return num/39.37;
-}
+/*!
+Converts encoder counts to displacement in radians.
 
+ @param newCount The current interation encoder count.
+ @param old The previous iteration encoder count.
+ @return The angular displacement in radians.
+ */
 float countsToRadDisp(int newCount, int old) {
     int difference = newCount-old;
     return (float)difference*(2.0*M_PI)/ENCODER_RES;
 }
 
+/*!
+Gets the color detected by the CdS cell. The thresholds assume a red filter is used.
+
+ @param start If ``true``, the start light threshold will be used. If ``false``, the jukebox light threshold will be used.
+ @return 2 for red, 1 for blue, and 0 for no light.
+ */
 int getCdsColor(bool start) {
     // Red
     if (start) {
@@ -143,7 +163,6 @@ int getCdsColor(bool start) {
     }
 }
 
-// TODO: Change name to PIMoveTO
 /*! 
 Uses a PI controller to move the robot using a trajectory profile as the reference data.
 The passed in trajectory profile should have 6 columns. The first 3 are the total angular
@@ -315,6 +334,12 @@ void PIMoveTo(char* fName, int size, bool preload) {
     SD.FClose(fOutVelptr);
 }
 
+/*!
+Rotates counter-clockwise, when given a positve percent.
+
+ @param percent the power for motors. A negative value will move clockwise.
+ @param degree the amount of degrees to rotate. Must be positive.
+ */
 void rotateCC(float percent, int degree) {
     motor1_encoder.ResetCounts();
     motor2_encoder.ResetCounts();
@@ -328,79 +353,11 @@ void rotateCC(float percent, int degree) {
 
 }
 
-void moveForward(float percent, float inch) {
-    motor1_encoder.ResetCounts();
-    motor2_encoder.ResetCounts();
-    motor3_encoder.ResetCounts();
-    motor1.SetPercent(InvPercent(percent));
-    motor2.SetPercent(percent);
-
-    while((motor1_encoder.Counts() + motor2_encoder.Counts())/2< 35*inch);
-    allStop();
-
-}
-
-void performance1() {
-    moveForward(25, 18);
-    allStop();
-    // Read Cds Cell
-    int cdsValue = getCdsColor(false);
-    Sleep(1.5);
-    // If blue
-    if(cdsValue == 1)  {
-        rotateCC(25, 106);
-        Sleep(1.5);
-        moveForward(25, 4);
-    // If red
-    } else if (cdsValue == 2) {
-        moveForward(25, 3);
-        Sleep(1.5);
-        rotateCC(25, 107);
-        Sleep(1.5);
-        moveForward(25, 5.25);
-    }
-    Sleep(1.5);
-    // Move backward from jukebox
-    moveForward(-25, 6);
-    jukebox_servo.SetDegree(5.0);
-    Sleep(0.5);
-    // Rotate to align heading to ramp starting position
-    rotateCC(25, 90);
-
-    Sleep(0.5);
-    // Move forward to ramp starting position
-    if(cdsValue == 1) {
-        moveForward(25, 6);
-    } else if(cdsValue == 2) {
-        moveForward(25, 10);
-    }
-    Sleep(0.5);
-    // Rotate towards ramp
-    rotateCC(25, 90);
-    Sleep(0.5);
-    // Go up ramp
-    moveForward(75, 30);
-    Sleep(0.5);
-    moveForward(-25, 30);
-    Sleep(0.5);
-}
-
-void sinkDump() {
-    for(int i = 45; i <= 140; i+=5) {
-        arm_servo.SetDegree(i);
-        Sleep(100);
-    }
-    for(int i = 140; i >= 45; i-=5) {
-        arm_servo.SetDegree(i);
-        Sleep(100);
-    }
-}
-
 /*!
-Moves forward in the direction of motors 2 & 3 for the given inch distance
+Moves forward in the direction of motors 2 & 3 for the given inch distance.
 
-@param percent the power for motors 2 & 3.
-@param inch the distance to move.
+ @param percent the power for motors 2 & 3. A negative value will move backwards.
+ @param inch the distance to move. Must be positive.
  */
 void forward23(float percent, int inch) {
     float start = TimeNow();
@@ -410,15 +367,15 @@ void forward23(float percent, int inch) {
     motor2.SetPercent(InvPercent(percent));
     motor3.SetPercent(percent);
 
-    while(TimeNow() - start < forwardTimeOut && (motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < FORWARD_TIME_OUT && (motor2_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
 /*!
-Moves forward in the direction of motors 3 & 1 for the given inch distance
+Moves forward in the direction of motors 3 & 1 for the given inch distance.
 
-@param percent the power for motors 3 & 1.
-@param inch the distance to move.
+ @param percent the power for motors 3 & 1. A negative value will move backwards.
+ @param inch the distance to move. Must be positive.
  */
 void forward31(float percent, float inch) {
     float start = TimeNow();
@@ -428,15 +385,15 @@ void forward31(float percent, float inch) {
     motor3.SetPercent(InvPercent(percent));
     motor1.SetPercent(percent);
 
-    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < FORWARD_TIME_OUT && (motor1_encoder.Counts() + motor3_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
 /*!
-Moves forward in the direction of motors 1 & 2 for the given inch distance
+Moves forward in the direction of motors 1 & 2 for the given inch distance.
 
-@param percent the power for motors 1 & 2.
-@param inch the distance to move.
+@param percent the power for motors 1 & 2. A negative value will move backwards.
+@param inch the distance to move. Must be positive.
  */
 void forward12(float percent, float inch) {
     float start = TimeNow();
@@ -446,10 +403,16 @@ void forward12(float percent, float inch) {
     motor1.SetPercent(InvPercent(percent));
     motor2.SetPercent(percent);
 
-    while(TimeNow() - start < forwardTimeOut && (motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < FORWARD_TIME_OUT && (motor1_encoder.Counts() + motor2_encoder.Counts())/2< COUNTS_PER_INCH*inch);
     allStop();
 }
 
+/*!
+Moves forward in the x axis direction, relative to the robot's local orientation.
+
+ @param percent the power for motor 3. Motors 1 & 2 will be set to percent/2. A negative value will move backwards.
+ @param inch the distance to move. Must be positive.
+ */
 void forwardX(float percent, float inch) {
     float start = TimeNow();
     motor1_encoder.ResetCounts();
@@ -459,10 +422,16 @@ void forwardX(float percent, float inch) {
     motor2.SetPercent(percent/2.0);
     motor3.SetPercent(InvPercent(percent));
 
-    while(TimeNow() - start < forwardTimeOut && motor3_encoder.Counts() < COUNTS_PER_INCH*inch);
+    while(TimeNow() - start < FORWARD_TIME_OUT && motor3_encoder.Counts() < COUNTS_PER_INCH*inch);
     allStop();
 }
 
+/*!
+Uses RPS to correct the heading, relative to the global (course) coordinates.
+
+ @param finalHeading the desired heading. 0 <= finalHeading < 359.9
+ @param power the motor percent speeds. A low power will be accurate, but slow. A high power will be fast, but not as accurate.
+ */
 void correctHeading(float finalHeading, float power) {
     float currHeading;
     currHeading = RPS.Heading();
@@ -487,160 +456,12 @@ void correctHeading(float finalHeading, float power) {
     Sleep(100);
 }
 
-void RPSCorrectError(float finalX, float finalY, float finalHeading) {
-    float currHeading = RPS.Heading();
-    float currX = RPS.X();
-    float currY = RPS.Y();
+/*!
+This is the function that runs the final "acutal" course. Note that because the
+testing time was cut short, only the jukebox, tray, lever, and burger tasks could
+be implemented.
 
-
-    float deltaX = finalX - currX;
-    if(deltaX == 0.0) {
-        deltaX += 0.0000000000000000000001;
-    }
-    float deltaY = finalY - currY;
-    if(deltaY == 0.0) {
-        deltaY += 0.0000000000000000000001;
-    }
-    float theta;
-    // Q1
-    if(deltaX >= 0 && deltaY >= 0) {
-        theta = radianToDegree(atan((deltaY)/(deltaX)));
-    // Q2
-    } else if(deltaX < 0 && deltaY >=0) {
-        theta = radianToDegree(atan((-1.0*deltaX)/(deltaY)));
-        theta += 90.0;
-    // Q3
-    } else if(deltaX < 0 && deltaY < 0) {
-        theta = radianToDegree(atan((-1.0*deltaY)/(-1.0*deltaX)));
-        theta += 180;
-    // Q4
-    } else {
-        theta = radianToDegree(atan((deltaX)/(-1.0*deltaY)));
-        theta += 270;
-    }
-
-    // THIS IS PROB WRONG
-    float deltaTheta = fabsf(currHeading - theta);
-    if (deltaTheta > 180) {
-        deltaTheta = 360 - deltaTheta;
-    }
-    float power = 20.0;
-    if(deltaTheta < 90.0) {
-        correctHeading(deltaTheta, 18.0);
-    } else {
-        deltaTheta += 180.0;
-        if(deltaTheta > 360.0) {
-            deltaTheta -= 360;
-        }
-        correctHeading(deltaTheta, 18.0);
-        power = -20.0;
-    }
-
-    float dist = sqrtf(deltaX * deltaX + deltaY * deltaY);
-    forward12(power, dist);
-
-    correctHeading(finalHeading, 18.0);
-}
-
-void performance2() {
-    arm_servo.SetDegree(65);
-    PIMoveTo("start1.txt", 31, true);
-    for(int i = 65; i >= 45; i-=2) {
-        arm_servo.SetDegree(i);
-        Sleep(10);
-    }
-    //rotateCC(-25, 120);
-    //rotateCC(-25, 90);
-    //forward23(75, 34);
-    PIMoveTo("mR34.txt", 31, false);
-
-
-
-    Sleep(0.5);
-    //PIMoveTo("r90CW.txt", 31);
-    rotateCC(-25, 90);
-    Sleep(0.5);
-    PIMoveTo("toSink.txt", 31, false);
-
-
-    Sleep(0.5);
-
-    //rotateCC(25, 120);
-    //PIMoveTo("toSink.txt", 31);
-    sinkDump();
-    //PIMoveTo("toSlide.txt", 31);
-    rotateCC(-25, 152);
-
-    Sleep(0.5);
-
-    forward31(25, 24.0);
-    forward31(-25, .1);
-
-    //PIMoveTo("rotate6.txt", 11, false);
-    rotateCC(-25, 30);
-
-    arm_servo.SetDegree(90.0);
-    jukebox_servo.SetDegree(170.0);
-    Sleep(0.75);
-    forward12(25, 5);
-    jukebox_servo.SetDegree(160.0);
-    Sleep(0.5);
-    PIMoveTo("slideT.txt", 26, false);
-    Sleep(0.5);
-    forward12(-25, 23);
-}
-
-void performance3() {
-    // to center of ramp
-    PIMoveTo("start1.txt", 31, true);
-
-    //up ramp
-    PIMoveTo("mR34.txt", 31, false);
-
-    //east to wall
-    forward12(-25, 17);
-
-    //west off wall
-    //forward12(25, 1.5);
-    forward12(25, .75);
-
-    //rotate towards burger
-    rotateCC(25, 22);
-    //PIMoveTo("ss.txt", 6, false);
-
-    arm_servo.SetDegree(0);
-
-    //north towards burger
-    forward31(25, 8.1);
-    // back off from burger
-    forward31(-25, .15);
-    arm_servo.SetDegree(55);
-    Sleep(1.5);
-    arm_servo.SetDegree(0);
-    Sleep(1.5);
-
-    //south from burger
-    forward31(-25, 4);
-
-    //face ice cream
-    rotateCC(-25, 23);
-
-    arm_servo.SetDegree(70);
-
-    //move diagonally to lever
-    PIMoveTo("toLever.txt", 31, false);
-
-    arm_servo.SetDegree(40);
-    Sleep(1.5);
-    arm_servo.SetDegree(70);
-}
-
-void leverDown() {
-    arm_servo.SetDegree(150);
-    Sleep(750);
-    arm_servo.SetDegree(110);
-}
-
+ */
 void actual() {
     //go from start to jukebox light, press correct button, go to from of ramp
     PIMoveTo("toJL.txt", 21, true);
@@ -685,13 +506,13 @@ void actual() {
     Sleep(500);
     currX = RPS.X();
     deltaX = fabsf(15.5 - currX);
-    forwardTimeOut = 1.75;
+    FORWARD_TIME_OUT = 1.75;
     if (15.5 > currX) {
         forward12(RPS_POS_CORR_SPEED, deltaX);
     } else {
         forward12(-RPS_POS_CORR_SPEED, deltaX);
     }
-    forwardTimeOut = 10;
+    FORWARD_TIME_OUT = 10;
 
     //throw tray
     arm_servo.SetDegree(60);
@@ -767,11 +588,11 @@ void actual() {
         forward12(RPS_POS_CORR_SPEED, deltaX);
     }
     correctHeading(200, RPS_HEAD_CORR_SPEED);
-    forwardTimeOut = 1.75;
+    FORWARD_TIME_OUT = 1.75;
     Sleep(500);
     currY = RPS.Y();
     forward31(RPS_POS_CORR_SPEED, RPS_BURGER_Y - currY);
-    forwardTimeOut = 10;
+    FORWARD_TIME_OUT = 10;
 
     //flip burger
     arm_servo.SetDegree(85);
@@ -779,6 +600,18 @@ void actual() {
     arm_servo.SetDegree(8);
 }
 
+/*!
+Runs the sequence to calibrate the RPS coordinates for the ramp, levers, and burger task.
+This alters the global variables to store the coordinates.
+To signal when it is ready to set a coordinate, the screen will change color:
+    * Black - Ramp,
+    * Gray - Levers,
+    * Scarlet - Burger,
+    * Blue - Tap when on starting position.
+
+Additonally, a high pitch will sound when it detects a tap, followed by a low pitch
+sound when it's ready for the next tap.
+ */
 void setupRPS() {
     Sleep(1000);
     float trash_x;
@@ -847,6 +680,10 @@ void setupRPS() {
     Buzzer.Tone( FEHBuzzer::G5,  300 );
 }
 
+/*!
+This is the "controller" for the program. It runs all the setup functions and
+calls the function that runs the course.
+ */
 int main(void)
 {
     jukebox_servo.SetMin(700);
