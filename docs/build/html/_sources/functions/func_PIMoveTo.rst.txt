@@ -2,7 +2,7 @@ PIMoveTo
 ================
 
 .. note::
-    Looking for a detailed description? See :doc:`/PIdeepDive`.
+    Looking for a detailed description? See :doc:`/pidd/PIdeepDive`.
 
 .. doxygenfunction:: PIMoveTo
    :project: FEHRobot

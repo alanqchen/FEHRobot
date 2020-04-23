@@ -39,7 +39,7 @@
     <member refid="main_8cpp_1a07c43c9e2effbf3624c80718bca635c6" kind="variable"><name>RPS_LEVERS_HEADING</name></member>
     <member refid="main_8cpp_1a688e1af9cff28902766ae8a15da7ebc1" kind="variable"><name>RPS_BURGER_X</name></member>
     <member refid="main_8cpp_1a2ffb2b410a5ea485fe4857c4cd836247" kind="variable"><name>RPS_BURGER_Y</name></member>
-    <member refid="main_8cpp_1a5d88f50a071a174bbbe975200a0523a2" kind="variable"><name>forwardTimeOut</name></member>
+    <member refid="main_8cpp_1a46000c28c7974a3dcb673bd9fdad8c83" kind="variable"><name>FORWARD_TIME_OUT</name></member>
     <member refid="main_8cpp_1ac9b50a344be2172263ad024556debe8a" kind="variable"><name>errorCurr1</name></member>
     <member refid="main_8cpp_1aa6749d05f37d8f5207ebf828823343bf" kind="variable"><name>errorCurr2</name></member>
     <member refid="main_8cpp_1a4ac657d6cedb1d41be8f80b7f3caf8fd" kind="variable"><name>errorCurr3</name></member>
@@ -53,28 +53,18 @@
     <member refid="main_8cpp_1a9d5f7037751e2fb7fad19f6803e44022" kind="function"><name>arm_servo</name></member>
     <member refid="main_8cpp_1a3949168a40f85ea31d5fc2000617af43" kind="function"><name>CdS_cell</name></member>
     <member refid="main_8cpp_1aaac3ae26d4ce0c3abf9a3b6fdd1334aa" kind="function"><name>InvPercent</name></member>
-    <member refid="main_8cpp_1aa974ba64ff81c34a3a22dd5ce281a53b" kind="function"><name>degreeToRadian</name></member>
-    <member refid="main_8cpp_1ac6aac218f5c34155059168a8a42991e3" kind="function"><name>radianToDegree</name></member>
     <member refid="main_8cpp_1a3ecb4246bad455a34426463ed71138ee" kind="function"><name>allStop</name></member>
     <member refid="main_8cpp_1a25b81f4eb624260195952455b36b58b6" kind="function"><name>limitMotorPercent</name></member>
     <member refid="main_8cpp_1a586a637fc7baeb2dd8b25bc39d679596" kind="function"><name>setRadSToPercent</name></member>
-    <member refid="main_8cpp_1ac1c2c79c14f546a6ca7e404a409f43cb" kind="function"><name>inchestoMeters</name></member>
     <member refid="main_8cpp_1a89eb642168c6696d597908e35d7505d9" kind="function"><name>countsToRadDisp</name></member>
     <member refid="main_8cpp_1aebf6e9ebd50eeaedcb5edcb760974a8f" kind="function"><name>getCdsColor</name></member>
     <member refid="main_8cpp_1a07341a45e3c97a4b40b97caf0ce147f5" kind="function"><name>PIMoveTo</name></member>
     <member refid="main_8cpp_1a1a235440a3e5a042a924080da0bcb5d2" kind="function"><name>rotateCC</name></member>
-    <member refid="main_8cpp_1af3f6a49c913ef91aedc59939aab16da9" kind="function"><name>moveForward</name></member>
-    <member refid="main_8cpp_1a0af4c9b7fb9aceed0ecc52eba6b8f849" kind="function"><name>performance1</name></member>
-    <member refid="main_8cpp_1a224bb88e1730b94a82b89025128d3e69" kind="function"><name>sinkDump</name></member>
     <member refid="main_8cpp_1ae84739b4949b4f39f1cd1e08961f791a" kind="function"><name>forward23</name></member>
     <member refid="main_8cpp_1aa4327f8b5660d8e773d3f02938b23f12" kind="function"><name>forward31</name></member>
     <member refid="main_8cpp_1af5ca6b1762d5cdf23eb66c3ec340adf4" kind="function"><name>forward12</name></member>
     <member refid="main_8cpp_1a38089ce27f210deca1a38d226a747855" kind="function"><name>forwardX</name></member>
     <member refid="main_8cpp_1ae5bd314df3ae254ceb9481fd4af2ce7d" kind="function"><name>correctHeading</name></member>
-    <member refid="main_8cpp_1a8962486ab0be7e273fd1c0b401294872" kind="function"><name>RPSCorrectError</name></member>
-    <member refid="main_8cpp_1a2f865f9d5e98df3241344e5c7cc673df" kind="function"><name>performance2</name></member>
-    <member refid="main_8cpp_1a9a5ebd1e619e865520f45161acd55202" kind="function"><name>performance3</name></member>
-    <member refid="main_8cpp_1a1e2eff555ff99168334a46dc9760e8aa" kind="function"><name>leverDown</name></member>
     <member refid="main_8cpp_1a3011bf24b5b470c9afe17dd242708556" kind="function"><name>actual</name></member>
     <member refid="main_8cpp_1a8e3c66e8a0a086c7545e461b8423d26d" kind="function"><name>setupRPS</name></member>
     <member refid="main_8cpp_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>

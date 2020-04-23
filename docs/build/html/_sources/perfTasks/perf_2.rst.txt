@@ -1,8 +1,12 @@
 Performance Task 2
 ==================
 
-.. note::
-   This is a work in progress
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the code for performance task 2. The goal was to move from the start position, up the ramp,
+and then dump the tray in the sink. The bonus task was to touch the burger tray. Note that
+the final position to dump the tray was altered in the final code to increase speed.
 
 Code
 ----

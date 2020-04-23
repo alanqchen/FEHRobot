@@ -10,6 +10,9 @@ Welcome to Team E3's Robot's documentation!
     Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
 
 This is the code documentation website, offering detailed descriptions of the code.
+Here you can find detailed information of the PI controller and each function. Also
+the code used for the performance task is shown. For easy navigation, refer to the
+side/hamburger bar.
 
 ----
 

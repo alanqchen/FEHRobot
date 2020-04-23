@@ -1,8 +1,11 @@
 Performance Task 3
 ==================
 
-.. note::
-   This is a work in progress
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the code for the performance task 3. The goal was to move from the starting position,
+go up the ramp, and flip the burger. For the bonus task, the goal was to flip any lever down.
 
 Code
 ----

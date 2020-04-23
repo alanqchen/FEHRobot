@@ -1,6 +1,12 @@
 Trajectory Profile Generation
 =============================
 
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the MATLAB code to generate the trajectory profiles used for the PI controller.
+For more information on how this works, refer to :ref:`trajectory-profiles`. 
+
 .. code-block:: matlab
    :linenos:
 

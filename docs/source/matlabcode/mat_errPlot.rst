@@ -1,6 +1,13 @@
 Error Plotting
 ==============
 
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the MATLAB code used to plot the error from the log files
+saved onto the SD card. This is useful for tuning the PI controller
+and debugging.
+
 .. code-block:: matlab
    :linenos:
 

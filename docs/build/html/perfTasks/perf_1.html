@@ -88,22 +88,22 @@
 <li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../mainFile.html">Main File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../general/mainFile.html">Main File</a></li>
 </ul>
 <p class="caption"><span class="caption-text">PI Deep Dive</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../PIdeepDive.html">PI Deep Dive</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../PIdeepDive.html#motivation">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#motivation">Motivation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../PIdeepDive.html#derivation">Derivation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../PIdeepDive.html#control-laws">Control Laws</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#control-laws">Control Laws</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../PIdeepDive.html#implementation">Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../PIdeepDive.html#pi-function">PI function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#pi-function">PI function</a></li>
 </ul>
 </li>
 </ul>
@@ -146,10 +146,10 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">MATLab code</span></p>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../mat_trajGen.html">Trajectory Profile Generation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../mat_errPlot.html">Error Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_errPlot.html">Error Plotting</a></li>
 </ul>
 
             
@@ -218,10 +218,14 @@
             
   <div class="section" id="performance-task-1">
 <h1>Performance Task 1<a class="headerlink" href="#performance-task-1" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is a work in progress</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Looking for the raw code or download? <a class="reference external" href="https://github.com/alanqchen/FEHRobot">See the GitHub repository</a>.</p>
 </div>
+<p>This is the code for performance task 1. The goal was to move from the starting position to the
+jukebox light and then press the correct button color. The bonus task was to move up the ramp
+and back down. Note that the PI controller was not ready at the time, so basic movement using
+encoder counts was used.</p>
 <div class="section" id="code">
 <h2>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1

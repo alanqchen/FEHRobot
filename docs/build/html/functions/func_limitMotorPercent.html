@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>limitMotorPercent &mdash; Team E3&#39;s Robot 0.8.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/cropped-egg3.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/toggle.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="main" href="func_main.html" />
+    <link rel="prev" title="getCdsColor" href="func_getCdsColor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Team E3's Robot
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/mainFile.html">Main File</a></li>
+</ul>
+<p class="caption"><span class="caption-text">PI Deep Dive</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html">PI Deep Dive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#motivation">Motivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#derivation">Derivation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#kinematic-relationships">Kinematic Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#control-laws">Control Laws</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pidd/PIdeepDive.html#implementation">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#trajectory-profiles">Trajectory profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pidd/PIdeepDive.html#pi-function">PI function</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Performance tasks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../perfTasks/index.html">Performance Tasks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_1.html">Performance Task 1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_1.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_2.html">Performance Task 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_2.html#code">Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../perfTasks/perf_3.html">Performance Task 3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../perfTasks/perf_3.html#code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Function reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="func_InvPercent.html">InvPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_InvPercent.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_InvPercent.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_PIMoveTo.html">PIMoveTo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_PIMoveTo.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_PIMoveTo.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_actual.html">actual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_actual.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_actual.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_allStop.html">allStop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_allStop.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_allStop.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_correctHeading.html">correctHeading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_correctHeading.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_correctHeading.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_countsToRadDisp.html">countsToRadDisp</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_countsToRadDisp.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_countsToRadDisp.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward12.html">forward12</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_forward12.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_forward12.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward23.html">forward23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_forward23.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_forward23.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_forward31.html">forward31</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_forward31.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_forward31.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_forwardX.html">forwardX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_forwardX.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_forwardX.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_getCdsColor.html">getCdsColor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_getCdsColor.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_getCdsColor.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">limitMotorPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_main.html">main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_main.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_main.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_rotateCC.html">rotateCC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_rotateCC.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_rotateCC.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_setRadSToPercent.html">setRadSToPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_setRadSToPercent.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_setRadSToPercent.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_setupRPS.html">setupRPS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_setupRPS.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_setupRPS.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">MATLAB code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_trajGen.html">Trajectory Profile Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlabcode/mat_errPlot.html">Error Plotting</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Team E3's Robot</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Functions</a> &raquo;</li>
+        
+      <li>limitMotorPercent</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/functions/func_limitMotorPercent.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="limitmotorpercent">
+<h1>limitMotorPercent<a class="headerlink" href="#limitmotorpercent" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="_CPPv417limitMotorPercentf">
+<span id="_CPPv317limitMotorPercentf"></span><span id="_CPPv217limitMotorPercentf"></span><span id="limitMotorPercent__float"></span><span class="target" id="main_8cpp_1a25b81f4eb624260195952455b36b58b6"></span>float <code class="sig-name descname">limitMotorPercent</code><span class="sig-paren">(</span>float <em>percent</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417limitMotorPercentf" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Limits the given motor percent to be within operating range</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>The percent within operating range for the motor. </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">percent</span></code>: The percent to limit. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kt">float</span> <span class="n">limitedPercent</span> <span class="o">=</span> <span class="n">limitMotorPercent</span><span class="p">(</span><span class="mf">120.0</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>120% will be limited and 100.0 will be returned.</p>
+</div>
+<div class="section" id="function-variables">
+<h2>Function Variables<a class="headerlink" href="#function-variables" title="Permalink to this headline">¶</a></h2>
+<p>No function variables are used.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="func_main.html" class="btn btn-neutral float-right" title="main" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="func_getCdsColor.html" class="btn btn-neutral float-left" title="getCdsColor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Jeff Bonner, Alan Chen, Peyton Roth, Zach Salem
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $(".toggle > *").hide();
+        $(".toggle .header").show();
+        $(".toggle .header").click(function() {
+            $(this).parent().children().not(".header").toggle(400);
+            $(this).parent().children(".header").toggleClass("open");
+        })
+    });
+</script>
+
+
+</body>
+</html>

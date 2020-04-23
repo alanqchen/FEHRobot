@@ -1,8 +1,14 @@
 Performance Task 1
 ==================
 
-.. note::
-   This is a work in progress
+.. warning::
+    Looking for the raw code or download? `See the GitHub repository <https://github.com/alanqchen/FEHRobot>`_.
+
+This is the code for performance task 1. The goal was to move from the starting position to the
+jukebox light and then press the correct button color. The bonus task was to move up the ramp
+and back down. Note that the PI controller was not ready at the time, so basic movement using
+encoder counts was used.
+
 
 Code
 ----
