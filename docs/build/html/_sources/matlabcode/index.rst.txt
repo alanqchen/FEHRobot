@@ -1,0 +1,9 @@
+MATLAB Code
+===========
+
+.. toctree::
+   :maxdepth: 1
+   :name: toc-matlab-ref
+   :glob:
+
+   mat_*
