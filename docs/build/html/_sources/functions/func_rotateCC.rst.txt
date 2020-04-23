@@ -14,7 +14,7 @@ Examples
 
 Rotates the robot 75 degrees counter-clockwise with motors at 40% power.
 
----
+----
 
 .. code-block:: c++
    :linenos:

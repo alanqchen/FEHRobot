@@ -14,7 +14,7 @@ Examples
 
 Corrects the robot's global heading to 0 degrees, setting the motors at 25%.
 
----
+----
 
 .. code-block:: c++
    :linenos:

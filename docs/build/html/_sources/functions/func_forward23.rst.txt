@@ -14,7 +14,7 @@ Examples
 
 Moves in the forward 4 inches in the direction of motors 2 & 3.
 
----
+----
 
 .. code-block:: c++
    :linenos:

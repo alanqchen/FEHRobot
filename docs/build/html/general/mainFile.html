@@ -89,6 +89,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Main File</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#representations">Representations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#global-variables-constants">Global Variables &amp; Constants</a></li>
 </ul>
 </li>
@@ -290,13 +291,24 @@
 </div>
 <p>The robot’s complete code is under one file, main.cpp. This is done so as to simplify development as
 instances the given Proteus libraries could not be easily reused in multiple classes.</p>
+<div class="section" id="representations">
+<h2>Representations<a class="headerlink" href="#representations" title="Permalink to this headline">¶</a></h2>
+<p>Alogrithm:</p>
+<img alt="Algorithm" src="../_images/algorithm.png" />
+<p>Flowchart:</p>
+<img alt="Flowchart" src="../_images/flowchart.png" />
+</div>
 <div class="section" id="global-variables-constants">
-<h2>Global Variables &amp; Constants<a class="headerlink" href="#global-variables-constants" title="Permalink to this headline">¶</a></h2>
+<span id="global-vars"></span><h2>Global Variables &amp; Constants<a class="headerlink" href="#global-variables-constants" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not include the motor, servo, and sensor definitions.</p>
+</div>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 19%" />
-<col style="width: 71%" />
+<col style="width: 9%" />
+<col style="width: 18%" />
+<col style="width: 73%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Type</p></th>
@@ -311,7 +323,7 @@ instances the given Proteus libraries could not be easily reused in multiple cla
 </tr>
 <tr class="row-odd"><td><p>Constant</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ENCODER_RES</span></code></p></td>
-<td><p>The encoder resolution, used in <span class="xref std std-doc">/function/func_countsToRadDisp</span></p></td>
+<td><p>The encoder resolution, used in <a class="reference internal" href="../functions/func_countsToRadDisp.html"><span class="doc">countsToRadDisp</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>Constant</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">DELTA_T</span></code></p></td>
@@ -323,39 +335,39 @@ instances the given Proteus libraries could not be easily reused in multiple cla
 </tr>
 <tr class="row-even"><td><p>Constant</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_HEAD_CORR_SPEED</span></code></p></td>
-<td><p>The default correction percent speed for <span class="xref std std-doc">/function/correctHeading</span></p></td>
+<td><p>The default correction percent speed for <a class="reference internal" href="../functions/func_correctHeading.html"><span class="doc">correctHeading</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_RAMP_START_X</span></code></p></td>
-<td><p>Stores the X coordinate for the start of the ramp waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the X coordinate for the start of the ramp waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_RAMP_START_Y</span></code></p></td>
-<td><p>Stores the Y coordinate for the start of the ramp waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the Y coordinate for the start of the ramp waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_RAMP_START_HEADING</span></code></p></td>
-<td><p>Stores the heading for the start of the ramp waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the heading for the start of the ramp waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_LEVERS_X</span></code></p></td>
-<td><p>Stores the X coordinate for levers waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the X coordinate for levers waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_LEVERS_Y</span></code></p></td>
-<td><p>Stores the Y coordinate for levers waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the Y coordinate for levers waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_LEVERS_HEADING</span></code></p></td>
-<td><p>Stores the heading for levers waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the heading for levers waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_BURGER_X</span></code></p></td>
-<td><p>Stores the X coordinate for the burger flip waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the X coordinate for the burger flip waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">RPS_BURGER_Y</span></code></p></td>
-<td><p>Stores the Y coordinate for the burger flip waypoint, set by <span class="xref std std-doc">/function/setupRPS</span></p></td>
+<td><p>Stores the Y coordinate for the burger flip waypoint, set by <a class="reference internal" href="../functions/func_setupRPS.html"><span class="doc">setupRPS</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">FORWARD_TIME_OUT</span></code></p></td>
@@ -363,15 +375,15 @@ instances the given Proteus libraries could not be easily reused in multiple cla
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">errorCurr1</span></code></p></td>
-<td><p>Motor 1’s current error from the <span class="xref std std-doc">/function/PIMoveTo</span>, used by <span class="xref std std-doc">/function/setRadSToPercent</span></p></td>
+<td><p>Motor 1’s current error from the <a class="reference internal" href="../functions/func_PIMoveTo.html"><span class="doc">PIMoveTo</span></a>, used by <a class="reference internal" href="../functions/func_setRadSToPercent.html"><span class="doc">setRadSToPercent</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">errorCurr2</span></code></p></td>
-<td><p>Motor 2’s current error from the <span class="xref std std-doc">/function/PIMoveTo</span>, used by <span class="xref std std-doc">/function/setRadSToPercent</span></p></td>
+<td><p>Motor 2’s current error from the <a class="reference internal" href="../functions/func_PIMoveTo.html"><span class="doc">PIMoveTo</span></a>, used by <a class="reference internal" href="../functions/func_setRadSToPercent.html"><span class="doc">setRadSToPercent</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">errorCurr3</span></code></p></td>
-<td><p>Motor 3’s current error from the <span class="xref std std-doc">/function/PIMoveTo</span>, used by <span class="xref std std-doc">/function/setRadSToPercent</span></p></td>
+<td><p>Motor 3’s current error from the <a class="reference internal" href="../functions/func_PIMoveTo.html"><span class="doc">PIMoveTo</span></a>, used by <a class="reference internal" href="../functions/func_setRadSToPercent.html"><span class="doc">setRadSToPercent</span></a></p></td>
 </tr>
 </tbody>
 </table>

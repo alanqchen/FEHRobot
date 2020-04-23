@@ -7,7 +7,7 @@ Functions
 This is all functions used in the final code.
 For each function, each parameter and internal
 variables used are described. To see descriptions
-of the global variables, see 
+of the global variables, see :ref:`global-vars`.
 
 .. toctree::
    :maxdepth: 1

@@ -195,6 +195,9 @@ void PIMoveTo(char* fName, int size, bool preload) {
     float errorTotal1 = 0.0;
     float errorTotal2 = 0.0;
     float errorTotal3 = 0.0;
+    errorCurr1 = 0.0;
+    errorCurr2 = 0.0;
+    errorCurr3 = 0.0;
     float Kp = 20.0;
     float Ki = 1.0;
 
@@ -247,7 +250,7 @@ void PIMoveTo(char* fName, int size, bool preload) {
     motor2_encoder.ResetCounts();
     motor3_encoder.ResetCounts();
     /* PI LOOP */
-    // Yes, not PID as the derivative term isn't needed currently
+    // Yes, not PI as the derivative term isn't needed currently
     for (int i = 0; i < size; i++) {
         /* Get new encoder counts */
         countNew1 = motor1_encoder.Counts();

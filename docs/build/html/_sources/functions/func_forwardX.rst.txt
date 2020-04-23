@@ -15,7 +15,7 @@ Examples
 
 Moves in the positive local x direction 4 inches, with motor 3 given 25% power.
 
----
+----
 
 .. code-block:: c++
    :linenos:

@@ -84,10 +84,15 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents</span></p>
-<ul>
+              <ul>
 <li class="toctree-l1"><a class="reference external" href="https://u.osu.edu/feh20e3/">Main Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../general/mainFile.html">Main File</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/mainFile.html">Main File</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../general/mainFile.html#representations">Representations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../general/mainFile.html#global-variables-constants">Global Variables &amp; Constants</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">PI Deep Dive</span></p>
 <ul class="current">
@@ -105,6 +110,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#pi-function">PI function</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#matlab-error-plotting-and-caveats">MATLAB Error Plotting and Caveats</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Performance tasks</span></p>
 <ul>
@@ -127,21 +133,86 @@
 <p class="caption"><span class="caption-text">Function reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../functions/index.html">Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_InvPercent.html">InvPercent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_InvPercent.html">InvPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_InvPercent.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_InvPercent.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../functions/func_PIMoveTo.html">PIMoveTo</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../functions/func_PIMoveTo.html#examples">Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../functions/func_PIMoveTo.html#function-variables">Function Variables</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_allStop.html">allStop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_correctHeading.html">correctHeading</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_countsToRadDisp.html">countsToRadDisp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward12.html">forward12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward23.html">forward23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward31.html">forward31</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_getCdsColor.html">getCdsColor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_rotateCC.html">rotateCC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../functions/func_sinkDump.html">sinkDump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_actual.html">actual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_actual.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_actual.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_allStop.html">allStop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_allStop.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_allStop.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_correctHeading.html">correctHeading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_correctHeading.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_correctHeading.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_countsToRadDisp.html">countsToRadDisp</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_countsToRadDisp.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_countsToRadDisp.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward12.html">forward12</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward12.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward12.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward23.html">forward23</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward23.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward23.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_forward31.html">forward31</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward31.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forward31.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_forwardX.html">forwardX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forwardX.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_forwardX.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_getCdsColor.html">getCdsColor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_getCdsColor.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_getCdsColor.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_limitMotorPercent.html">limitMotorPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_limitMotorPercent.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_limitMotorPercent.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_main.html">main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_main.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_main.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_rotateCC.html">rotateCC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_rotateCC.html#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_rotateCC.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_setRadSToPercent.html">setRadSToPercent</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_setRadSToPercent.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_setRadSToPercent.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../functions/func_setupRPS.html">setupRPS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_setupRPS.html#example">Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../functions/func_setupRPS.html#function-variables">Function Variables</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -238,12 +309,14 @@ omnidirectional mobile robot (2006).</p>
 control laws were developed for a tri-omni wheel robot.</p>
 <div class="section" id="kinematic-relationships">
 <h2>Kinematic Relationships<a class="headerlink" href="#kinematic-relationships" title="Permalink to this headline">¶</a></h2>
-<p>First, the robot’s location and heading with respect to the course’s frame
+<p>First, the robot’s location and heading with respect to the course’s (global) frame
 is defined as <span class="math notranslate nohighlight">\((x, y, \theta)\)</span>. Additionally, the robot’s velocity
 with respect to the course’s frame is defined as <span class="math notranslate nohighlight">\((\dot{x}, \dot{y},
 \dot{\theta})\)</span>. With respect to the robot’s frame, the angles for
-wheels 1, 2, and 3 are <span class="math notranslate nohighlight">\(a_1=0^\circ\)</span>, <span class="math notranslate nohighlight">\(a_2=120^\circ\)</span>,
-and <span class="math notranslate nohighlight">\(a_3=240^\circ\)</span> respectively.</p>
+wheels 1, 2, and 3 are <span class="math notranslate nohighlight">\(a_1=30^\circ\)</span>, <span class="math notranslate nohighlight">\(a_2=150^\circ\)</span>,
+and <span class="math notranslate nohighlight">\(a_3=270^\circ\)</span> respectively. Below is a picture of the robot’s
+local axis.</p>
+<img alt="Robot Top View" src="../_images/topView.jpg" />
 <p>Next, the translational velocity of each wheel, <span class="math notranslate nohighlight">\(v_i\)</span> that make up
 the robot’s velocity can be split into its components:</p>
 <p><span class="math notranslate nohighlight">\(v_i = v_{trans, i} + v_{rot}\tag{1}\label{eq:1}\)</span></p>
@@ -767,8 +840,249 @@ above.</p>
 </pre></div>
 </td></tr></table></div>
 </div>
-<p>To be filled.</p>
+<p>First, the values are read from the given trajectory file and stored in the respective 2D arrays:</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* Parse trajectory file */</span>
+ <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">SD</span><span class="p">.</span><span class="n">FEof</span><span class="p">(</span><span class="n">fptr</span><span class="p">))</span> <span class="p">{</span>
+     <span class="n">SD</span><span class="p">.</span><span class="n">FScanf</span><span class="p">(</span><span class="n">fptr</span><span class="p">,</span> <span class="s">&quot;%f%f%f%f%f%f&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refPos1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refPos2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refPos3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">refSpeed3</span><span class="p">);</span>
+     <span class="n">pos_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refPos1</span><span class="p">;</span>
+     <span class="n">pos_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refPos2</span><span class="p">;</span>
+     <span class="n">pos_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refPos3</span><span class="p">;</span>
+     <span class="n">vel_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed1</span><span class="p">;</span>
+     <span class="n">vel_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed2</span><span class="p">;</span>
+     <span class="n">vel_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">refSpeed3</span><span class="p">;</span>
+     <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>The 2D arrays are allocated such that the columns represents each motor and the rows each 0.1s value.
+<code class="docutils literal notranslate"><span class="pre">pos_ref</span></code> stores the reference positions, and the <code class="docutils literal notranslate"><span class="pre">vel_ref</span></code> stores the reference velocities to help
+determine which direction the motors should spin.</p>
+<p>Next, if the <code class="docutils literal notranslate"><span class="pre">preload</span></code> argument is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, it will then wait until <code class="docutils literal notranslate"><span class="pre">getCdsColor</span></code> detects a light.
+Then, the motors encoders are reset:</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* PRELOAD LOOP */</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">preload</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// Set green to show it&#39;s ready</span>
+     <span class="n">LCD</span><span class="p">.</span><span class="n">Clear</span><span class="p">(</span><span class="n">FEHLCD</span><span class="o">::</span><span class="n">Green</span><span class="p">);</span>
+     <span class="k">while</span><span class="p">(</span><span class="n">getCdsColor</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// wait until a light turns on</span>
+ <span class="p">}</span>
+ <span class="cm">/* Reset encoder counts */</span>
+ <span class="n">motor1_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+ <span class="n">motor2_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+ <span class="n">motor3_encoder</span><span class="p">.</span><span class="n">ResetCounts</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div>
+<p>And now the PI control loop starts. The first action is to get the number of
+encoder counts from each motor. Note the first iteration will always make these
+0. However, for all other iterations, they will always be larger than the previous
+counts, stored in <code class="docutils literal notranslate"><span class="pre">countOld(i)</span></code>.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* Get new encoder counts */</span>
+ <span class="n">countNew1</span> <span class="o">=</span> <span class="n">motor1_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+ <span class="n">countNew2</span> <span class="o">=</span> <span class="n">motor2_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+ <span class="n">countNew3</span> <span class="o">=</span> <span class="n">motor3_encoder</span><span class="p">.</span><span class="n">Counts</span><span class="p">();</span>
+</pre></div>
+</td></tr></table></div>
+<p>Next, <a class="reference internal" href="../functions/func_countsToRadDisp.html"><span class="doc">countsToRadDisp</span></a> will be called to convert the difference between
+the current and previous iteration encoder counts to angular displacement in radians.
+Note that depending on each motors previous error (0 for the first iteration), it may be inversed. This is another way to
+help account for the fact that the encoder counts can only increase.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">if</span><span class="p">(</span><span class="n">errorCurr1</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">displacement1</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew1</span><span class="p">,</span> <span class="n">countOld1</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+     <span class="n">displacement1</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew1</span><span class="p">,</span> <span class="n">countOld1</span><span class="p">);</span>
+ <span class="p">}</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">errorCurr2</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">displacement2</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew2</span><span class="p">,</span> <span class="n">countOld2</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+     <span class="n">displacement2</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew2</span><span class="p">,</span> <span class="n">countOld2</span><span class="p">);</span>
+ <span class="p">}</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">errorCurr3</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">displacement3</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew3</span><span class="p">,</span> <span class="n">countOld3</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+     <span class="n">displacement3</span> <span class="o">=</span> <span class="n">countsToRadDisp</span><span class="p">(</span><span class="n">countNew3</span><span class="p">,</span> <span class="n">countOld3</span><span class="p">);</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Now we are done using the previous iteration values, so we can set the old counts
+to the new counts, and then add to our current total angular displacement.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="c1">// Set old counts to new counts for the next iteration</span>
+ <span class="n">countOld1</span> <span class="o">=</span> <span class="n">countNew1</span><span class="p">;</span>
+ <span class="n">countOld2</span> <span class="o">=</span> <span class="n">countNew2</span><span class="p">;</span>
+ <span class="n">countOld3</span> <span class="o">=</span> <span class="n">countNew3</span><span class="p">;</span>
+ <span class="c1">// Add to total angular displacement</span>
+ <span class="n">phi1</span> <span class="o">+=</span> <span class="n">displacement1</span><span class="p">;</span>
+ <span class="n">phi2</span> <span class="o">+=</span> <span class="n">displacement2</span><span class="p">;</span>
+ <span class="n">phi3</span> <span class="o">+=</span> <span class="n">displacement3</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>It is now time to calculate the current error (in radians), and increment the total error.
+Note that during this process, various values are written onto files in the SD Card.
+This is to help debug and tune the controller.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* Calculate current error relative to reference angular positions for each encoder */</span>
+ <span class="n">errorCurr1</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi1</span><span class="p">;</span>
+ <span class="n">errorCurr2</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi2</span><span class="p">;</span>
+ <span class="n">errorCurr3</span> <span class="o">=</span> <span class="n">pos_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi3</span><span class="p">;</span>
+
+ <span class="cm">/* ... */</span>
+
+ <span class="c1">// Add to total error (for integral term)</span>
+ <span class="n">errorTotal1</span> <span class="o">+=</span> <span class="n">errorCurr1</span><span class="p">;</span>
+ <span class="n">errorTotal2</span> <span class="o">+=</span> <span class="n">errorCurr2</span><span class="p">;</span>
+ <span class="n">errorTotal3</span> <span class="o">+=</span> <span class="n">errorCurr3</span><span class="p">;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Then comes the PI equation, where we calculate the motor speeds to correct for the error, in rad/s.
+These values are also checked with the reference velocity and current error to help determing which
+way the motors should spin.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* Calc motor speeds (rad/s) using P and I */</span>
+ <span class="n">motorSpeed1</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr1</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal1</span><span class="p">);</span>
+ <span class="n">motorSpeed2</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr2</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal2</span><span class="p">);</span>
+ <span class="n">motorSpeed3</span> <span class="o">=</span> <span class="n">Kp</span> <span class="o">*</span> <span class="n">errorCurr3</span> <span class="o">+</span> <span class="n">Ki</span> <span class="o">*</span> <span class="n">DELTA_T</span> <span class="o">*</span> <span class="p">(</span><span class="n">errorTotal3</span><span class="p">);</span>
+
+ <span class="cm">/* Use the reference velocities to determine if motor speed should change signs */</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr1</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+     <span class="n">motorSpeed1</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr2</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+     <span class="n">motorSpeed2</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">if</span><span class="p">(</span><span class="n">vel_ref</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="o">||</span> <span class="p">(</span><span class="n">errorCurr3</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">motorSpeed3</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+     <span class="n">motorSpeed3</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>Finally, <a class="reference internal" href="../functions/func_setRadSToPercent.html"><span class="doc">setRadSToPercent</span></a> is called to set the motors to
+the correct percents from the given speeds in radians per second. Also not that
+this function does use the errCurr(i) variables (hence why they are global) to
+further help determine which direction the motors should spin. Then the loop waits
+0.1 seconds before starting the next iteration.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="cm">/* Set motors to speed */</span>
+ <span class="n">setRadSToPercent</span><span class="p">(</span><span class="n">motorSpeed1</span><span class="p">,</span> <span class="n">motorSpeed2</span><span class="p">,</span> <span class="n">motorSpeed3</span><span class="p">);</span>
+ <span class="cm">/* Wait 0.1 seconds (100 miliseconds) */</span>
+ <span class="n">Sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
 </div>
+</div>
+<div class="section" id="matlab-error-plotting-and-caveats">
+<h1>MATLAB Error Plotting and Caveats<a class="headerlink" href="#matlab-error-plotting-and-caveats" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The MATLAB code to generate the plots is shown in <a class="reference internal" href="../matlabcode/mat_errPlot.html"><span class="doc">Error Plotting</span></a> and <a class="reference internal" href="../matlabcode/mat_trajGen.html"><span class="doc">Trajectory Profile Generation</span></a>.</p>
+</div>
+<p>To generate the error plots, all one needs to do is input the error log files with the
+respective generated trajectory file name. Examples are given below.</p>
+<p>Total displacement plot for a rotation</p>
+<img alt="Total Displacement for rotation" src="../_images/errorPlotRot.png" />
+<p>Total displacement plot for a translation in the x and y axis</p>
+<img alt="Total Displacement for translation" src="../_images/errorPlotTrans.png" />
+<p>Error plot for a translation in the x and y axis</p>
+<img alt="Error for translation" src="../_images/errorPlotTrans2.png" />
+<p>For all movements, the steady state error (end error) is very low which shows that our
+proportional constant of 20 and integral constant of 1 is very suitable. And no derivative
+term was added because of the accuracy.</p>
+<p>However, as you may have noticed from reading the previous sections, determining which
+direction the motors should spin is a large issue as encoder counds can only increase.
+This is why undershoots are preferred over overshoots - the PI controller cannot accurately
+account for overshoots as well as undershoots. This is also why when generating the trajectory
+profiles, steps must be taken to make sure that the total displacement always increases.
+Take the following plots that show a bit of the trajectory profile generation process for example.</p>
+<img alt="Trajectory profile generation plots" src="../_images/trajPlots.png" />
+<p>On the left is a plot of the “raw” total angular displacement reference values for each motor. It can
+be seen that motors 1 and 2 both decrease at multiple points in time. This is of course, impossible.
+So to account for the fact that encoder counts can only increase, we must take the absolute value
+of each angular displacement, shown on the right. However, you may notice that while on the original
+plot, motor 1 and 2 have different curves, on the absolute value plot, they have the same curve.
+This creates a clear problem as now both motors will act identical when in reality they shouldn’t.
+One step to fix this issue is to introduce angular velocity reference values, which can be both positive
+and negative. The plot is shown below.</p>
+<img alt="Trajectory profile velocity plot" src="../_images/trajVel.png" />
+<p>We can now see that there is a clear difference between all three motor curves which is good. Thus
+using the sign of the reference velocity can help determine which direction the motor should spin.
+However, we then must take into account for how the PI controller should respond to error. If it
+overshoots, then the motor must spin the opposite direction and vice versa. However, what if the
+reference velocity is negative? Then we negate the given displacement, but the motor ends up spinning
+in the wrong direction, only increasing error until the motor spins at 100% power. Thus more complicated
+checks had to be implemented in both the <a class="reference internal" href="../functions/func_PIMoveTo.html"><span class="doc">PIMoveTo</span></a> and <a class="reference internal" href="../functions/func_setRadSToPercent.html"><span class="doc">setRadSToPercent</span></a>
+functions. But, these are still not perfect, and the PI controller does not respond as well
+to overshoots compared to undershoots. For this reason, when using this implementation, try to stick
+to a bit of overshoots.</p>
+<p>And one final caveat to consider - it cannot account for wheels slipping. There are some interesting papers
+that look into using the coefficient of friction and the current angular velocity to compare
+with theorectical angular velocity, which then can determine if the wheels slip, but we did not have time
+to investigate it further.</p>
+<p>If you made it this far, congrats! Hopefully you learned a lot more about of PI (and PID) controllers work.</p>
 </div>
 
 

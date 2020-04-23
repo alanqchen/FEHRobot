@@ -14,7 +14,7 @@ Examples
 
 Waits until the a light is detected, using the start light threshold.
 
----
+----
 
 .. code-block:: c++
    :linenos:

@@ -25,12 +25,16 @@ control laws were developed for a tri-omni wheel robot.
 Kinematic Relationships
 -----------------------
 
-First, the robot's location and heading with respect to the course's frame
+First, the robot's location and heading with respect to the course's (global) frame
 is defined as :math:`(x, y, \theta)`. Additionally, the robot's velocity
 with respect to the course's frame is defined as :math:`(\dot{x}, \dot{y},
 \dot{\theta})`. With respect to the robot's frame, the angles for
-wheels 1, 2, and 3 are :math:`a_1=0^\circ`, :math:`a_2=120^\circ`,
-and :math:`a_3=240^\circ` respectively.
+wheels 1, 2, and 3 are :math:`a_1=30^\circ`, :math:`a_2=150^\circ`,
+and :math:`a_3=270^\circ` respectively. Below is a picture of the robot's
+local axis.
+
+.. image:: /images/topView.jpg 
+    :alt: Robot Top View
 
 Next, the translational velocity of each wheel, :math:`v_i` that make up
 the robot's velocity can be split into its components:
@@ -436,4 +440,224 @@ For your convenience, the code for the PID function is shown here:
             SD.FClose(fOutVelptr);
         }
 
-To be filled.
+First, the values are read from the given trajectory file and stored in the respective 2D arrays:
+
+.. code-block:: c++
+       :linenos:
+
+        /* Parse trajectory file */
+        int i = 0;
+        while(!SD.FEof(fptr)) {
+            SD.FScanf(fptr, "%f%f%f%f%f%f", &refPos1, &refPos2, &refPos3, &refSpeed1, &refSpeed2, &refSpeed3);
+            pos_ref[0][i] = refPos1;
+            pos_ref[1][i] = refPos2;
+            pos_ref[2][i] = refPos3;
+            vel_ref[0][i] = refSpeed1;
+            vel_ref[1][i] = refSpeed2;
+            vel_ref[2][i] = refSpeed3;
+            i++;
+        }
+
+The 2D arrays are allocated such that the columns represents each motor and the rows each 0.1s value.
+``pos_ref`` stores the reference positions, and the ``vel_ref`` stores the reference velocities to help
+determine which direction the motors should spin.
+
+Next, if the ``preload`` argument is set to ``true``, it will then wait until ``getCdsColor`` detects a light.
+Then, the motors encoders are reset:
+
+.. code-block:: c++
+       :linenos:
+
+        /* PRELOAD LOOP */
+        if(preload) {
+            // Set green to show it's ready
+            LCD.Clear(FEHLCD::Green);
+            while(getCdsColor(true) == 0); // wait until a light turns on
+        }
+        /* Reset encoder counts */
+        motor1_encoder.ResetCounts();
+        motor2_encoder.ResetCounts();
+        motor3_encoder.ResetCounts();
+
+And now the PI control loop starts. The first action is to get the number of
+encoder counts from each motor. Note the first iteration will always make these
+0. However, for all other iterations, they will always be larger than the previous
+counts, stored in ``countOld(i)``.
+
+.. code-block:: c++
+       :linenos:
+
+        /* Get new encoder counts */
+        countNew1 = motor1_encoder.Counts();
+        countNew2 = motor2_encoder.Counts();
+        countNew3 = motor3_encoder.Counts();
+
+Next, :doc:`/functions/func_countsToRadDisp` will be called to convert the difference between
+the current and previous iteration encoder counts to angular displacement in radians.
+Note that depending on each motors previous error (0 for the first iteration), it may be inversed. This is another way to
+help account for the fact that the encoder counts can only increase.
+
+.. code-block:: c++
+       :linenos:
+
+        if(errorCurr1 < 0.0) {
+            displacement1 = countsToRadDisp(countNew1, countOld1) * -1;
+        } else {
+            displacement1 = countsToRadDisp(countNew1, countOld1);
+        }
+        if(errorCurr2 < 0.0) {
+            displacement2 = countsToRadDisp(countNew2, countOld2) * -1;
+        } else {
+            displacement2 = countsToRadDisp(countNew2, countOld2);
+        }
+        if(errorCurr3 < 0.0) {
+            displacement3 = countsToRadDisp(countNew3, countOld3) * -1;
+        } else {
+            displacement3 = countsToRadDisp(countNew3, countOld3);
+        }
+
+Now we are done using the previous iteration values, so we can set the old counts
+to the new counts, and then add to our current total angular displacement.
+
+.. code-block:: c++
+       :linenos:
+
+        // Set old counts to new counts for the next iteration
+        countOld1 = countNew1;
+        countOld2 = countNew2;
+        countOld3 = countNew3;
+        // Add to total angular displacement
+        phi1 += displacement1;
+        phi2 += displacement2;
+        phi3 += displacement3;
+
+It is now time to calculate the current error (in radians), and increment the total error.
+Note that during this process, various values are written onto files in the SD Card.
+This is to help debug and tune the controller.
+
+.. code-block:: c++
+       :linenos:
+
+        /* Calculate current error relative to reference angular positions for each encoder */
+        errorCurr1 = pos_ref[0][i] - phi1;
+        errorCurr2 = pos_ref[1][i] - phi2;
+        errorCurr3 = pos_ref[2][i] - phi3;
+        
+        /* ... */
+        
+        // Add to total error (for integral term)
+        errorTotal1 += errorCurr1;
+        errorTotal2 += errorCurr2;
+        errorTotal3 += errorCurr3;
+
+Then comes the PI equation, where we calculate the motor speeds to correct for the error, in rad/s.
+These values are also checked with the reference velocity and current error to help determing which
+way the motors should spin.
+
+
+.. code-block:: c++
+       :linenos:
+
+        /* Calc motor speeds (rad/s) using P and I */
+        motorSpeed1 = Kp * errorCurr1 + Ki * DELTA_T * (errorTotal1);
+        motorSpeed2 = Kp * errorCurr2 + Ki * DELTA_T * (errorTotal2);
+        motorSpeed3 = Kp * errorCurr3 + Ki * DELTA_T * (errorTotal3);
+
+        /* Use the reference velocities to determine if motor speed should change signs */
+        if(vel_ref[0][i] < 0.0 || (errorCurr1 < 0 && motorSpeed1 < 0)) {
+            motorSpeed1 *= -1.0;
+        }
+        if(vel_ref[1][i] < 0.0 || (errorCurr2 < 0 && motorSpeed2 < 0)) {
+            motorSpeed2 *= -1.0;
+        }
+        if(vel_ref[2][i] < 0.0 || (errorCurr3 < 0 && motorSpeed3 < 0)) {
+            motorSpeed3 *= -1.0;
+        }
+
+Finally, :doc:`/functions/func_setRadSToPercent` is called to set the motors to
+the correct percents from the given speeds in radians per second. Also not that
+this function does use the errCurr(i) variables (hence why they are global) to
+further help determine which direction the motors should spin. Then the loop waits
+0.1 seconds before starting the next iteration.
+
+.. code-block:: c++
+       :linenos:
+
+        /* Set motors to speed */
+        setRadSToPercent(motorSpeed1, motorSpeed2, motorSpeed3);
+        /* Wait 0.1 seconds (100 miliseconds) */
+        Sleep(100);
+
+MATLAB Error Plotting and Caveats
+=================================
+
+.. note::
+   The MATLAB code to generate the plots is shown in :doc:`/matlabcode/mat_errPlot` and :doc:`/matlabcode/mat_trajGen`.
+
+To generate the error plots, all one needs to do is input the error log files with the
+respective generated trajectory file name. Examples are given below.
+
+Total displacement plot for a rotation
+
+.. image:: /images/errorPlotRot.png 
+    :alt: Total Displacement for rotation
+
+Total displacement plot for a translation in the x and y axis
+
+.. image:: /images/errorPlotTrans.png 
+    :alt: Total Displacement for translation
+
+Error plot for a translation in the x and y axis
+
+.. image:: /images/errorPlotTrans2.png 
+    :alt: Error for translation
+
+For all movements, the steady state error (end error) is very low which shows that our
+proportional constant of 20 and integral constant of 1 is very suitable. And no derivative
+term was added because of the accuracy. 
+
+However, as you may have noticed from reading the previous sections, determining which
+direction the motors should spin is a large issue as encoder counds can only increase.
+This is why undershoots are preferred over overshoots - the PI controller cannot accurately
+account for overshoots as well as undershoots. This is also why when generating the trajectory
+profiles, steps must be taken to make sure that the total displacement always increases.
+Take the following plots that show a bit of the trajectory profile generation process for example.
+
+.. image:: /images/trajPlots.png 
+    :alt: Trajectory profile generation plots
+
+On the left is a plot of the "raw" total angular displacement reference values for each motor. It can
+be seen that motors 1 and 2 both decrease at multiple points in time. This is of course, impossible.
+So to account for the fact that encoder counts can only increase, we must take the absolute value
+of each angular displacement, shown on the right. However, you may notice that while on the original
+plot, motor 1 and 2 have different curves, on the absolute value plot, they have the same curve.
+This creates a clear problem as now both motors will act identical when in reality they shouldn't.
+One step to fix this issue is to introduce angular velocity reference values, which can be both positive
+and negative. The plot is shown below.
+
+.. image:: /images/trajVel.png 
+    :alt: Trajectory profile velocity plot
+
+We can now see that there is a clear difference between all three motor curves which is good. Thus
+using the sign of the reference velocity can help determine which direction the motor should spin.
+However, we then must take into account for how the PI controller should respond to error. If it
+overshoots, then the motor must spin the opposite direction and vice versa. However, what if the
+reference velocity is negative? Then we negate the given displacement, but the motor ends up spinning
+in the wrong direction, only increasing error until the motor spins at 100% power. Thus more complicated
+checks had to be implemented in both the :doc:`/functions/func_PIMoveTo` and :doc:`/functions/func_setRadSToPercent`
+functions. But, these are still not perfect, and the PI controller does not respond as well
+to overshoots compared to undershoots. For this reason, when using this implementation, try to stick
+to a bit of overshoots.
+
+And one final caveat to consider - it cannot account for wheels slipping. There are some interesting papers
+that look into using the coefficient of friction and the current angular velocity to compare
+with theorectical angular velocity, which then can determine if the wheels slip, but we did not have time
+to investigate it further.
+
+If you made it this far, congrats! Hopefully you learned a lot more about of PI (and PID) controllers work.
+
+
+
+
+
+
