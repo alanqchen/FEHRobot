@@ -17,7 +17,7 @@ side/hamburger bar or the table of contents below.
 In Main File, you'll find representations of the overall logic of the code and the
 global variables/constants. In PI Deep Dive, you'll find a lengthy description of the
 PI controller extensively used by the robot.
-In Performance Tests, you'll find the code used to complete each
+In Performance Tasks, you'll find the code used to complete each
 performance test. In Function Reference you'll find detailed documentation
 for each function, including parameters and function variables. And in MATLAB code
 you'll find the code used to support the PI controller.
