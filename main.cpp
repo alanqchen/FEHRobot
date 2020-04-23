@@ -10,17 +10,10 @@
 #include <math.h>
 #include <string>
 
-#define MOTOR_ANGLE_1 0.0*M_PI/180.0
-#define MOTOR_ANGLE_2 120*M_PI/180.0
-#define MOTOR_ANGLE_3 240*M_PI/180.0
 #define MAX_RPM 236.5398195
 #define ENCODER_RES 318.0
 #define DELTA_T 0.1
 #define COUNTS_PER_INCH 35
-#define ERROR_MARGIN 3
-#define DIST_ERROR_MARGIN 1
-#define NUM_CORR_ITERATIONS 2
-#define RPS_POS_CORR_SPEED 25
 #define RPS_HEAD_CORR_SPEED 35
 
 float RPS_RAMP_START_X = 0.0;
