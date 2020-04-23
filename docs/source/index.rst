@@ -24,7 +24,7 @@ you'll find the code used to support the PI controller.
 
 .. warning::
     Again, if you would like to download any of the code, `visit the GitHub repository <https://github.com/alanqchen/FEHRobot>`_
-    to ensure you get the latest versions.
+    to ensure you get the latest version.
 
 ----
 
