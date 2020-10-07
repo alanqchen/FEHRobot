@@ -8,10 +8,6 @@ In this section the process for developing the PI controller is detailed.
 This includes deriving the kinematic relationships and creating trajectory
 profiles.
 
-Motivation
-----------
-A PI controller was choosen to be implemented due to...
-
 Derivation
 ==========
 
